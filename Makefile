@@ -26,7 +26,7 @@ $(BIN_DIR)%.o:  %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-test: all
+test: re
 	@make -C tests/
 
 clean:

@@ -10,8 +10,9 @@
 # include <stdbool.h>
 # include <assert.h>
 
-void	*ft_calloc(size_t size);
 void	fatal(char *message);
+void	*ft_calloc(size_t size);
+char	*strjoin(char *str1, char *str2);
 
 #endif /* LIBC_H */
 
