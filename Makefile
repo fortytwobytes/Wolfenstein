@@ -29,6 +29,9 @@ $(BIN_DIR)%.o:  %.c $(INCLUDES)
 test: re
 	@make -C tests/
 
+forb:
+	@sh ./list_forb_functions.sh
+
 clean:
 	@$(RM) $(BIN_DIR)
 	@$(RM) $(basename $(wildcard tests/test_*.c) .c)
