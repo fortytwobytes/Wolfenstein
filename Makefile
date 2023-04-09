@@ -1,8 +1,8 @@
 CC			=	cc
-CFLAGS		=	# -fsanitize=address # -Wall -Wextra -Werror
+CFLAGS		=	-fsanitize=address # -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
-# MLX_FLAGS  	=   -Imlx -lmlx -framework OpenGL -framework AppKit
+MLX_FLAGS  	=   -lmlx -framework OpenGL -framework AppKit -Imlx
 
 SRCS		=	$(wildcard main.c libc/*.c srcs/*.c)
 
