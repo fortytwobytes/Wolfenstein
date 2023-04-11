@@ -1,4 +1,8 @@
 #include "srcs.h"
+#include <stdbool.h>
+
+bool	is_texture_valid(void *mlx, char *path);
+bool	is_filename_valid(char *filename);
 
 bool	is_filename_valid(char *filename)
 {
@@ -119,5 +123,19 @@ void parse_map(char *path)
 
     fd = open(path, O_RDONLY);
     ft_check_type_of_elements(fd);
+}
+
+bool	is_texture_valid(void *mlx, char *path)
+{
+	int		img_height;
+	int		img_width;
+	void	*img;
+
+	img = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
+	if (img == NULL) {
+		return (false);
+	}
+	free(img);
+	return (true);
 }
 
