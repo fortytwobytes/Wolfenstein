@@ -93,5 +93,11 @@ int main(int ac, char *av[]) {
 	bool ret = is_texture_valid(mlx, av[1]);
 	printf("%d\n", ret);
 
+int main(int argc, char *argv[])
+{
+	// printf("hello world\n");
+	parse_map(argv[1]);
+	return (0);
+
 }
 

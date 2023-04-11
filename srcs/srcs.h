@@ -67,6 +67,7 @@ struct map_data
 
 bool	is_texture_valid(void *mlx, char *path);
 bool	is_filename_valid(char *filename);
+void    parse_map(char *path);
 
 #endif // !SRCS_H
 
