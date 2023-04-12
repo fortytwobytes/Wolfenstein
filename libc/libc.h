@@ -10,8 +10,9 @@
 # include <stdbool.h>
 # include <assert.h>
 # include "libc.h"
+# include <limits.h>
 
-char	**ft_split(char const *s, char c);
+char	**ft_split(char *str, char *charset);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(char *s1);
 char	*ft_strdup(char *str);
@@ -26,5 +27,8 @@ size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t size);
 void	*ft_memcpy(void *dst, void *src, size_t n);
 void	fatal(char *message);
+void	ft_free_split(char **split);
+int     ft_split_len(char **elements);
+void	ft_free_split(char **split);
 
 #endif /* LIBC_H */

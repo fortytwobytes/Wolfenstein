@@ -19,14 +19,22 @@
 
 # define OK				0
 # define KO				1
+# define ERROR			-1
+
+# define COMPASS		0
+# define COLOR			1
 
 # define SPEED			5
+
+# define SPACES			" \t"
+
+# define NBROF_ELEMENTS	6
 
 typedef struct s_player		t_player;
 typedef struct s_coor		t_coor;
 typedef struct s_mlx		t_mlx;
 typedef struct s_var		t_var;
-typedef struct s_map_data	t_map_data;
+typedef struct s_map		t_map;
 
 struct s_coor
 {
@@ -53,21 +61,44 @@ struct s_var
 	t_player	player;
 };
 
-struct map_data
+struct s_map
 {
-	int	NO:1;
-	int	SO:1;
-	int	WE:1;
-	int	EA:1;
-	int	F:1;
-	int	C:1;
+	char	*NO_path;
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	int		*F_color;
+	int		*C_color;
+	int		max_height;
+	int		max_width;
+	char	**map;
+	char	*first_map_line;
 };
 
 
 
-bool	is_texture_valid(void *mlx, char *path);
+void	is_texture_valid(void *mlx, char *path);
 bool	is_filename_valid(char *filename);
-void    parse_map(char *path);
+// void    parse_map(int fd, char *path);
+bool	is_all_spaces(char *line);
+t_map	*parse_cub_file(char *path);
+
+
+/* ** parsing.c ** */
+bool	is_all_num(char **elements);
+
+/* ** parsing_utils.c ** */
+void	skip_blank_lines(int fd);
+bool	is_all_spaces(char *line);
+void	skip_till_map(int fd, char *first_map_line);
+int		*get_rgb(char *rgb);
+
+/* ** parsing_elements.c ** */
+void	parse_elements(int fd, t_map *map);
+
+/* ** parsing_map.c ** */
+void    parse_map(int fd, t_map *map);
+void    get_map_dimentions(int fd, t_map *map);
 
 #endif // !SRCS_H
 

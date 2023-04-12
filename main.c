@@ -88,5 +88,6 @@
 
 int main(int argc, char *argv[])
 {
+	parse_cub_file(argv[1]);
 	return (0);
 }

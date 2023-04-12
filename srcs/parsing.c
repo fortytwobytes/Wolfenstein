@@ -1,8 +1,19 @@
 #include "srcs.h"
-#include <stdbool.h>
 
-bool	is_texture_valid(void *mlx, char *path);
+void	is_texture_valid(void *mlx, char *path);
 bool	is_filename_valid(char *filename);
+
+void	is_texture_valid(void *mlx, char *path)
+{
+	int		img_height;
+	int		img_width;
+	void	*img;
+
+	img = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
+	if (img == NULL)
+		fatal("invalid texture");
+	free(img);
+}
 
 bool	is_filename_valid(char *filename)
 {
@@ -21,121 +32,63 @@ bool	is_filename_valid(char *filename)
 	return (true);
 }
 
-void    ft_free_bins(char   **elements)
+
+bool	is_all_num(char **elements)
 {
-    int i;
+	int	i;
+	int	j;
 
-    i = -1;
-    while (elements[++i])
-        free(elements[i]);
-    free(elements);
-}
-
-int ft_count_bins(char  **elements)
-{
-    int i;
-
-    i = -1;
-    while (elements[++i])
-        ;
-    return (i);
-}
-
-int ft_check_rgb(char *rgb)
-{
-    int i;
-    int j;
-    char **rgb_elements;
-
-
-    rgb_elements = ft_split(rgb, ',');
-    i = -1;
-
-    if (ft_count_bins(rgb_elements) != 3)
-        return (ft_free_bins(rgb_elements), -1);
-    while (rgb_elements[++i])
-    {
-        j = -1;
-        if (ft_strlen(rgb_elements[i]) > 3)
-            return (ft_free_bins(rgb_elements), -1);
-        while (rgb_elements[i][++j])
-            if (rgb_elements[i][j] < 0 || rgb_elements[i][j] > 9)
-                return (ft_free_bins(rgb_elements), -1);
-        if (ft_atoi(rgb_elements[i]) > 255)
-            return (ft_free_bins(rgb_elements), -1);
-    }
-    return (0);
-}
-
-int ft_is_typeof_element(char *type)
-{
-    int what_type;
-
-    what_type = -1;
-    if (!ft_strncmp(type, "NO", 2) || !ft_strncmp(type, "SO", 2) ||
-            !ft_strncmp(type, "WE", 2) || !ft_strncmp(type, "EA", 2))
-        what_type = 0;
-    if (!ft_strncmp(type, "F", 1) || !ft_strncmp(type, "C", 1))
-        what_type = 1;
-    return (what_type);
-}
-
-int ft_is_argof_element(char *element, char *arg)
-{
-    if (ft_is_typeof_element(element))
-        return (ft_check_rgb(arg));
-    return (0);
-}
-
-void ft_check_type_of_elements(int fd)
-{
-    char    **elements;
-    char    *map_line;
-    char    *tmp;
-
-    while (1)
-    {
-        tmp = get_next_line(fd);
-        map_line = ft_strtrim(tmp, " "); //remove it after
-        elements = ft_split(map_line, ' ');
-        if (ft_count_bins(elements) != 2)
-        {
-            ft_free_bins(elements);
-            free(map_line);
-            return (write(1, "ERROR\n", 6), exit(0));
-        }
-        if (ft_is_typeof_element(elements[0]) == -1 || 
-            ft_is_argof_element(elements[0], elements[1]))
-        {
-            ft_free_bins(elements);
-            free(map_line);
-            return (write(1, "ERROR\n", 6), exit(0));
-        }
-        free(tmp);
-        free(map_line);
-        ft_free_bins(elements);
-    }
-}
-
-void parse_map(char *path)
-{
-    int     fd;
-
-    fd = open(path, O_RDONLY);
-    ft_check_type_of_elements(fd);
-}
-
-bool	is_texture_valid(void *mlx, char *path)
-{
-	int		img_height;
-	int		img_width;
-	void	*img;
-
-	img = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
-	if (img == NULL) {
-		return (false);
+	i = -1;
+	while (elements[++i])
+	{
+		j = -1;
+		while (elements[i][++j])
+		{
+			if (elements[i][j] < '0' || elements[i][j] > '9')
+				return (false);
+		}
 	}
-	free(img);
 	return (true);
 }
 
+bool	is_space(char c)
+{
+	if ((c >= '\t' && c <= '\r') || c == ' ')
+		return (true);
+	return (false);
+}
+
+// skip and returns true if the line is empty
+bool	skip_empty_line(char **line, int *index)
+{
+	char	*tmp;
+
+	tmp = *line;
+	while (is_space(**line))
+		(*line)++;
+	if (**line == '\0')
+	{
+		free(tmp);
+		(*index)--;
+		return (true);
+	}
+	return (false);
+}
+
+t_map	*parse_cub_file(char *path)
+{
+	int		fd;
+	t_map	*map;
+
+	map = ft_calloc(sizeof(t_map));
+	fd = open(path, O_RDONLY);
+	if (fd == -1)
+		fatal("can't open the map file");
+	parse_elements(fd, map);
+	close(fd);
+	fd = open(path, O_RDONLY);
+	parse_map(fd, map);
+	puts("in");
+	close(fd);
+	return (map);
+}
