@@ -1,26 +1,6 @@
 #include "srcs.h"
 
-void    get_map_dimentions(int fd, t_map *map);
 
-void    get_map_dimentions(int fd, t_map *map)
-{
-    char    *line;
-    int     line_len;
-
-    map->max_width = 0;
-    map->max_height = 0;
-    while (true)
-    {
-        line = get_next_line(fd);
-        if (line == NULL || strcmp(line, "\n") == 0)
-            break ;
-        line_len = ft_strlen(line);
-        if (line_len > map->max_width)
-            map->max_width = line_len;
-        map->max_height++;
-        free(line);
-    }
-}
 
 void    parse_map(int fd, t_map *map)
 {

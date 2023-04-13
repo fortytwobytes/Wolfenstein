@@ -26,7 +26,7 @@
 
 # define SPEED			5
 
-# define SPACES			" \t"
+# define SPACES			" \t\n"
 
 # define NBROF_ELEMENTS	6
 
@@ -55,12 +55,6 @@ struct s_mlx
 	void	*win;
 };
 
-struct s_var
-{
-	t_mlx		mlx;
-	t_player	player;
-};
-
 struct s_map
 {
 	char	*NO_path;
@@ -75,30 +69,39 @@ struct s_map
 	char	*first_map_line;
 };
 
+struct s_var
+{
+	t_mlx     mlx;
+	t_player	player;
+  t_map     map;
+};
 
 
-void	is_texture_valid(void *mlx, char *path);
-bool	is_filename_valid(char *filename);
-// void    parse_map(int fd, char *path);
-bool	is_all_spaces(char *line);
-t_map	*parse_cub_file(char *path);
+
+// void	is_texture_valid(void *mlx, char *path);
+// bool	is_filename_valid(char *filename);
+// // void    parse_map(int fd, char *path);
+// bool	is_all_spaces(char *line);
+// void	parse_cub_file(t_var *var, char *path);
 
 
-/* ** parsing.c ** */
-bool	is_all_num(char **elements);
+// /* ** parsing.c ** */
+// bool	is_all_num(char **elements);
 
-/* ** parsing_utils.c ** */
-void	skip_blank_lines(int fd);
-bool	is_all_spaces(char *line);
-void	skip_till_map(int fd, char *first_map_line);
-int		*get_rgb(char *rgb);
+// /* ** parsing_utils.c ** */
+// void	skip_blank_lines(int fd);
+// bool	is_all_spaces(char *line);
+// void	skip_till_map(int fd, char *first_map_line);
+// int		*get_rgb(char *rgb);
 
-/* ** parsing_elements.c ** */
-void	parse_elements(int fd, t_map *map);
+// /* ** parsing_elements.c ** */
+// void	parse_elements(int fd, t_var *var);
 
-/* ** parsing_map.c ** */
-void    parse_map(int fd, t_map *map);
-void    get_map_dimentions(int fd, t_map *map);
+// /* ** parsing_map.c ** */
+// void    parse_map(int fd, t_map *map);
+// void    get_map_dimentions(int fd, t_map *map);
+
+void	parsing(t_var	*var, char *map_file);
 
 #endif // !SRCS_H
 

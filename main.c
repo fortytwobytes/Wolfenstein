@@ -2,6 +2,18 @@
 #include "srcs/srcs.h"
 #include <sys/fcntl.h>
 
+int main(int argc, char *argv[])
+{
+  t_var var;
+
+  var.mlx.mlx = mlx_init();
+  printf("%p\n", var.mlx.mlx);
+  var.mlx.win = mlx_new_window(var.mlx.mlx, WIN_HEIGHT, WIN_WIDTH, "Cub3D");
+
+  parsing(&var, argv[1]);
+	return (0);
+}
+
 // float px, py;
 // 
 // 
@@ -86,8 +98,4 @@
 // 
 //
 
-int main(int argc, char *argv[])
-{
-	parse_cub_file(argv[1]);
-	return (0);
-}
+
