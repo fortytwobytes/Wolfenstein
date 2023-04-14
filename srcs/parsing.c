@@ -111,10 +111,6 @@ void	fill_2d_map(int fd, t_map *map)
 	{
 		printf("%s\n", map->map[i]);
 	}
-	ft_free_split(map->map);
-	free(map->first_map_line);
-	free(map->f_color);
-	free(map->c_color);
 }
 
 char	*get_texture(t_var *var, char *path)
