@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-fsanitize=address # -Wall -Wextra -Werror
+CFLAGS		=	# -fsanitize=address # -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
 MLX_FLAGS  	=   -lmlx -framework OpenGL -framework AppKit -Imlx

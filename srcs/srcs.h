@@ -57,12 +57,18 @@ struct s_mlx
 
 struct s_map
 {
-	char	*NO_path;
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
-	int		*F_color;
-	int		*C_color;
+	char	*no_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	int		*f_color;
+	int		*c_color;
+	// later
+	void	*no_img;
+	void	*so_img;
+	void	*we_img;
+	void	*ea_img;
+	// later
 	int		max_height;
 	int		max_width;
 	char	**map;
@@ -89,7 +95,7 @@ struct s_var
 // bool	is_all_num(char **elements);
 
 // /* ** parsing_utils.c ** */
-// void	skip_blank_lines(int fd);
+// void	readline_skipping_spaces(int fd);
 // bool	is_all_spaces(char *line);
 // void	skip_till_map(int fd, char *first_map_line);
 // int		*get_rgb(char *rgb);
