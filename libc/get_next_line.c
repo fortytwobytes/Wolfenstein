@@ -3,16 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 20:05:17 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 03:01:27 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:45:11 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libc.h"
 
-char	*ft_read_line(int fd, char *reserve)
+static char	*ft__strjoin(char **s1, char **s2)
+{
+	char	*res;
+	size_t	i;
+	size_t	j;
+	size_t	rsize;
+
+	if (!*s1)
+	{
+		*s1 = (char *)malloc(1 * sizeof(char));
+		*s1[0] = '\0';
+	}
+	if (!*s1 || !*s2)
+		return (NULL);
+	rsize = (ft_strlen(*s1) + ft_strlen(*s2) + 1);
+	res = (char *)malloc(rsize * sizeof(char));
+	if (!res)
+		return (NULL);
+	i = -1;
+	while ((*s1)[++i])
+		res[i] = (*s1)[i];
+	j = -1;
+	while ((*s2)[++j])
+		res[i++] = (*s2)[j];
+	res[i] = '\0';
+	free(*s1);
+	return (res);
+}
+
+static char	*ft_read_line(int fd, char *reserve)
 {
 	char	*buff;
 	int		check;
@@ -33,6 +62,63 @@ char	*ft_read_line(int fd, char *reserve)
 	return (reserve);
 }
 
+static char	*ft_truncate_left(char *str)
+{
+	int		len;
+	char	*res;
+
+	len = 0;
+	if (!str[len])
+		return (NULL);
+	while (str[len] && str[len] != '\n')
+		len++;
+	res = malloc((len + 2) * sizeof(char));
+	if (!res)
+		return (NULL);
+	len = 0;
+	while (str[len] && str[len] != '\n')
+	{
+		res[len] = str[len];
+		len++;
+	}
+	if (str[len] == '\n')
+	{
+		res[len] = str[len];
+		len++;
+	}
+	res[len] = '\0';
+	return (res);
+}
+
+static char	*ft_truncate_right(char **str)
+{
+	int		i;
+	int		len;
+	char	*res;
+
+	i = 0;
+	while ((*str)[i] && (*str)[i] != '\n')
+			i++;
+	if (!(*str)[i])
+	{
+		free(*str);
+		return (NULL);
+	}
+	len = i + 1;
+	while ((*str)[len])
+		len++;
+	res = malloc((len - i) * sizeof(char));
+	if (!res)
+		return (NULL);
+	len = i + 1;
+	i = 0;
+	while ((*str)[len])
+		res[i++] = (*str)[len++];
+	res[i] = '\0';
+	free(*str);
+	return (res);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*reserve = NULL;
@@ -46,4 +132,4 @@ char	*get_next_line(int fd)
 	result = ft_truncate_left(reserve);
 	reserve = ft_truncate_right(&reserve);
 	return (result);
-}    
+}

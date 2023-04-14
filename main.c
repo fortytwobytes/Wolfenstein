@@ -1,10 +1,28 @@
 #include "libc/libc.h"
 #include "srcs/srcs.h"
+#include <ctype.h>
 #include <sys/fcntl.h>
 
+void	ff(void)
+{
+	system("leaks cub3D");
+}
+
+int	main(int argc, char *argv[])
+{
+	t_var	var;
+
+	atexit(ff);
+	var.mlx.mlx = mlx_init();
+	var.mlx.win = mlx_new_window(var.mlx.mlx, WIN_HEIGHT, WIN_WIDTH, "Cub3D");
+	parsing(&var, argv[1]);
+	mlx_destroy_window(var.mlx.mlx, var.mlx.win);
+	return (0);
+}
+
 // float px, py;
-// 
-// 
+//
+//
 // int map[8][8] = {
 // 	{1, 1, 1, 1, 1, 1, 1, 1},
 // 	{1, 0, 0, 0, 0, 0, 1, 1},
@@ -15,7 +33,7 @@
 // 	{1, 0, 1, 0, 0, 0, 0, 1},
 // 	{1, 1, 1, 1, 1, 1, 1, 1}
 // };
-// 
+//
 // void draw_tile(void *mlx, void *win, int x, int y, int color, int size) {
 //     int x_end = x + size - 1;
 //     int y_end = y + size - 1;
@@ -25,11 +43,11 @@
 //         }
 //     }
 // }
-// 
+//
 // int	move(int keycode, void *p) {
-// 
+//
 // 	(ss*)p;
-// 
+//
 // 	if (keycode == UP) {
 // 		px -= 5;
 // 	}
@@ -43,24 +61,24 @@
 // 		py -= 5;
 // 	}
 // 	draw_tile(p->mlx, p->win, px, py, 0x00FFF000, 32);
-// 	return 0;
+// 	return (0);
 // }
-// 
+//
 // int main() {
-// 
+//
 // 	typedef struct ss {
 // 		void *mlx;
 // 		void *win;
 // 	}ss;
-// 
+//
 // 	ss *s;
-// 
+//
 // 	void *mlx = mlx_init();
 // 	void *win = mlx_new_window(mlx, 1024, 512, "Cube 3D");
-// 
+//
 // 	s->mlx = mlx;
 // 	s->win = win;
-// 
+//
 // 	int x_start = 0, y_start = 0;
 // 	for (int i = 0; i < 8; i++) {
 // 		int x = x_start;
@@ -76,28 +94,12 @@
 // 		y_start += CUBE_SIZE;
 // 	}
 // 	px = 128; py = 128;
-// 	
+//
 // 	draw_tile(mlx, win, px, py, 0x00FFF000, 32);
-// 
+//
 // 	mlx_key_hook(win, move, s);
-// 
+//
 // 	mlx_loop(mlx);
 // }
-// 
 //
-
-int main(int ac, char *av[]) {
-
-	void *mlx = mlx_init();
-
-	bool ret = is_texture_valid(mlx, av[1]);
-	printf("%d\n", ret);
-
-int main(int argc, char *argv[])
-{
-	// printf("hello world\n");
-	parse_map(argv[1]);
-	return (0);
-
-}
-
+//

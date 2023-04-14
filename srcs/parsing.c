@@ -1,141 +1,249 @@
 #include "srcs.h"
-#include <stdbool.h>
 
-bool	is_texture_valid(void *mlx, char *path);
-bool	is_filename_valid(char *filename);
+bool	is_all_num(char **elements);
+bool	is_all_spaces(char *line);
+int		*get_rgb(char *arg);
+void	fill_map_struct(t_var *var, char *element, char *arg);
+void	is_texture_valid(void *mlx, char *path);
+void	parse_elements(t_var *var, char *filename);
+void	parsing(t_var *var, char *cub_filename);
+char	*readline_skipping_spaces(int fd);
+void	get_map_dimentions(int fd, t_map *map);
+void	init_map(t_map *map);
+void	parse_map(t_var *var, char *path);
+void	fill_2d_map(int fd, t_map *map);
+void	skip_till_first_map_line(int fd, t_map *map);
 
-bool	is_filename_valid(char *filename)
+void	parsing(t_var *var, char *cub_filename)
 {
-	int		extension_len;
-	int		filename_len;
-	char	*extension;
-
-	extension = ".cub";
-	filename_len = strlen(filename);
-	extension_len = strlen(extension);
-	if (filename_len <= extension_len)
-		return (false);
-	filename += filename_len - extension_len;
-	if (strcmp(filename, extension))
-		return (false);
-	return (true);
+	init_map(&var->map);
+	parse_elements(var, cub_filename);
+	parse_map(var, cub_filename);
 }
 
-void    ft_free_bins(char   **elements)
+void	init_map(t_map *map)
 {
-    int i;
-
-    i = -1;
-    while (elements[++i])
-        free(elements[i]);
-    free(elements);
+	map->no_path = NULL;
+	map->so_path = NULL;
+	map->ea_path = NULL;
+	map->we_path = NULL;
+	map->c_color = NULL;
+	map->f_color = NULL;
+	map->max_height = 1;
 }
 
-int ft_count_bins(char  **elements)
+void	parse_elements(t_var *var, char *filename)
 {
-    int i;
+	int		i;
+	int		fd;
+	char	**elements;
+	char	*line;
 
-    i = -1;
-    while (elements[++i])
-        ;
-    return (i);
+	i = -1;
+	fd = open(filename, O_RDONLY);
+	if (fd == EOF)
+		fatal("can't open the map file");
+	while (++i < NBROF_ELEMENTS)
+	{
+		line = readline_skipping_spaces(fd);
+		if (line == NULL)
+			break ;
+		elements = ft_split(line, SPACES);
+		if (ft_split_len(elements) != 2)
+			fatal("invalid map elements");
+		fill_map_struct(var, elements[0], elements[1]);
+		free(line);
+		ft_free_split(elements);
+	}
+	var->map.first_map_line = readline_skipping_spaces(fd);
+	get_map_dimentions(fd, &var->map);
+	close(fd);
 }
 
-int ft_check_rgb(char *rgb)
+void	parse_map(t_var *var, char *path)
 {
-    int i;
-    int j;
-    char **rgb_elements;
+	int	fd;
 
-
-    rgb_elements = ft_split(rgb, ',');
-    i = -1;
-
-    if (ft_count_bins(rgb_elements) != 3)
-        return (ft_free_bins(rgb_elements), -1);
-    while (rgb_elements[++i])
-    {
-        j = -1;
-        if (ft_strlen(rgb_elements[i]) > 3)
-            return (ft_free_bins(rgb_elements), -1);
-        while (rgb_elements[i][++j])
-            if (rgb_elements[i][j] < 0 || rgb_elements[i][j] > 9)
-                return (ft_free_bins(rgb_elements), -1);
-        if (ft_atoi(rgb_elements[i]) > 255)
-            return (ft_free_bins(rgb_elements), -1);
-    }
-    return (0);
+	fd = open(path, O_RDONLY);
+	skip_till_first_map_line(fd, &var->map);
+	fill_2d_map(fd, &var->map);
+	close(fd);
 }
 
-int ft_is_typeof_element(char *type)
+void	skip_till_first_map_line(int fd, t_map *map)
 {
-    int what_type;
+	char	*line;
 
-    what_type = -1;
-    if (!ft_strncmp(type, "NO", 2) || !ft_strncmp(type, "SO", 2) ||
-            !ft_strncmp(type, "WE", 2) || !ft_strncmp(type, "EA", 2))
-        what_type = 0;
-    if (!ft_strncmp(type, "F", 1) || !ft_strncmp(type, "C", 1))
-        what_type = 1;
-    return (what_type);
+	while (true)
+	{
+		line = readline_skipping_spaces(fd);
+		if (line == NULL)
+			break ;
+		if (strcmp(line, map->first_map_line) == 0)
+		{
+			free(line);
+			break ;
+		}
+		free(line);
+	}
 }
 
-int ft_is_argof_element(char *element, char *arg)
+void	fill_2d_map(int fd, t_map *map)
 {
-    if (ft_is_typeof_element(element))
-        return (ft_check_rgb(arg));
-    return (0);
+	char	*line;
+	int		i;
+
+	i = 0;
+	line = ft_strdup(map->first_map_line);
+	map->map = ft_calloc(sizeof(char *) * (map->max_height + 1));
+	while (true)
+	{
+		map->map[i] = ft_calloc(sizeof(char) * (map->max_width + 1));
+		memset(map->map[i], ' ', map->max_width);
+		ft_memcpy(map->map[i], line, ft_strlen(line) - 1);
+		free(line);
+		line = readline_skipping_spaces(fd);
+		if (line == NULL)
+			break ;
+		i++;
+	}
+	for (int i = 0; map->map[i]; i++)
+	{
+		printf("%s\n", map->map[i]);
+	}
 }
 
-void ft_check_type_of_elements(int fd)
-{
-    char    **elements;
-    char    *map_line;
-    char    *tmp;
-
-    while (1)
-    {
-        tmp = get_next_line(fd);
-        map_line = ft_strtrim(tmp, " "); //remove it after
-        elements = ft_split(map_line, ' ');
-        if (ft_count_bins(elements) != 2)
-        {
-            ft_free_bins(elements);
-            free(map_line);
-            return (write(1, "ERROR\n", 6), exit(0));
-        }
-        if (ft_is_typeof_element(elements[0]) == -1 || 
-            ft_is_argof_element(elements[0], elements[1]))
-        {
-            ft_free_bins(elements);
-            free(map_line);
-            return (write(1, "ERROR\n", 6), exit(0));
-        }
-        free(tmp);
-        free(map_line);
-        ft_free_bins(elements);
-    }
-}
-
-void parse_map(char *path)
-{
-    int     fd;
-
-    fd = open(path, O_RDONLY);
-    ft_check_type_of_elements(fd);
-}
-
-bool	is_texture_valid(void *mlx, char *path)
+char	*get_texture(t_var *var, char *path)
 {
 	int		img_height;
 	int		img_width;
 	void	*img;
 
-	img = mlx_xpm_file_to_image(mlx, path, &img_width, &img_height);
-	if (img == NULL) {
-		return (false);
+	img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
+	if (img == NULL)
+		fatal("invalid texture");
+	// free(img);
+	mlx_destroy_image(var->mlx.mlx, img);
+	return (path);
+}
+
+char	*readline_skipping_spaces(int fd)
+{
+	char	*line;
+
+	while (true)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		if (is_all_spaces(line) == true || strcmp(line, "\n") == 0)
+		{
+			free(line);
+			continue ;
+		}
+		return (line);
 	}
-	free(img);
+	return (NULL);
+}
+
+void	fill_map_struct(t_var *var, char *element, char *arg)
+{
+	if (!strcmp(element, "NO") && var->map.no_path == NULL)
+		var->map.no_path = get_texture(var, arg);
+	else if (!strcmp(element, "SO") && var->map.so_path == NULL)
+		var->map.so_path = get_texture(var, arg);
+	else if (!strcmp(element, "WE") && var->map.we_path == NULL)
+		var->map.we_path = get_texture(var, arg);
+	else if (!strcmp(element, "EA") && var->map.ea_path == NULL)
+		var->map.ea_path = get_texture(var, arg);
+	else if (!strcmp(element, "F") && var->map.f_color == NULL)
+		var->map.f_color = get_rgb(arg);
+	else if (!strcmp(element, "C") && var->map.c_color == NULL)
+		var->map.c_color = get_rgb(arg);
+	else
+		fatal("duplicated or invalid element");
+}
+
+int	*get_rgb(char *arg)
+{
+	char	**elements;
+	char	*rgb;
+	int		i;
+	int		*rgb_arr;
+
+	rgb_arr = ft_calloc(sizeof(int) * 3);
+	rgb = ft_strtrim(arg, "()");
+	elements = ft_split(rgb, ",");
+	if (ft_split_len(elements) != 3)
+		fatal("invalid rgb");
+	is_all_num(elements);
+	i = 0;
+	while (elements[i])
+	{
+		if (ft_strlen(elements[i]) > 3)
+			fatal("invalid rgb");
+		rgb_arr[i] = ft_atoi(elements[i]);
+		if (rgb_arr[i] > 255 || rgb_arr[i] < 0)
+			fatal("invalid rgb");
+		i++;
+	}
+	free(rgb);
+	ft_free_split(elements);
+	return (rgb_arr);
+}
+
+bool	is_all_spaces(char *line)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] != ' ' && line[i] != '\t')
+			return (false);
+	}
 	return (true);
 }
 
+/*
+TODO: check for invalid map conditions
+* all zeros should be cerounded by ones
+* check if there's another char in the map rather than 'NEWS01' and spaces
+* check if the map is closed by ones
+*/
+void	get_map_dimentions(int fd, t_map *map)
+{
+	char	*line;
+	int		line_len;
+
+	map->max_width = ft_strlen(map->first_map_line);
+	while (true)
+	{
+		line = get_next_line(fd);
+		if (line == NULL || strcmp(line, "\n") == 0)
+			break ;
+		line_len = ft_strlen(line);
+		if (line_len > map->max_width)
+			map->max_width = line_len;
+		map->max_height++;
+		free(line);
+	}
+}
+
+bool	is_all_num(char **elements)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (elements[++i])
+	{
+		j = -1;
+		while (elements[i][++j])
+		{
+			if (elements[i][j] < '0' || elements[i][j] > '9')
+				return (false);
+		}
+	}
+	return (true);
+}

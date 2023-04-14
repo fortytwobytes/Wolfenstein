@@ -3,90 +3,102 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 16:22:28 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 02:47:38 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/11 22:28:30 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libc.h"
 
-static int	count_words(const char *str, char sprt)
-{
-	int	counter;
+static int	is_sep(char c, char *charset);
+static int	count_strings(char *str, char *charset);
+static int	ft_strlen_sep(char *str, char *charset);
+static char	*allocate_word(char *str, char *charset);
 
-	counter = 0;
-	while (*str)
-	{
-		while (*str && *str == sprt)
-			str++;
-		if (*str)
-			counter++;
-		while (*str && !(*str == sprt))
-			str++;
-	}
-	return (counter);
-}
-
-static char	*stralloc(const char *s, int len)
+char	**ft_split(char *str, char *charset)
 {
-	char	*res;
-	int		i;
+	char **strings;
+	int i;
 
 	i = 0;
-	res = (char *)malloc(len * sizeof(char));
-	if (!res)
-		return (NULL);
-	while (s[i] && i < len - 1)
+	strings = ft_calloc(sizeof(char *) * (count_strings(str, charset) + 1));
+	while (*str)
 	{
-		res[i] = s[i];
-		i++;
+		while (*str && is_sep(*str, charset))
+			str++;
+		if (*str)
+		{
+			*(strings + i) = allocate_word(str, charset);
+			i++;
+		}
+		while (*str && !is_sep(*str, charset))
+			str++;
 	}
-	res[i] = '\0';
-	return (res);
+	*(strings + i) = 0;
+	return (strings);
 }
 
-static void	*fr_tab(char **tab)
+static int	is_sep(char c, char *charset)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (*(charset + i))
 	{
-		free(tab[i]);
+		if (c == *(charset + i))
+			return (1);
 		i++;
 	}
-	free(tab);
-	return (NULL);
+	return (0);
 }
 
-char	**ft_split(char const *s, char c)
+static int	count_strings(char *str, char *charset)
 {
-	char	**res;
-	int		i;
-	size_t	len;
-	int		words;
+	int	i;
+	int	count;
 
-	if (!s)
-		return (0);
-	words = count_words(s, c);
-	res = (char **)malloc((words + 1) * sizeof(char *));
-	if (!res)
-		return (0);
-	i = -1;
-	while (++i < words)
+	count = 0;
+	i = 0;
+	while (*(str + i))
 	{
-		len = 1;
-		while (*s && *s == c)
-			s++;
-		while (*s++ && *s != c)
-			len++;
-		res[i] = stralloc(s - len, len + 1);
-		if (!res[i])
-			return (fr_tab(res));
+		while (*(str + i) && is_sep(*(str + i), charset))
+			i++;
+		if (*(str + i))
+			count++;
+		while (*(str + i) && !is_sep(*(str + i), charset))
+			i++;
 	}
-	res[i] = NULL;
-	return (res);
+	return (count);
 }
+
+static int	ft_strlen_sep(char *str, char *charset)
+{
+	int	i;
+
+	i = 0;
+	while (*(str + i) && !is_sep(*(str + i), charset))
+		i++;
+	return (i);
+}
+
+static char	*allocate_word(char *str, char *charset)
+{
+	int		len_word;
+	int		i;
+	char	*word;
+
+	i = 0;
+	len_word = ft_strlen_sep(str, charset);
+	word = (char *) ft_calloc(sizeof(char) * (len_word + 1));
+	while (i < len_word)
+	{
+		*(word + i) = *(str + i);
+		i++;
+	}
+	*(word + i) = '\0';
+	return (word);
+}
+
 
