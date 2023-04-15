@@ -4,7 +4,6 @@ bool	is_all_num(char **elements);
 bool	is_all_spaces(char *line);
 int		*get_rgb(char *arg);
 void	fill_map_struct(t_var *var, char *element, char *arg);
-void	is_texture_valid(void *mlx, char *path);
 void	parse_elements(t_var *var, char *filename);
 void	parsing(t_var *var, char *cub_filename);
 char	*readline_skipping_spaces(int fd);
@@ -113,6 +112,7 @@ void	fill_2d_map(int fd, t_map *map)
 	}
 }
 
+// TODO: hold the mlx image instead of freeing it
 char	*get_texture(t_var *var, char *path)
 {
 	int		img_height;
@@ -122,7 +122,6 @@ char	*get_texture(t_var *var, char *path)
 	img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
 	if (img == NULL)
 		fatal("invalid texture");
-	// free(img);
 	mlx_destroy_image(var->mlx.mlx, img);
 	return (path);
 }

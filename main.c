@@ -3,16 +3,10 @@
 #include <ctype.h>
 #include <sys/fcntl.h>
 
-void	ff(void)
-{
-	system("leaks cub3D");
-}
-
 int	main(int argc, char *argv[])
 {
 	t_var	var;
 
-	atexit(ff);
 	var.mlx.mlx = mlx_init();
 	var.mlx.win = mlx_new_window(var.mlx.mlx, WIN_HEIGHT, WIN_WIDTH, "Cub3D");
 	parsing(&var, argv[1]);

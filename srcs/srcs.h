@@ -2,7 +2,10 @@
 # define SRCS_H
 
 # include <mlx.h>
+# include <math.h>
 # include "../libc/libc.h"
+
+# define PI				3.14
 
 # define WIN_HEIGHT 	1024	// or 512
 # define WIN_WIDTH		2048	// or 1024
@@ -25,6 +28,7 @@
 # define COLOR			1
 
 # define SPEED			5
+# define ROTATE_SPEED	0.1
 
 # define SPACES			" \t\n"
 
