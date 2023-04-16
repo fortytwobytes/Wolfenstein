@@ -24,6 +24,7 @@ void	init_map(t_var *var);
 void	parse_map(t_var *var, char *path);
 void	fill_2d_map(int fd, t_map *map);
 void	skip_till_first_map_line(int fd, t_map *map);
+void	ft_check_map(t_var *var);
 
 void	parsing(t_var *var, char *cub_filename)
 {
@@ -129,14 +130,15 @@ void	fill_2d_map(int fd, t_map *map)
 // TODO: hold the mlx image instead of freeing it
 char	*get_texture(t_var *var, char *path)
 {
-	int		img_height;
-	int		img_width;
-	void	*img;
+	// int		img_height;
+	// int		img_width;
+	// void	*img;
 
-	img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
-	if (img == NULL)
-		fatal("invalid texture");
-	mlx_destroy_image(var->mlx.mlx, img);
+	// img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
+	// if (img == NULL)
+	// 	fatal("invalid texture");
+	// mlx_destroy_image(var->mlx.mlx, img);
+	// return (path);
 	return (path);
 }
 

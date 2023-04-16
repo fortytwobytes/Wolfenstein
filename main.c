@@ -1,99 +1,84 @@
-#include "libc/libc.h"
+// -----------------------------------------------------------------------------
+// Codam Coding College, Amsterdam @ 2022-2023 by W2Wizard.
+// See README in the root project for more information.
+// -----------------------------------------------------------------------------
+
 #include "srcs/srcs.h"
-#include <ctype.h>
-#include <sys/fcntl.h>
 
-int	main(int argc, char *argv[])
+#define WIDTH 512
+#define HEIGHT 512
+
+static mlx_image_t* image;
+
+// -----------------------------------------------------------------------------
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
-	t_var	var;
-
-	var.mlx.mlx = mlx_init();
-	var.mlx.win = mlx_new_window(var.mlx.mlx, WIN_HEIGHT, WIN_WIDTH, "Cub3D");
-	parsing(&var, argv[1]);
-	mlx_destroy_window(var.mlx.mlx, var.mlx.win);
-	return (0);
+    return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// float px, py;
-//
-//
-// int map[8][8] = {
-// 	{1, 1, 1, 1, 1, 1, 1, 1},
-// 	{1, 0, 0, 0, 0, 0, 1, 1},
-// 	{1, 0, 0, 1, 1, 0, 0, 1},
-// 	{1, 0, 0, 0, 1, 1, 0, 1},
-// 	{1, 1, 1, 0, 1, 0, 0, 1},
-// 	{1, 0, 0, 0, 1, 0, 1, 1},
-// 	{1, 0, 1, 0, 0, 0, 0, 1},
-// 	{1, 1, 1, 1, 1, 1, 1, 1}
-// };
-//
-// void draw_tile(void *mlx, void *win, int x, int y, int color, int size) {
-//     int x_end = x + size - 1;
-//     int y_end = y + size - 1;
-//     for (int i = x; i < x_end; i++) {
-//         for (int j = y; j < y_end; j++) {
-//             mlx_pixel_put(mlx, win, i, j, color);
-//         }
-//     }
-// }
-//
-// int	move(int keycode, void *p) {
-//
-// 	(ss*)p;
-//
-// 	if (keycode == UP) {
-// 		px -= 5;
-// 	}
-// 	if (keycode == DOWN) {
-// 		px += 5;
-// 	}
-// 	if (keycode == LEFT) {
-// 		py -= 5;
-// 	}
-// 	if (keycode == RIGHT) {
-// 		py -= 5;
-// 	}
-// 	draw_tile(p->mlx, p->win, px, py, 0x00FFF000, 32);
-// 	return (0);
-// }
-//
-// int main() {
-//
-// 	typedef struct ss {
-// 		void *mlx;
-// 		void *win;
-// 	}ss;
-//
-// 	ss *s;
-//
-// 	void *mlx = mlx_init();
-// 	void *win = mlx_new_window(mlx, 1024, 512, "Cube 3D");
-//
-// 	s->mlx = mlx;
-// 	s->win = win;
-//
-// 	int x_start = 0, y_start = 0;
-// 	for (int i = 0; i < 8; i++) {
-// 		int x = x_start;
-// 		for (int j = 0; j < 8; j++) {
-// 			if (map[i][j] == 1) {
-// 				draw_tile(mlx, win, x, y_start, 0x00808080, CUBE_SIZE);
-// 			}
-// 			else {
-// 				draw_tile(mlx, win, x, y_start, 0x00FFFFFF, CUBE_SIZE);
-// 			}
-// 			x += CUBE_SIZE;
-// 		}
-// 		y_start += CUBE_SIZE;
-// 	}
-// 	px = 128; py = 128;
-//
-// 	draw_tile(mlx, win, px, py, 0x00FFF000, 32);
-//
-// 	mlx_key_hook(win, move, s);
-//
-// 	mlx_loop(mlx);
-// }
-//
-//
+void ft_randomize(void* param)
+{
+	for (int32_t i = 0; i < image->width; ++i)
+	{
+		for (int32_t y = 0; y < image->height; ++y)
+		{
+			uint32_t color = ft_pixel(
+				rand() % 0xFF, // R
+				rand() % 0xFF, // G
+				rand() % 0xFF, // B
+				rand() % 0xFF  // A
+			);
+			mlx_put_pixel(image, i, y, color);
+		}
+	}
+}
+
+void ft_hook(void* param)
+{
+	mlx_t* mlx = param;
+
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(mlx);
+	if (mlx_is_key_down(mlx, MLX_KEY_UP))
+		image->instances[0].y -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+		image->instances[0].y += 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+		image->instances[0].x -= 5;
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+		image->instances[0].x += 5;
+}
+
+// -----------------------------------------------------------------------------
+
+int32_t main(int32_t argc, const char* argv[])
+{
+	mlx_t* mlx;
+
+	// Gotta error check this stuff
+	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	{
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (!(image = mlx_new_image(mlx, 128, 128)))
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	{
+		mlx_close_window(mlx);
+		puts(mlx_strerror(mlx_errno));
+		return(EXIT_FAILURE);
+	}
+	
+	mlx_loop_hook(mlx, ft_randomize, mlx);
+	mlx_loop_hook(mlx, ft_hook, mlx);
+
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
+}
