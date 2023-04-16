@@ -51,6 +51,7 @@ struct s_player {
 	t_coor	position;
 	t_coor	direction;
 	float	angle;
+	char	first_view;
 };
 
 struct s_mlx
@@ -77,6 +78,8 @@ struct s_map
 	int		max_width;
 	char	**map;
 	char	*first_map_line;
+	//temporaire
+	int		found_player;
 };
 
 struct s_var
@@ -112,6 +115,7 @@ struct s_var
 // void    get_map_dimentions(int fd, t_map *map);
 
 void	parsing(t_var	*var, char *map_file);
-
+int 	ft_check_map(t_var *map);
+void    check_orders(char *element, int order);
 #endif // !SRCS_H
 

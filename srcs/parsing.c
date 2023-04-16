@@ -29,6 +29,7 @@ void	init_map(t_map *map)
 	map->c_color = NULL;
 	map->f_color = NULL;
 	map->max_height = 1;
+	map->found_player = 0;
 }
 
 void	parse_elements(t_var *var, char *filename)
@@ -50,6 +51,7 @@ void	parse_elements(t_var *var, char *filename)
 		elements = ft_split(line, SPACES);
 		if (ft_split_len(elements) != 2)
 			fatal("invalid map elements");
+		check_orders(elements[0], i);
 		fill_map_struct(var, elements[0], elements[1]);
 		free(line);
 		ft_free_split(elements);
@@ -66,6 +68,7 @@ void	parse_map(t_var *var, char *path)
 	fd = open(path, O_RDONLY);
 	skip_till_first_map_line(fd, &var->map);
 	fill_2d_map(fd, &var->map);
+	ft_check_map(var);
 	close(fd);
 }
 
@@ -215,13 +218,13 @@ void	get_map_dimentions(int fd, t_map *map)
 	char	*line;
 	int		line_len;
 
-	map->max_width = ft_strlen(map->first_map_line);
+	map->max_width = ft_strlen(map->first_map_line) - 1;
 	while (true)
 	{
 		line = get_next_line(fd);
 		if (line == NULL || strcmp(line, "\n") == 0)
 			break ;
-		line_len = ft_strlen(line);
+		line_len = ft_strlen(line) - 1;
 		if (line_len > map->max_width)
 			map->max_width = line_len;
 		map->max_height++;
