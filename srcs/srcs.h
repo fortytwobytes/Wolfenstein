@@ -31,11 +31,12 @@ struct					s_coor
 };
 
 // FOV: field of view
-struct					s_player
-{
-	t_coor				position;
-	t_coor				direction;
-	float				angle;
+
+struct s_player {
+	t_coor	position;
+	t_coor	direction;
+	float	angle;
+	char	first_view;
 };
 
 struct					s_mlx
@@ -56,6 +57,7 @@ struct					s_map
 	int					max_width;
 	char				**map;
 	char				*first_map_line;
+  char        *last_map_line;
 	// later ******************
 	void				*no_img;
 	void				*so_img;
@@ -72,5 +74,4 @@ struct					s_var
 
 void					parsing(t_var *var, char *map_file);
 void					hooks(mlx_key_data_t keydata, void *param);
-
 #endif // !SRCS_H
