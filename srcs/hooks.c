@@ -2,22 +2,22 @@
 
 void	move_player(t_var *var, int option)
 {
-	if (option == UP)
+	if (option == MLX_KEY_W)
 	{
 		var->player.position.y += var->player.direction.y;
         var->player.position.x += var->player.direction.x;
 	}
-	if (option == DOWN)
+	if (option == MLX_KEY_DOWN)
 	{
         var->player.position.y -= var->player.direction.y;
         var->player.position.x -= var->player.direction.x;
 
 	}
-	if (option == RIGHT)
+	if (option == MLX_KEY_RIGHT)
 	{
         // TODO: add later
 	}
-	if (option == LEFT)
+	if (option == MLX_KEY_LEFT)
 	{
         // TODO: add later
 	}
@@ -25,7 +25,7 @@ void	move_player(t_var *var, int option)
 
 void	change_direction(t_var *var, int option)
 {
-	if (option == LEFT_ARROW)
+	if (option == MLX_KEY_LEFT)
 	{
 		var->player.angle -= ROTATE_SPEED;
         if (var->player.angle < 0)
@@ -35,7 +35,7 @@ void	change_direction(t_var *var, int option)
         var->player.direction.x = cos(var->player.angle) * 5;
         var->player.direction.y = sin(var->player.angle) * 5;
 	}
-	if (option == RIGHT_ARROW)
+	if (option == MLX_KEY_RIGHT)
 	{
 		var->player.angle += ROTATE_SPEED;
         if (var->player.angle > 2 * PI)
@@ -47,22 +47,21 @@ void	change_direction(t_var *var, int option)
 	}
 }
 
-int	hooks(int keycode, void *ptr)
+void	hooks(mlx_key_data_t keydata, void *param)
 {
 	t_var	*var;
 
-	var = (t_var *)ptr;
-	if (keycode == UP)
-		move_player(var, UP);
-	else if (keycode == DOWN)
-		move_player(var, DOWN);
-	else if (keycode == LEFT)
-		move_player(var, LEFT);
-	else if (keycode == RIGHT)
-		move_player(var, RIGHT);
-	else if (keycode == LEFT_ARROW)
-		change_direction(var, LEFT_ARROW);
-	else if (keycode == RIGHT_ARROW)
-		change_direction(var, RIGHT_ARROW);
-	return (1);
+	var = (t_var *)param;
+	if (keydata.key == MLX_KEY_W)
+		move_player(var, MLX_KEY_W);
+	if (keydata.key == MLX_KEY_S)
+		move_player(var, MLX_KEY_S);
+	if (keydata.key == MLX_KEY_A)
+		move_player(var, MLX_KEY_A);
+	if (keydata.key == MLX_KEY_D)
+		move_player(var, MLX_KEY_D);
+	if (keydata.key == MLX_KEY_LEFT)
+		change_direction(var, MLX_KEY_LEFT);
+	if (keydata.key == MLX_KEY_RIGHT)
+		change_direction(var, MLX_KEY_RIGHT);
 }
