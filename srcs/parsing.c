@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/16 15:53:04 by onouakch          #+#    #+#             */
+/*   Updated: 2023/04/16 16:24:31 by onouakch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "srcs.h"
 
 bool	is_all_num(char **elements);
@@ -8,28 +20,28 @@ void	parse_elements(t_var *var, char *filename);
 void	parsing(t_var *var, char *cub_filename);
 char	*readline_skipping_spaces(int fd);
 void	get_map_dimentions(int fd, t_map *map);
-void	init_map(t_map *map);
+void	init_map(t_var *var);
 void	parse_map(t_var *var, char *path);
 void	fill_2d_map(int fd, t_map *map);
 void	skip_till_first_map_line(int fd, t_map *map);
 
 void	parsing(t_var *var, char *cub_filename)
 {
-	init_map(&var->map);
+	init_map(var);
 	parse_elements(var, cub_filename);
 	parse_map(var, cub_filename);
 }
 
-void	init_map(t_map *map)
+void	init_map(t_var *var)
 {
-	map->no_path = NULL;
-	map->so_path = NULL;
-	map->ea_path = NULL;
-	map->we_path = NULL;
-	map->c_color = NULL;
-	map->f_color = NULL;
-	map->max_height = 1;
-	map->found_player = 0;
+	var->map.no_path = NULL;
+	var->map.so_path = NULL;
+	var->map.ea_path = NULL;
+	var->map.we_path = NULL;
+	var->map.c_color = NULL;
+	var->map.f_color = NULL;
+	var->map.max_height = 1;
+	var->player.first_view = '\0';
 }
 
 void	parse_elements(t_var *var, char *filename)
@@ -51,7 +63,7 @@ void	parse_elements(t_var *var, char *filename)
 		elements = ft_split(line, SPACES);
 		if (ft_split_len(elements) != 2)
 			fatal("invalid map elements");
-		check_orders(elements[0], i);
+		// check_orders(elements[0], i);
 		fill_map_struct(var, elements[0], elements[1]);
 		free(line);
 		ft_free_split(elements);
@@ -223,7 +235,7 @@ void	get_map_dimentions(int fd, t_map *map)
 	{
 		line = get_next_line(fd);
 		if (line == NULL || strcmp(line, "\n") == 0)
-			break ;
+			fatal("empty line error");
 		line_len = ft_strlen(line) - 1;
 		if (line_len > map->max_width)
 			map->max_width = line_len;
