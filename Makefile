@@ -2,7 +2,9 @@ CC			=	cc
 CFLAGS		=	# -fsanitize=address # -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
-MLX_FLAGS  	=   -lmlx -framework OpenGL -framework AppKit -Imlx
+
+COMPILING	:=	-I MLX42/include
+LINKING		:=	MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRCS		=	$(wildcard main.c libc/*.c srcs/*.c)
 
@@ -20,11 +22,11 @@ NAME		=	cub3D
 all: $(NAME)
 
 $(NAME):    $(OBJS)
-	@$(CC) $(CFLAGS) $(MLX_FLAGS) $^ -o $@
+	@$(CC) $(LINKING) $^ -o $@
 
 $(BIN_DIR)%.o:  %.c $(INCLUDES)
 	@$(MKDIR) $(OBJS_DIRS)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(COMPILING) -c $< -o $@
 
 test: re
 	@make -C tests/
@@ -33,7 +35,7 @@ forb:
 	@sh ./list_forb_functions.sh
 
 clean:
-	@$(RM) $(BIN_DIR)
+	@$(RM) $(BIN_DIR) a.out
 	@$(RM) $(basename $(wildcard tests/test_*.c) .c)
 
 fclean: clean
