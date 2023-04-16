@@ -1,5 +1,6 @@
 # Wolfenstein
 cub3D
+build/
 
 # python virtualenv
 venv/
