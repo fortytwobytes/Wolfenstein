@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:53:04 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/16 16:24:31 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/16 20:34:21 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	parse_elements(t_var *var, char *filename)
 		elements = ft_split(line, SPACES);
 		if (ft_split_len(elements) != 2)
 			fatal("invalid map elements");
-		// check_orders(elements[0], i);
 		fill_map_struct(var, elements[0], elements[1]);
 		free(line);
 		ft_free_split(elements);
@@ -219,12 +218,6 @@ bool	is_all_spaces(char *line)
 	return (true);
 }
 
-/*
-TODO: check for invalid map conditions
-* all zeros should be cerounded by ones
-* check if there's another char in the map rather than 'NEWS01' and spaces
-* check if the map is closed by ones
-*/
 void	get_map_dimentions(int fd, t_map *map)
 {
 	char	*line;
@@ -235,12 +228,18 @@ void	get_map_dimentions(int fd, t_map *map)
 	{
 		line = get_next_line(fd);
 		if (line == NULL || strcmp(line, "\n") == 0)
-			fatal("empty line error");
+			break ;
 		line_len = ft_strlen(line) - 1;
 		if (line_len > map->max_width)
 			map->max_width = line_len;
 		map->max_height++;
+		map->last_map_line = line;
 		free(line);
+	}
+	char *rest_map = readline_skipping_spaces(fd);
+	if (rest_map != NULL) {
+		free(rest_map);
+		fatal("elements after map");
 	}
 }
 

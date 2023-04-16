@@ -78,6 +78,7 @@ struct s_map
 	int		max_width;
 	char	**map;
 	char	*first_map_line;
+	char	*last_map_line;
 	//temporaire
 	int		found_player;
 };

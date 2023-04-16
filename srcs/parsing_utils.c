@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:24:35 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/16 16:13:23 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/16 20:30:25 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,6 @@ int ft_check_spaces(t_map *map, int l_index)
     return (0);
 }
 
-// void    check_orders(char *element, int order)
-// {
-//     char    *orders[7];
-
-//     orders[0] = "NO";
-//     orders[1] = "SO";
-//     orders[2] = "WE";
-//     orders[3] = "EA";
-//     orders[4] = "F";
-//     orders[5] = "C";
-//     orders[6] = NULL;
-
-//     if (strcmp(orders[order], element) != 0)
-//         fatal("orders error");
-// }
-
 int ft_check_map(t_var *var)
 {
     int i;
@@ -107,7 +91,7 @@ int ft_check_map(t_var *var)
             fatal("ledges error");
         if (ft_check_content(map_line, var, i))
             fatal("content error");
-        if (ft_strchr(map_line, ' ') || ft_strchr(map_line, '\t'))
+        if (ft_strchr(var->map.map[i], ' ') || ft_strchr(var->map.map[i], '\t'))
             if (ft_check_spaces(&var->map, i))
                 fatal("exit error");
     }
