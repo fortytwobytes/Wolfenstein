@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs.h"
+#include "../includes/srcs.h"
 
 int ft_is_wall(char *wall)
 {

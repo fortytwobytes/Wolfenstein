@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libc.h"
+#include "../../includes/libc.h"
 
 static char	*ft__strjoin(char **s1, char **s2)
 {

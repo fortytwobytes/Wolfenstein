@@ -94,7 +94,7 @@ The output library file is called `libmlx42.a` and is located in the `build` fol
 
 ### Available Options
 
-You can pass build [options](./docs/index.md#available-options) to cmake, e.g: `cmake -DDEBUG=1 -DGLFW_FETCH=0...`. These will for instance let you build it in DEBUG mode or alter any sort of behaviour at build-time.
+You can pass build [options](docs/index.md#available-options) to cmake, e.g: `cmake -DDEBUG=1 -DGLFW_FETCH=0...`. These will for instance let you build it in DEBUG mode or alter any sort of behaviour at build-time.
 
 You can find an example makefile in the documentation [here](https://github.com/codam-coding-college/MLX42/blob/master/docs/Basics.md).
 

@@ -5,7 +5,7 @@ See copyright and license notice in the root project for more information.
 
 # Basics
 
-Before starting please read the [index page](./index.md).
+Before starting please read the [index page](index.md).
 Starting with MLX42 is very straightforward. Here we will make a simple program that will use a makefile and compile
 MLX42.
 
@@ -79,7 +79,7 @@ Between initializations you can do everything that is required such as drawing y
 Once `mlx_loop()` is reached the program remains open until a shutdown is somehow requested, e.g: closing the window.
 
 Because we want programs to be interactive and do stuff it's very useful to hook into the looping process of `mlx_loop()`.
-In order to achieve this we use [hooks](./Hooks.md).
+In order to achieve this we use [hooks](Hooks.md).
 
 `NOTE: Compile MLX42 with DEBUG=1 to see assertions and to add debug flags. This can help you find critical mistakes during development!`
 

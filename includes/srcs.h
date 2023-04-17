@@ -1,14 +1,14 @@
 #ifndef SRCS_H
 # define SRCS_H
 
-# include "../libc/libc.h"
-# include <MLX42/MLX42.h>
+# include "libc.h"
+# include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 
 # define PI 3.14
 
-# define WIN_HEIGHT 1024 // or 512
-# define WIN_WIDTH 2048  // or 1024
+# define WIN_HEIGHT 512 // 1024 // or 512
+# define WIN_WIDTH 1024 // 2048  // or 1024
 # define CUBE_SIZE 64    // or 64
 
 # define SPEED 5
@@ -20,7 +20,6 @@
 
 typedef struct s_player	t_player;
 typedef struct s_coor	t_coor;
-typedef struct s_mlx	t_mlx;
 typedef struct s_var	t_var;
 typedef struct s_map	t_map;
 
@@ -30,19 +29,12 @@ struct					s_coor
 	float				y;
 };
 
-// FOV: field of view
-
-struct s_player {
-	t_coor	position;
-	t_coor	direction;
-	float	angle;
-	char	first_view;
-};
-
-struct					s_mlx
+struct					s_player
 {
-	void				*mlx;
-	void				*win;
+	t_coor				position;
+	t_coor				direction;
+	float				angle;
+	char				first_view;
 };
 
 struct					s_map
@@ -57,17 +49,13 @@ struct					s_map
 	int					max_width;
 	char				**map;
 	char				*first_map_line;
-  char        *last_map_line;
-	// later ******************
-	void				*no_img;
-	void				*so_img;
-	void				*we_img;
-	void				*ea_img;
+	char				*last_map_line;
 };
 
 struct					s_var
 {
-	t_mlx				mlx;
+	mlx_t				*mlx;
+	mlx_image_t			*img;
 	t_player			player;
 	t_map				map;
 };

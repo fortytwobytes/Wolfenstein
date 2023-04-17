@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:53:04 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/16 20:34:21 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:05:13 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "srcs.h"
+#include "../includes/srcs.h"
 
 bool	is_all_num(char **elements);
 bool	is_all_spaces(char *line);
 int		*get_rgb(char *arg);
 void	fill_map_struct(t_var *var, char *element, char *arg);
 void	parse_elements(t_var *var, char *filename);
-void	parsing(t_var *var, char *cub_filename);
 char	*readline_skipping_spaces(int fd);
-void	get_map_dimentions(int fd, t_map *map);
+void	get_map_dimensions(int fd, t_map *map);
 void	init_map(t_var *var);
 void	parse_map(t_var *var, char *path);
 void	fill_2d_map(int fd, t_map *map);
@@ -69,7 +68,7 @@ void	parse_elements(t_var *var, char *filename)
 		ft_free_split(elements);
 	}
 	var->map.first_map_line = readline_skipping_spaces(fd);
-	get_map_dimentions(fd, &var->map);
+	get_map_dimensions(fd, &var->map);
 	close(fd);
 }
 
@@ -130,15 +129,11 @@ void	fill_2d_map(int fd, t_map *map)
 // TODO: hold the mlx image instead of freeing it
 char	*get_texture(t_var *var, char *path)
 {
-	// int		img_height;
-	// int		img_width;
-	// void	*img;
-
-	// img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
-	// if (img == NULL)
-	// 	fatal("invalid texture");
-	// mlx_destroy_image(var->mlx.mlx, img);
-	// return (path);
+	xpm_t *xpm = mlx_load_xpm42(path);
+	if (xpm == NULL) {
+		fatal(mlx_strerror(mlx_errno));
+	}
+	mlx_delete_xpm42(xpm);
 	return (path);
 }
 
@@ -220,7 +215,7 @@ bool	is_all_spaces(char *line)
 	return (true);
 }
 
-void	get_map_dimentions(int fd, t_map *map)
+void	get_map_dimensions(int fd, t_map *map)
 {
 	char	*line;
 	int		line_len;

@@ -29,15 +29,15 @@ displaying images from disk or creating a drawing surface to draw pixels on.
 
 ## Toc
 
-* [Basics](./Basics.md)
-* [Colors](./Colors.md)
-* [Functions](./Functions.md)
-* [Hooks](./Hooks.md)
-* [Images](./Images.md)
-* [Input](./Input.md)
-* [Shaders](./Shaders.md)
-* [Textures](./Textures.md)
-* [XPM42](./XPM42.md)
+* [Basics](Basics.md)
+* [Colors](Colors.md)
+* [Functions](Functions.md)
+* [Hooks](Hooks.md)
+* [Images](Images.md)
+* [Input](Input.md)
+* [Shaders](Shaders.md)
+* [Textures](Textures.md)
+* [XPM42](XPM42.md)
 
 ---
 

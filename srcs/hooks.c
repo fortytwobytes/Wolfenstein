@@ -1,4 +1,4 @@
-#include "srcs.h"
+#include "../includes/srcs.h"
 
 void	move_player(t_var *var, int option)
 {

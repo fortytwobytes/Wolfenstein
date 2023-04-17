@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/06 10:19:16 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 02:47:57 by onouakch         ###   ########.fr       */
+/*   Created: 2023/04/11 17:50:24 by relkabou          #+#    #+#             */
+/*   Updated: 2023/04/11 17:50:25 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libc.h"
+#include "../../includes/libc.h"
 
-size_t	ft_strlen(const char *str)
+char	*ft_strdup(char *str)
 {
-	size_t	i;
+	char	*buffer;
+	size_t	str_len;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	str_len = ft_strlen(str);
+	buffer = ft_calloc(sizeof(char) * (str_len + 1));
+	ft_memcpy(buffer, str, str_len);
+	return (buffer);
 }

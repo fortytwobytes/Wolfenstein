@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libc.h"
+#include "../../includes/libc.h"
 
 static int	is_sep(char c, char *charset);
 static int	count_strings(char *str, char *charset);

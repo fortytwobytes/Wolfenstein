@@ -8,7 +8,7 @@ See copyright and license notice in the root project for more information.
 Textures are disk loaded images stored in memory and hold a buffer of pixel data along with information 
 about the image such as width, height, and bytes per pixel.
 
-Textures on their own are not displayed to the screen but have to be displayed using [Images](./Images.md).
+Textures on their own are not displayed to the screen but have to be displayed using [Images](Images.md).
 To do so you can use the `mlx_texture_to_image` function that creates an image large enough to store the 
 texture which then can be displayed.
 

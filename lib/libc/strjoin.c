@@ -1,4 +1,4 @@
-#include "libc.h"
+#include "../../includes/libc.h"
 
 char	*strjoin(char *str1, char *str2)
 {

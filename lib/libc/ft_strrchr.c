@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/27 20:05:08 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 17:40:27 by relkabou         ###   ########.fr       */
+/*   Created: 2022/10/13 17:00:16 by onouakch          #+#    #+#             */
+/*   Updated: 2023/04/11 02:55:23 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libc.h"
+#include "../../includes/libc.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	if (!s)
-		return (NULL);
+	char	*p;
+
+	p = NULL;
 	while (*s)
 	{
 		if (*s == c)
-			return ((char *)s);
-		else
-			s++;
+			p = (char *)s;
+		s++;
 	}
-	if (*s == c)
+	if (c == '\0')
 		return ((char *)s);
-	else
-		return (NULL);
+	return (p);
 }

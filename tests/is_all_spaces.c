@@ -1,4 +1,4 @@
-#include "../srcs/srcs.h"
+#include "../includes/srcs.h"
 
 int main() {
     char *line1 = "   ";

@@ -1,4 +1,4 @@
-#include "libc.h"
+#include "../../includes/libc.h"
 
 int		ft_split_len(char **elements);
 void	ft_free_split(char **split);

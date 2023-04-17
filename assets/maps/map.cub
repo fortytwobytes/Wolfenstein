@@ -1,9 +1,7 @@
-NO ./textures/wall.xpm
-SO ./textures/wall.xpm
-WE ./textures/wall.xpm
-
-
-EA ./textures/wall.xpm
+NO ./assets/textures/wall.xpm42
+SO ./assets/textures/wall.xpm42
+WE ./assets/textures/wall.xpm42
+EA ./assets/textures/wall.xpm42
 
 F 220,100,0
 C 225,30,0
@@ -20,7 +18,7 @@ C 225,30,0
 11000000110101011100000010001
 10000000000000001100000010001
 10000000000000001101010010001
-11000001101010111110111100111
+1100000110101011111011110N111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 

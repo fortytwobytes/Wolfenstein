@@ -26,7 +26,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t	ft_strlen(const char *s);
 void	*ft_calloc(size_t size);
 void	*ft_memcpy(void *dst, void *src, size_t n);
-void	fatal(char *message);
+void	fatal(const char *message);
 void	ft_free_split(char **split);
 int     ft_split_len(char **elements);
 void	ft_free_split(char **split);
