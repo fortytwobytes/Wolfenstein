@@ -2,7 +2,7 @@
 
 void	fatal(char *message)
 {
-	write(2, "Error", 7);
+	write(2, "Error", 5);
 	while (*message)
 		write(2, message++, 1);
 	write(2, "\n", 1);
