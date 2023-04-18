@@ -5,11 +5,16 @@
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 
-# define PI 3.14
+# define PI 3.14L
 
-# define WIN_HEIGHT 512 // 1024 // or 512
-# define WIN_WIDTH 1024 // 2048  // or 1024
-# define CUBE_SIZE 64    // or 64
+# define CUBE_SIZE 32
+# define MAP_MAX_HEIGHT	128
+# define MAP_MAX_WIDTH 64
+# define MAP_MIN_HEIGHT 4
+# define MAP_MIN_WIDTH 4
+# define PLAYER_SIZE 8
+# define WIN_HEIGHT 512
+# define WIN_WIDTH 1024
 
 # define SPEED 5
 # define ROTATE_SPEED 0.1
@@ -47,19 +52,21 @@ struct					s_map
 	int					*c_color;
 	int					max_height;
 	int					max_width;
+	int		 			cub_size;
 	char				**map;
 	char				*first_map_line;
-	char				*last_map_line;
 };
 
 struct					s_var
 {
 	mlx_t				*mlx;
 	mlx_image_t			*img;
+	mlx_image_t 		*map_img;
 	t_player			player;
 	t_map				map;
 };
 
 void					parsing(t_var *var, char *map_file);
-void					hooks(mlx_key_data_t keydata, void *param);
+void					hooks(void *param);
+
 #endif // !SRCS_H

@@ -1,0 +1,14 @@
+NO ./assets/textures/wall.xpm42
+SO ./assets/textures/wall.xpm42
+WE ./assets/textures/wall.xpm42
+EA ./assets/textures/wall.xpm42
+
+F 220,100,0
+C 225,30,0
+
+11111111
+10101001
+10100001
+10100101
+100N0101
+11111111

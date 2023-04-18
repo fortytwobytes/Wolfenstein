@@ -24,6 +24,7 @@ void	parse_map(t_var *var, char *path);
 void	fill_2d_map(int fd, t_map *map);
 void	skip_till_first_map_line(int fd, t_map *map);
 void	ft_check_map(t_var *var);
+int get_cub_size(int map_height, int map_width);
 
 void	parsing(t_var *var, char *cub_filename)
 {
@@ -120,10 +121,6 @@ void	fill_2d_map(int fd, t_map *map)
 			break ;
 		i++;
 	}
-	for (int i = 0; map->map[i]; i++)
-	{
-		printf("%s\n", map->map[i]);
-	}
 }
 
 // TODO: hold the mlx image instead of freeing it
@@ -218,6 +215,7 @@ bool	is_all_spaces(char *line)
 void	get_map_dimensions(int fd, t_map *map)
 {
 	char	*line;
+	char 	*rest_map;
 	int		line_len;
 
 	map->max_width = ft_strlen(map->first_map_line) - 1;
@@ -230,14 +228,34 @@ void	get_map_dimensions(int fd, t_map *map)
 		if (line_len > map->max_width)
 			map->max_width = line_len;
 		map->max_height++;
-		map->last_map_line = line;
 		free(line);
 	}
-	char *rest_map = readline_skipping_spaces(fd);
-	if (rest_map != NULL) {
+	rest_map = readline_skipping_spaces(fd);
+	if (rest_map != NULL)
+	{
 		free(rest_map);
 		fatal("elements after map");
 	}
+	map->cub_size = get_cub_size(map->max_height, map->max_width);
+}
+
+// TODO: this is just a temporary implementation to get the best cube size
+// the current implementation only works for the assets/maps/mini.cub
+int get_cub_size(int map_height, int map_width) {
+	int	lowest;
+	int i;
+
+	i = 1;
+	if (map_width > MAP_MAX_WIDTH || map_width < MAP_MIN_WIDTH
+		|| map_height > MAP_MAX_HEIGHT || map_height < MAP_MIN_HEIGHT)
+		fatal("map too big or too small");
+	if (map_height < map_width)
+		lowest = map_height;
+	else
+		lowest = map_width;
+	while (1 << i < lowest)
+		i++;
+    return (lowest >> (i - 1) << (i - 1) << 4);
 }
 
 bool	is_all_num(char **elements)
