@@ -12,7 +12,7 @@ else
     LINKING     :=      lib/MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
-SRCS		=	$(wildcard main.c lib/libc/*.c srcs/*.c)
+SRCS		=	$(wildcard main.c lib/libc/*.c srcs/*.c srcs/parsing/*.c)
 
 SRCS_DIRS   = $(dir $(SRCS))
 

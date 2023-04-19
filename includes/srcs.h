@@ -55,6 +55,7 @@ struct					s_map
 	int		 			cub_size;
 	char				**map;
 	char				*first_map_line;
+	char				*last_map_line;
 };
 
 struct					s_var
@@ -66,7 +67,21 @@ struct					s_var
 	t_map				map;
 };
 
-void					parsing(t_var *var, char *map_file);
 void					hooks(void *param);
+
+/************* parse_elements.c *****************/
+char					*readline_skipping_spaces(int fd);
+void					fill_map_struct(t_var *var, char *element, char *arg);
+
+/************** parse_utils.c *******************/
+void					get_map_dimentions(int fd, t_map *map);
+void					skip_till_first_map_line(int fd, t_map *map);
+char					*get_texture(t_var *var, char *path);
+
+/************** parse_map.c *********************/
+int						ft_check_map(t_var *var);
+
+/************** parsing.c ***********************/
+void					parsing(t_var *var, char *map_file);
 
 #endif // !SRCS_H
