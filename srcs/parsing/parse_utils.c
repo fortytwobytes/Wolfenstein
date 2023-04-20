@@ -30,18 +30,17 @@ void	skip_till_first_map_line(int fd, t_map *map)
 	}
 }
 
-// TODO: hold the mlx image instead of freeing it
-char	*get_texture(t_var *var, char *path)
+mlx_image_t *get_texture(t_var *var, char *path)
 {
-	// int		img_height;
-	// int		img_width;
-	// void	*img;
-	// img = mlx_xpm_file_to_image(var->mlx.mlx, path, &img_width, &img_height);
-	// if (img == NULL)
-	// 	fatal("invalid texture");
-	// mlx_destroy_image(var->mlx.mlx, img);
-	// return (path);
-	return (path);
+	xpm_t *xpm = mlx_load_xpm42(path);
+	if (xpm == NULL)
+		fatal("invalid xpm texture");
+    mlx_image_t *image = mlx_texture_to_image(var->mlx, &xpm->texture);
+    if (image == NULL) {
+        mlx_delete_xpm42(xpm);
+        fatal(mlx_strerror(mlx_errno));
+    }
+	return (image);
 }
 
 void	get_map_dimentions(int fd, t_map *map)
@@ -60,7 +59,6 @@ void	get_map_dimentions(int fd, t_map *map)
 		if (line_len > map->max_width)
 			map->max_width = line_len;
 		map->max_height++;
-		map->last_map_line = line;
 		free(line);
 	}
 	rest_map = readline_skipping_spaces(fd);
@@ -69,4 +67,9 @@ void	get_map_dimentions(int fd, t_map *map)
 		free(rest_map);
 		fatal("elements after map");
 	}
+}
+
+u_int32_t get_color(int *rgb)
+{
+	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 0xFF);
 }
