@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:24:35 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/19 21:10:33 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/20 03:20:29 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ int	ft_check_content(char *line, t_var *var, int y)
 		{
 			if (var->player.first_view != '\0')
 				return (free(line), -1);
-			var->player.position.x = i;
-			var->player.position.y = y;
+			var->player.pos.x = y * CUBE_SIZE + CUBE_SIZE / 2;
+			var->player.pos.y = i * CUBE_SIZE + CUBE_SIZE / 2;
 			var->player.first_view = line[i];
 		}
 	}

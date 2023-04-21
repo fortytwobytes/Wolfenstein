@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-fsanitize=address # -Wall -Wextra -Werror
+CFLAGS		=	-fsanitize=address -g # -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
 
@@ -12,7 +12,7 @@ else
     LINKING     :=      lib/MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
-SRCS		=	$(wildcard main.c lib/libc/*.c srcs/*.c srcs/parsing/*.c)
+SRCS		=	$(wildcard main.c lib/libc/*.c srcs/*.c srcs/parsing/*.c srcs/engine/*.c)
 
 SRCS_DIRS   = $(dir $(SRCS))
 
@@ -21,7 +21,7 @@ BIN_DIR     = bin/
 OBJS        = $(SRCS:%.c=$(BIN_DIR)%.o)
 OBJS_DIRS   = $(dir $(OBJS))
 
-INCLUDES	=	$(wildcard libc/*.h srcs/*.h)
+INCLUDES	=	$(wildcard includes/*.h)
 
 NAME		=	cub3D
 

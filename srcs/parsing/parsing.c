@@ -12,14 +12,17 @@
 
 #include "../../includes/srcs.h"
 
+// TODO: find another way to check for colors
+// cause they are no longer a pointers
+// maybe we can use a value that's bigger than u_int32_t
 static void	init_map(t_var *var)
 {
-	var->map.no_path = NULL;
-	var->map.so_path = NULL;
-	var->map.ea_path = NULL;
-	var->map.we_path = NULL;
-	var->map.c_color = NULL;
-	var->map.f_color = NULL;
+	var->map.no_image = NULL;
+	var->map.so_image = NULL;
+	var->map.ea_image = NULL;
+	var->map.we_image = NULL;
+//	var->map.c_color = NULL;
+//	var->map.f_color = NULL;
 	var->map.max_height = 1;
 	var->player.first_view = '\0';
 }
@@ -43,9 +46,6 @@ static void	fill_2d_map(int fd, t_map *map)
 			break ;
 		i++;
 	}
-	i = -1;
-	while (map->map[++i])
-		printf("%s\n", map->map[i]);
 }
 
 static void	parse_map(t_var *var, char *path)
