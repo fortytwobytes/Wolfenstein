@@ -42,15 +42,9 @@ void	hooks(void *param) {
         *yid -= p->direction.y * SPEED;
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_LEFT) == true) {
-        p->angle += ROTATE_SPEED;
-        p->angle = getAngle(p->angle);
-        p->direction.x = +cos(p->angle);
-        p->direction.y = -sin(p->angle);
+        adjust_view(p, MLX_KEY_LEFT);
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT) == true) {
-        p->angle -= ROTATE_SPEED;
-        p->angle = getAngle(p->angle);
-        p->direction.x = +cos(p->angle);
-        p->direction.y = -sin(p->angle);
+        adjust_view(p, MLX_KEY_RIGHT);
     }
 }

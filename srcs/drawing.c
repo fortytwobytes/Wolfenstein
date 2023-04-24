@@ -2,10 +2,10 @@
 
 static void draw_square(mlx_image_t *img, int x, int y, u_int32_t color)
 {
-    int xEnd = x + CUBE_SIZE - 1;
-    int yEnd = y + CUBE_SIZE - 1;
-    for (int xo = x; xo < xEnd; xo++) {
-        for (int yo = y; yo < yEnd; yo++) {
+    int x_end = x + CUBE_SIZE - 1;
+    int y_end = y + CUBE_SIZE - 1;
+    for (int xo = x; xo < x_end; xo++) {
+        for (int yo = y; yo < y_end; yo++) {
             mlx_put_pixel(img, xo, yo, color);
         }
     }
@@ -14,8 +14,8 @@ static void draw_square(mlx_image_t *img, int x, int y, u_int32_t color)
 void draw_player(void *params)
 {
     mlx_image_t *player_img = params;
-    for (int x = 0; x < player_img->width; ++x) {
-        for (int y = 0; y < player_img->height; ++y) {
+    for (uint x = 0; x < player_img->width; ++x) {
+        for (uint y = 0; y < player_img->height; ++y) {
             mlx_put_pixel(player_img, x, y, RED);
         }
     }

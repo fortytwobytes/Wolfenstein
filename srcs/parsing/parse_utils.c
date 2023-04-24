@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/19 21:10:36 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/24 07:35:02 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ mlx_image_t *get_texture(t_var *var, char *path)
 	return (image);
 }
 
-void	get_map_dimentions(int fd, t_map *map)
+void	get_map_dimension(int fd, t_map *map)
 {
 	char	*line;
 	int		line_len;
@@ -71,5 +71,12 @@ void	get_map_dimentions(int fd, t_map *map)
 
 u_int32_t get_color(int *rgb)
 {
-	return (rgb[0] << 24 | rgb[1] << 16 | rgb[2] << 8 | 0xFF);
+	ushort red;
+	ushort green;
+	ushort blue;
+
+	red = rgb[0];
+	green = rgb[1];
+	blue = rgb[2];
+	return (red << 24 | green << 16 | blue << 8 | 0xFF);
 }

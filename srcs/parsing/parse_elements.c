@@ -105,9 +105,9 @@ void	fill_map_struct(t_var *var, char *element, char *arg)
 		var->map.we_image = get_texture(var, arg);
 	else if (!strcmp(element, "EA") && var->map.ea_image == NULL)
 		var->map.ea_image = get_texture(var, arg);
-	else if (!strcmp(element, "F") /*&& var->map.f_color == NULL */)
+	else if (!strcmp(element, "F") && var->map.f_color == -1)
 		var->map.f_color = get_rgb(arg);
-	else if (!strcmp(element, "C") /* && var->map.c_color == NULL */)
+	else if (!strcmp(element, "C") && var->map.c_color == -1)
 		var->map.c_color = get_rgb(arg);
 	else
 		fatal("duplicated or invalid element");
