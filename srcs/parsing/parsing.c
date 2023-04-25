@@ -6,24 +6,21 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:53:04 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/19 21:10:37 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/04/24 07:49:25 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/srcs.h"
 
-// TODO: find another way to check for colors
-// cause they are no longer a pointers
-// maybe we can use a value that's bigger than u_int32_t
 static void	init_map(t_var *var)
 {
+    var->map.c_color = -1;
+    var->map.f_color = -1;
+    var->map.max_height = 1;
 	var->map.no_image = NULL;
 	var->map.so_image = NULL;
 	var->map.ea_image = NULL;
 	var->map.we_image = NULL;
-//	var->map.c_color = NULL;
-//	var->map.f_color = NULL;
-	var->map.max_height = 1;
 	var->player.first_view = '\0';
 }
 
@@ -52,7 +49,7 @@ static void	parse_map(t_var *var, char *path)
 {
 	int	fd;
 
-	fd = open(path, O_RDONLY);
+	fd = ft_open(path);
 	skip_till_first_map_line(fd, &var->map);
 	fill_2d_map(fd, &var->map);
 	ft_check_map(var);
@@ -67,9 +64,7 @@ static void	parse_elements(t_var *var, char *filename)
 	char	*line;
 
 	i = -1;
-	fd = open(filename, O_RDONLY);
-	if (fd == EOF)
-		fatal("can't open the map file");
+	fd = ft_open(filename);
 	while (++i < NBROF_ELEMENTS)
 	{
 		line = readline_skipping_spaces(fd);
@@ -83,13 +78,13 @@ static void	parse_elements(t_var *var, char *filename)
 		ft_free_split(elements);
 	}
 	var->map.first_map_line = readline_skipping_spaces(fd);
-	get_map_dimentions(fd, &var->map);
+	get_map_dimension(fd, &var->map);
 	close(fd);
 }
 
-void	parsing(t_var *var, char *cub_filename)
+void	parsing(t_var *var, char *cubFilename)
 {
 	init_map(var);
-	parse_elements(var, cub_filename);
-	parse_map(var, cub_filename);
+	parse_elements(var, cubFilename);
+	parse_map(var, cubFilename);
 }

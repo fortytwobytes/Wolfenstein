@@ -46,8 +46,8 @@ int	ft_check_content(char *line, t_var *var, int y)
 		{
 			if (var->player.first_view != '\0')
 				return (free(line), -1);
-			var->player.pos.x = y * CUBE_SIZE + CUBE_SIZE / 2;
-			var->player.pos.y = i * CUBE_SIZE + CUBE_SIZE / 2;
+			var->player.first_pos.x = y * CUBE_SIZE + CUBE_SIZE / 2;
+			var->player.first_pos.y = i * CUBE_SIZE + CUBE_SIZE / 2;
 			var->player.first_view = line[i];
 		}
 	}
