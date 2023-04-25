@@ -104,16 +104,19 @@ void					init_images(t_var *var);
 // drawing.c
 void					draw_player(void *params);
 void					draw_map(void *params);
-
 double					get_angle(double angle);
 
-// norm
+// ---------- syscalls.c ---------- //
 int						ft_open(const char *pathname);
 
+// ---------- srcs/engine/utils.c ---------- //
+double					distance_between_points(double x1, double y1, double x2, double y2);
+void					draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color);
+
+// ---------- srcs/engine/move.c ---------- //
 void                    move_up(t_map map, t_player *p);
 void                    move_down(t_map map, t_player *p);
 void                    move_left(t_map map, t_player *p);
 void                    move_right(t_map map, t_player *p);
-
 
 #endif // !SRCS_H
