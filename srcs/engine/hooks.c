@@ -1,17 +1,27 @@
 #include "../../includes/srcs.h"
 
 // checks for angle overflow
-double getAngle(double angle)
+double get_angle(double angle)
 {
-    double _2pi;
-
-    _2pi = M_PI * 2.0;
-
-    if (angle > _2pi)
-        angle -= _2pi;
+    if (angle > PI_2)
+        angle -= PI_2;
     if (angle < 0)
-        angle += _2pi;
+        angle += PI_2;
     return angle;
+}
+
+void    adjust_view(t_player *p, int key)
+{
+    double  angle;
+
+    angle = p->angle;
+    if (key == MLX_KEY_LEFT)
+        angle -= ROTATE_SPEED;
+    else if (key == MLX_KEY_RIGHT)
+        angle += ROTATE_SPEED;
+    p->angle = get_angle(angle);
+    p->direction.x = cos(p->angle);
+    p->direction.y = sin(p->angle);
 }
 
 void	hooks(void *param) {
