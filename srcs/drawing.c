@@ -31,10 +31,23 @@ void draw_map(void *params) {
         for (int y = 0; line[j]; y += CUBE_SIZE) {
             if (line[j] == '1')
                 draw_square(var->minimap, x, y, WHITE);
-            if (line[j] == '0')
+            else
                 draw_square(var->minimap, x, y, BLACK);
             j++;
         }
         i++;
     }
+}
+
+void    draw_direction(void *params)
+{
+    t_var *var = params;
+    memset(var->rays->pixels, 0, var->rays->height * var->rays->width * sizeof(int32_t));
+    int32_t x = *var->player.x_pos + (PLAYER_SIZE / 2);
+    int32_t y = *var->player.y_pos + (PLAYER_SIZE / 2);
+    int32_t x1 = x + var->player.direction.x;
+    int32_t y1 = y + var->player.direction.y;
+
+    printf("(x1: %d, y1: %d), angle %f\n", x1, y1, var->player.angle);
+    draw_line(var->rays, (t_vect) {x,y}, (t_vect) {329,195}, GREEN);
 }
