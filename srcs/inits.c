@@ -25,19 +25,18 @@ void    init_window(t_var *var)
 void    init_images(t_var *var)
 {
     var->minimap = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
+    var->scene3d = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
     var->player.img = mlx_new_image(var->mlx, PLAYER_SIZE, PLAYER_SIZE);
     var->rays = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
     if (!var->minimap || !var->player.img || !var->rays)
         fatal(mlx_strerror(mlx_errno));
     if (mlx_image_to_window(var->mlx, var->minimap, 0, 0) == EOF)
         fatal(mlx_strerror(mlx_errno));
-    if (mlx_image_to_window(var->mlx, var->player.img, (int)var->player.first_pos.x, (int)var->player.first_pos.y) == EOF)
-        fatal(mlx_strerror(mlx_errno));
-    if (mlx_image_to_window(var->mlx, var->rays, 0, 0) == -1)
+    if (mlx_image_to_window(var->mlx, var->player.img, var->player.first_pos.x, var->player.first_pos.y) == EOF)
         fatal(mlx_strerror(mlx_errno));
     var->player.angle = get_angle_for_direction(var->player.first_view);
-    var->player.direction.x = cos(var->player.angle) * DIRECTION_LEN;
-    var->player.direction.y = sin(var->player.angle) * DIRECTION_LEN;
+    var->player.direction.x = cos(var->player.angle);
+    var->player.direction.y = sin(var->player.angle);
     var->player.x_pos = &var->player.img->instances[0].x;
     var->player.y_pos = &var->player.img->instances[0].y;
 }

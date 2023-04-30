@@ -28,6 +28,9 @@
 # define PI_2 6.283185307179586
 # define FOV 60
 
+typedef unsigned int uint;
+typedef unsigned short ushort;
+
 typedef struct s_player	t_player;
 typedef struct s_vect	t_vect;
 typedef struct s_var	t_var;
