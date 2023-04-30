@@ -25,13 +25,10 @@ void    init_window(t_var *var)
 void    init_images(t_var *var)
 {
     var->minimap = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
-    if (var->minimap == NULL)
-    {
-        mlx_close_window(var->mlx);
-        fatal(mlx_strerror(mlx_errno));
-    }
+    var->scene3d = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
     var->player.img = mlx_new_image(var->mlx, PLAYER_SIZE, PLAYER_SIZE);
-    if (var->player.img == NULL)
+    var->rays = mlx_new_image(var->mlx, WIN_WIDTH, WIN_HEIGHT);
+    if (!var->minimap || !var->player.img || !var->rays)
         fatal(mlx_strerror(mlx_errno));
     if (mlx_image_to_window(var->mlx, var->minimap, 0, 0) == EOF)
         fatal(mlx_strerror(mlx_errno));

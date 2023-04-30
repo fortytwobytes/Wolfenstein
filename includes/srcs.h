@@ -15,16 +15,21 @@
 # define BLACK 0x000000FFL
 # define RED 0xFF0000FFL
 # define WHITE 0xFFFFFFFFL
+# define GREEN 0x00FF00FFL
 
 // GAME
 # define SPEED 5
 # define ROTATE_SPEED M_PI / 48.0f
+# define DIRECTION_LEN 50
 
 // MISC
 # define SPACES " \t\n"
 # define NBROF_ELEMENTS 6
 # define PI_2 6.283185307179586
 # define FOV 60
+
+typedef unsigned int uint;
+typedef unsigned short ushort;
 
 typedef struct s_player	t_player;
 typedef struct s_vect	t_vect;
@@ -45,6 +50,8 @@ struct					s_rect
 	uint32_t			height;
 };
 
+// (x_pos, y_pos) are pointers to the location of the player
+// for moving instances you can just differentiate the pointers
 struct					s_player
 {
 	t_vect				first_pos;
@@ -75,6 +82,7 @@ struct					s_var
 	mlx_t				*mlx;
 	mlx_image_t			*scene3d;
 	mlx_image_t			*minimap;
+	mlx_image_t 		*rays;
 	t_player			player;
 	t_map				map;
 };
@@ -112,6 +120,7 @@ int						ft_open(const char *pathname);
 // ---------- srcs/engine/utils.c ---------- //
 double					distance_between_points(double x1, double y1, double x2, double y2);
 void					draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color);
+void                    draw_direction(void *params);
 
 // ---------- srcs/engine/move.c ---------- //
 void                    move_up(t_map map, t_player *p);

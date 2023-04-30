@@ -20,8 +20,8 @@ void    adjust_view(t_player *p, int key)
     else if (key == MLX_KEY_RIGHT)
         angle += ROTATE_SPEED;
     p->angle = get_angle(angle);
-    p->direction.x = cos(p->angle);
-    p->direction.y = sin(p->angle);
+    p->direction.x = cos(p->angle) * DIRECTION_LEN;
+    p->direction.y = sin(p->angle) * DIRECTION_LEN;
 }
 
 void	hooks(void *param) {
@@ -36,20 +36,20 @@ void	hooks(void *param) {
         mlx_close_window(var->mlx);
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_A) == true) {
-        *xid += p->direction.y * SPEED;
-        *yid -= p->direction.x * SPEED;
+        *xid += p->direction.y;
+        *yid -= p->direction.x;
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_D) == true) {
-        *xid -= p->direction.y * SPEED;
-        *yid += p->direction.x * SPEED;
+        *xid -= p->direction.y;
+        *yid += p->direction.x;
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_W) == true) {
-        *xid += p->direction.x * SPEED;
-        *yid += p->direction.y * SPEED;
+        *xid += p->direction.x;
+        *yid += p->direction.y;
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_S) == true) {
-        *xid -= p->direction.x * SPEED;
-        *yid -= p->direction.y * SPEED;
+        *xid -= p->direction.x;
+        *yid -= p->direction.y;
     }
     if (mlx_is_key_down(var->mlx, MLX_KEY_LEFT) == true) {
         adjust_view(p, MLX_KEY_LEFT);
@@ -57,4 +57,5 @@ void	hooks(void *param) {
     if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT) == true) {
         adjust_view(p, MLX_KEY_RIGHT);
     }
+    draw_direction(var);
 }

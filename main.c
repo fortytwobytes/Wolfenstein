@@ -31,4 +31,3 @@ int main(int ac, char **av) {
     mlx_terminate(var.mlx);
     return (0);
 }
-
