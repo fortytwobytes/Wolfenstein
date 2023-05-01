@@ -49,16 +49,16 @@ void	get_map_dimension(int fd, t_map *map)
 	int		line_len;
 	char	*rest_map;
 
-	map->max_width = ft_strlen(map->first_map_line) - 1;
+	map->width = ft_strlen(map->first_map_line) - 1;
 	while (true)
 	{
 		line = get_next_line(fd);
 		if (line == NULL || strcmp(line, "\n") == 0)
 			break ;
 		line_len = ft_strlen(line) - 1;
-		if (line_len > map->max_width)
-			map->max_width = line_len;
-		map->max_height++;
+		if (line_len > map->width)
+			map->width = line_len;
+		map->height++;
 		free(line);
 	}
 	rest_map = readline_skipping_spaces(fd);

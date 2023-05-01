@@ -1,15 +1,7 @@
 #include "../includes/srcs.h"
 
-static double get_angle_for_direction(char direction)
-{
-    if (direction == 'N')
-        return (3 * M_PI_2);
-    if (direction == 'W')
-        return (M_PI);
-    if (direction == 'S')
-        return (M_PI_2);
-    return (0);
-}
+static void init_player(t_var *var, t_player *p);
+static double get_angle_for_direction(char direction);
 
 void    init_window(t_var *var)
 {
@@ -21,6 +13,7 @@ void    init_window(t_var *var)
     }
     mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH, WIN_HEIGHT);
 }
+
 
 void    init_images(t_var *var)
 {
@@ -34,10 +27,29 @@ void    init_images(t_var *var)
         fatal(mlx_strerror(mlx_errno));
     if (mlx_image_to_window(var->mlx, var->player.img, var->player.first_pos.x, var->player.first_pos.y) == EOF)
         fatal(mlx_strerror(mlx_errno));
-    var->player.angle = get_angle_for_direction(var->player.first_view);
-    var->player.direction.x = cos(var->player.angle);
-    var->player.direction.y = sin(var->player.angle);
-    var->player.x_pos = &var->player.img->instances[0].x;
-    var->player.y_pos = &var->player.img->instances[0].y;
+    init_player(var, &var->player);
 }
 
+static void init_player(t_var *var, t_player *p)
+{
+    p->angle = get_angle_for_direction(var->player.first_view);
+    p->direction.x = cos(p->angle);
+    p->direction.y = sin(p->angle);
+    p->x_pixel = &p->img->instances[0].x;
+    p->y_pixel = &p->img->instances[0].y;
+    p->x_map = *var->player.x_pixel / CUBE_SIZE;
+    p->y_map = *var->player.y_pixel / CUBE_SIZE;
+    p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
+    p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
+}
+
+static double get_angle_for_direction(char direction)
+{
+    if (direction == 'N')
+        return (3 * M_PI_2);
+    if (direction == 'W')
+        return (M_PI);
+    if (direction == 'S')
+        return (M_PI_2);
+    return (0);
+}

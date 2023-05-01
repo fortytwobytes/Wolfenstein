@@ -16,7 +16,7 @@ static void	init_map(t_var *var)
 {
     var->map.c_color = -1;
     var->map.f_color = -1;
-    var->map.max_height = 1;
+    var->map.height = 1;
 	var->map.no_image = NULL;
 	var->map.so_image = NULL;
 	var->map.ea_image = NULL;
@@ -31,11 +31,11 @@ static void	fill_2d_map(int fd, t_map *map)
 
 	i = 0;
 	line = ft_strdup(map->first_map_line);
-	map->map = ft_calloc(sizeof(char *) * (map->max_height + 1));
+	map->map = ft_calloc(sizeof(char *) * (map->height + 1));
 	while (true)
 	{
-		map->map[i] = ft_calloc(sizeof(char) * (map->max_width + 1));
-		memset(map->map[i], ' ', map->max_width);
+		map->map[i] = ft_calloc(sizeof(char) * (map->width + 1));
+		memset(map->map[i], ' ', map->width);
 		ft_memcpy(map->map[i], line, ft_strlen(line) - 1);
 		free(line);
 		line = readline_skipping_spaces(fd);

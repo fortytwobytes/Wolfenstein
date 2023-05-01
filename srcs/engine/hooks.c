@@ -1,5 +1,28 @@
 #include "../../includes/srcs.h"
 
+void	hooks(void *param)
+{
+    t_var *var = param;
+    t_player *p = &var->player;
+    t_map map = var->map;
+
+    if (mlx_is_key_down(var->mlx, MLX_KEY_ESCAPE)) // ↑
+        exit(1); // to change later
+    if (mlx_is_key_down(var->mlx, MLX_KEY_W)) // ↑
+        move_up(map, p);
+    if (mlx_is_key_down(var->mlx, MLX_KEY_S)) // ↓
+        move_down(map, p);
+    if (mlx_is_key_down(var->mlx, MLX_KEY_A)) // ←
+        move_left(map, p);
+    if (mlx_is_key_down(var->mlx, MLX_KEY_D)) // →
+        move_right(map, p);
+    if (mlx_is_key_down(var->mlx, MLX_KEY_LEFT)) // ↺
+        adjust_view(p, MLX_KEY_LEFT);
+    if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT)) // ↻
+        adjust_view(p, MLX_KEY_RIGHT);
+    update_player_position(map, p);
+}
+
 // checks for angle overflow
 double get_angle(double angle)
 {
@@ -10,52 +33,18 @@ double get_angle(double angle)
     return angle;
 }
 
-void    adjust_view(t_player *p, int key)
+// update the pixels, map, direction, view, casts
+void   update_player_position(t_map map, t_player *p)
 {
-    double  angle;
+    int center_x;
+    int center_y;
 
-    angle = p->angle;
-    if (key == MLX_KEY_LEFT)
-        angle -= ROTATE_SPEED;
-    else if (key == MLX_KEY_RIGHT)
-        angle += ROTATE_SPEED;
-    p->angle = get_angle(angle);
-    p->direction.x = cos(p->angle) * DIRECTION_LEN;
-    p->direction.y = sin(p->angle) * DIRECTION_LEN;
-}
-
-void	hooks(void *param) {
-    t_var   *var    = param;
-    char    **map   = var->map.map;
-    int     *xid    = &var->player.img->instances[0].x;
-    int     *yid    = &var->player.img->instances[0].y;
-    t_player *p     = &var->player;
-
-
-    if (mlx_is_key_down(var->mlx, MLX_KEY_ESCAPE) == true) {
-        mlx_close_window(var->mlx);
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_A) == true) {
-        *xid += p->direction.y;
-        *yid -= p->direction.x;
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_D) == true) {
-        *xid -= p->direction.y;
-        *yid += p->direction.x;
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_W) == true) {
-        *xid += p->direction.x;
-        *yid += p->direction.y;
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_S) == true) {
-        *xid -= p->direction.x;
-        *yid -= p->direction.y;
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_LEFT) == true) {
-        adjust_view(p, MLX_KEY_LEFT);
-    }
-    if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT) == true) {
-        adjust_view(p, MLX_KEY_RIGHT);
-    }
-    draw_direction(var);
+    center_x = ((int)p->next_pos.x + PLAYER_SIZE / 2) / CUBE_SIZE;
+    center_y = ((int)p->next_pos.y + PLAYER_SIZE / 2) / CUBE_SIZE;
+    if (map.map[center_x][center_y] == '1')
+        return ;
+    *p->x_pixel = (int) p->next_pos.x;
+    *p->y_pixel = (int) p->next_pos.y;
+    p->x_map = (int) *p->x_pixel / CUBE_SIZE;
+    p->y_map = (int) *p->y_pixel / CUBE_SIZE;
 }
