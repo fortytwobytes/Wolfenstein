@@ -68,8 +68,8 @@ int	ft_check_spaces(t_map *map, int l_index)
 				return (-1);
 			if (l_index != 0 && map->map[l_index - 1][i] == '0')
 				return (-1);
-			if (l_index != map->max_height - 1 && map->map[l_index
-					+ 1][i] == '0')
+			if (l_index != map->height - 1 && map->map[l_index
+                                                       + 1][i] == '0')
 				return (-1);
 		}
 	}
@@ -82,11 +82,11 @@ int	ft_check_map(t_var *var)
 	char	*map_line;
 
 	if (ft_is_wall(ft_strtrim(var->map.map[0], SPACES))
-		|| ft_is_wall(ft_strtrim(var->map.map[var->map.max_height - 1]
+		|| ft_is_wall(ft_strtrim(var->map.map[var->map.height - 1]
 				, SPACES)))
 		fatal("walls error");
 	i = -1;
-	while (++i < var->map.max_height - 1)
+	while (++i < var->map.height - 1)
 	{
 		map_line = ft_strtrim(var->map.map[i], " ");
 		if (ft_check_ledges(map_line))

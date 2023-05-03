@@ -50,14 +50,17 @@ struct					s_rect
 	uint32_t			height;
 };
 
-// (x_pos, y_pos) are pointers to the location of the player
+// (x_pixel, y_pixel) are pointers to the location of the player
 // for moving instances you can just differentiate the pointers
 struct					s_player
 {
 	t_vect				first_pos;
 	t_vect				direction;
-	int					*x_pos;
-	int 				*y_pos;
+	int					*x_pixel;
+	int 				*y_pixel;
+    int                 x_map;
+    int                 y_map;
+    t_vect              next_pos;
 	double				angle;
 	char				first_view;
 	mlx_image_t			*img;
@@ -71,8 +74,8 @@ struct					s_map
 	mlx_image_t			*ea_image;
 	long				f_color;
 	long				c_color;
-	int					max_height;
-	int					max_width;
+	int					height;
+	int					width;
 	char				**map;
 	char				*first_map_line;
 };
@@ -112,7 +115,6 @@ void					init_images(t_var *var);
 // drawing.c
 void					draw_player(void *params);
 void					draw_map(void *params);
-double					get_angle(double angle);
 
 // ---------- syscalls.c ---------- //
 int						ft_open(const char *pathname);
@@ -123,9 +125,15 @@ void					draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color);
 void                    draw_direction(void *params);
 
 // ---------- srcs/engine/move.c ---------- //
+void                    adjust_view(t_player *p, int key);
 void                    move_up(t_map map, t_player *p);
 void                    move_down(t_map map, t_player *p);
 void                    move_left(t_map map, t_player *p);
 void                    move_right(t_map map, t_player *p);
+
+
+double                  get_angle(double angle);
+void                    update_player_position(t_map map, t_player *p);
+void                    draw_scene(t_var *var);
 
 #endif // !SRCS_H

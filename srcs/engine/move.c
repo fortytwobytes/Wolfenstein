@@ -1,70 +1,43 @@
 #include "../../includes/srcs.h"
 
+void    adjust_view(t_player *p, int key)
+{
+    double  angle;
+
+    angle = p->angle;
+    if (key == MLX_KEY_LEFT)
+        angle -= ROTATE_SPEED;
+    else
+        angle += ROTATE_SPEED;
+    p->angle = get_angle(angle);
+    p->direction.x = cos(p->angle);
+    p->direction.y = sin(p->angle);
+}
+
 void    move_up(t_map map, t_player *p)
 {
-    int next_x;
-    int next_y;
-
-    next_x = (int)(*p->x_pos + (p->direction.x * SPEED));
-    next_y = (int)(*p->y_pos + (p->direction.y * SPEED));
-    // tmp protection for the map size
-
-    if (next_x >= map.max_width * CUBE_SIZE || next_y >= map.max_height * CUBE_SIZE)
-        fatal("over the map");
-    printf("next_x: %d, next_y: %d)\n", next_x, next_y);
-    if (map.map[next_x / CUBE_SIZE][next_y / CUBE_SIZE] == '1')
-        return ;
-    *p->x_pos = next_x;
-    *p->y_pos = next_y;
+    p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
+    p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
+    update_player_position(map, p);
 }
 
 void    move_down(t_map map, t_player *p)
 {
-    int next_x;
-    int next_y;
-
-    next_x = (int)(*p->x_pos - (p->direction.x * SPEED));
-    next_y = (int)(*p->y_pos - (p->direction.y * SPEED));
-    // tmp protection for the map size
-    if (next_x >= map.max_width * CUBE_SIZE || next_y >= map.max_height * CUBE_SIZE)
-        fatal("over the map");
-    printf("next_x: %d, next_y: %d)\n", next_x, next_y);
-    if (map.map[next_x / CUBE_SIZE][next_y / CUBE_SIZE] == '1')
-        return ;
-    *p->x_pos = next_x;
-    *p->y_pos = next_y;
+    p->next_pos.x = *p->x_pixel - p->direction.x * SPEED;
+    p->next_pos.y = *p->y_pixel - p->direction.y * SPEED;
+    update_player_position(map, p);
 }
 
 void    move_left(t_map map, t_player *p)
 {
-    int next_x;
-    int next_y;
-
-    next_x = (int)(*p->x_pos + (p->direction.x * SPEED));
-    next_y = (int)(*p->y_pos - (p->direction.y * SPEED));
-    // tmp protection for the map size
-    if (next_x >= map.max_width * CUBE_SIZE || next_y >= map.max_height * CUBE_SIZE)
-        fatal("over the map");
-    printf("next_x: %d, next_y: %d)\n", next_x, next_y);
-    if (map.map[next_x / CUBE_SIZE][next_y / CUBE_SIZE] == '1')
-        return ;
-    *p->x_pos = next_x;
-    *p->y_pos = next_y;
+    p->next_pos.x = *p->x_pixel - cos (p->direction.x * M_PI) * SPEED;
+    p->next_pos.y = *p->y_pixel - sin (p->direction.y * M_PI) * SPEED;
+    update_player_position(map, p);
 }
 
 void    move_right(t_map map, t_player *p)
 {
-    int next_x;
-    int next_y;
-
-    next_x = (int)(*p->x_pos - (p->direction.x * SPEED));
-    next_y = (int)(*p->y_pos + (p->direction.y * SPEED));
-    // tmp protection for the map size
-    if (next_x >= map.max_width * CUBE_SIZE || next_y >= map.max_height * CUBE_SIZE)
-        fatal("over the map");
-    printf("next_x: %d, next_y: %d)\n", next_x, next_y);
-    if (map.map[next_x / CUBE_SIZE][next_y / CUBE_SIZE] == '1')
-        return ;
-    *p->x_pos = next_x;
-    *p->y_pos = next_y;
+    p->next_pos.x = *p->x_pixel + cos (p->direction.x * M_PI) * SPEED;
+    p->next_pos.y = *p->y_pixel + sin (p->direction.y * M_PI) * SPEED;
+    update_player_position(map, p);
 }

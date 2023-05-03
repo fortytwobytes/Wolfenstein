@@ -12,44 +12,30 @@
 
 #include "../../includes/srcs.h"
 
-static int32_t get_incrementation(int p1, int p2)
-{
-    if (p1 < p2)
-        return (1);
-    return (-1);
-}
-
 double distance_between_points(double x1, double y1, double x2, double y2)
 {
     return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-// err * 2 is used to calculate this error for the next iteration.
-void    draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color)
-{
-    t_vect  incr;
-    t_vect  delta;
-    int     err;
+void draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color) {
+    int x0 = (int)p1.x;
+    int y0 = (int)p1.y;
+    int x1 = (int)p2.x;
+    int y1 = (int)p2.y;
 
-    delta.x = +(int)fabs(p1.x - p2.x);
-    delta.y = -(int)fabs(p1.y - p2.y);
-    incr.x = get_incrementation((int)p1.x, (int)p2.x);
-    incr.y = get_incrementation((int)p1.y, (int)p2.y);
-    err = (int)(delta.x + delta.y);
-    while (true)
-    {
-        mlx_put_pixel(image, (uint)p1.x, (uint)p1.y, color);
-        if ((int)p1.x == (int)p2.x && (int)p1.y == (int)p2.y)
-            break ;
-        if (err * 2 >= (int)delta.y)
-        {
-            err += (int)delta.y;
-            p1.x += incr.x;
-        }
-        if (err * 2 <= (int)delta.x)
-        {
-            err += (int)delta.x;
-            p1.y += incr.y;
-        }
+    printf("(in draw line function) from (x0 = %d, y0 = %d) to (x1 = %d, y1 = %d)\n", x0,y0,x1,y1);
+
+    int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
+    int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy, e2; /* error value e_xy */
+
+     while(true){  /* loop */
+        mlx_put_pixel(image, x0, y0, color);
+        if (x0 == x1 && y0 == y1) break;
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; x0 += sx; } /* e_xy+e_x > 0 */
+        if (e2 <= dx) { err += dx; y0 += sy; } /* e_xy+e_y < 0 */
     }
+
 }
+
