@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <unistd.h>
-# include <math.h>
+#include <math.h>
 #include <time.h>
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
@@ -23,6 +23,60 @@
 #define MAP_HEIGHT 24
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 512
+
+#define MINI_MAP_HEIGHT    SCREEN_HEIGHT / 4
+#define MINI_MAP_WIDTH    SCREEN_HEIGHT / 4
+
+# define MINI_CUB_SIZE 20
+
+# define RED 0x000000FF
+
+char **dup_worldMap(char **worldMap) {
+	char **buffer;
+	int i = -1;
+
+	while (worldMap[++i]);
+	buffer = malloc(sizeof(char *) * (i + 1));
+	i = -1;
+	while (worldMap[++i]) {
+		buffer[i] = strdup(worldMap[i]);
+	}
+	buffer[i] = NULL;
+	return (buffer);
+}
+
+char *worldMap[25] = {
+		"111111111111111111111111",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100111111000000000000001",
+		"100100010000000000000001",
+		"10010N010000000000000001",
+		"100100010000000000000001",
+		"100100010000000000000001",
+		"100100010000000000000001",
+		"100100010000000000000001",
+		"100101110001000000000001",
+		"100100010000000000000001",
+		"100100011000100000000001",
+		"100100000000000000000001",
+		"100100000000000000000001",
+		"100100000000000000000001",
+		"100100100000000000000001",
+		"100100000000000000000001",
+		"100100000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"111111111111111111111111",
+		NULL
+};
+
+typedef struct s_vect_i {
+	int x;
+	int y;
+} t_vect_i;
 
 typedef struct s_data {
 	mlx_t *mlx;
@@ -35,6 +89,7 @@ typedef struct s_data {
 	double plane_y;
 	double c_time;
 	double old_time;
+	char **dupMap;
 
 } t_data;
 
@@ -60,8 +115,96 @@ typedef struct s_ray {
 	t_line line;
 } t_ray;
 
+void	free_split(char **split) {
+	int i = -1;
+	while (split[++i])
+		free(split[i]);
+	free(split);
+}
+
+void mlx_draw_square(mlx_image_t *image, int x, int y, int size, uint32_t color) {
+	int x_end = x + size;
+	int y_end = y + size;
+
+	int j = y;
+
+	while (x < x_end) {
+		y = j;
+		while (y < y_end) {
+			mlx_put_pixel(image, x, y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a) {
 	return (r << 24 | g << 16 | b << 8 | a);
+}
+
+t_vect_i get_player_xy_position(char **realMap) {
+	int x = -1;
+	while (realMap[++x]) {
+		int y = -1;
+		while (realMap[x][++y]) {
+			if (strchr("NEWS", realMap[x][y]))
+				return ((t_vect_i) {x, y});
+		}
+	}
+	return ((t_vect_i) {-1, -1});
+}
+
+char **get_minimap(char **realMap) {
+	char **minimap;
+	int i = -1;
+
+	t_vect_i player_pos = get_player_xy_position(realMap);
+
+	minimap = malloc(sizeof(char *) * (11 + 1));
+
+	int x = player_pos.x - 5;
+	while (++i < 11) {
+		int j = -1;
+		int y = player_pos.y - 5;
+		minimap[i] = malloc(sizeof(char) * (11 + 1));
+		bzero(minimap[i], 11 + 1);
+		memset(minimap[i], '1', 11);
+
+		while (++j < 11) {
+			if (x > 0 && y > 0)
+				minimap[i][j] = realMap[x][y];
+			y++;
+		}
+		x++;
+	}
+	minimap[i] = NULL;
+	return (minimap);
+}
+
+void draw_mini_map(t_data *data, char **miniMap) {
+	int i = 0;
+	int j = 0;
+
+	int x = 0;
+	int y = 0;
+
+	i = 0;
+	while (miniMap[x]) {
+		j = 0;
+		y = 0;
+		while (miniMap[x][y]) {
+
+			if (miniMap[x][y] == '1')
+				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0x000000FF);
+			else {
+				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0xFFFFFFFF);
+			}
+			j += MINI_CUB_SIZE;
+			y++;
+		}
+		i += MINI_CUB_SIZE;
+		x++;
+	}
 }
 
 void set_env(mlx_image_t *image) {
@@ -84,38 +227,10 @@ void set_env(mlx_image_t *image) {
 }
 
 void vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd) {
-	uint32_t color = ft_pixel(104, 252, 0, 255);
+//	uint32_t color = ft_pixel(104, 252, 0, 255);
 	while (drawStart < drawEnd)
-		mlx_put_pixel(image, x, drawStart++, color);
+		mlx_put_pixel(image, x, drawStart++, 0xFFF000FF);
 }
-
-int worldMap[MAP_WIDTH][MAP_HEIGHT] =
-		{
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-		};
 
 void ft_draw(void *args) {
 	t_data *data;
@@ -169,7 +284,7 @@ void ft_draw(void *args) {
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if (worldMap[ray.map_x][ray.map_y] > 0) hit = 1;
+			if (worldMap[ray.map_x][ray.map_y] > '0') hit = 1;
 		}
 		ray.perp_wall_dist = (ray.side_dist_y - ray.delta_dist_y);
 		if (side == 0)
@@ -185,7 +300,13 @@ void ft_draw(void *args) {
 			ray.line.draw_end = SCREEN_HEIGHT - 1;
 		vert_line(data->image, x, ray.line.draw_start, ray.line.draw_end);
 	}
-//	mlx_image_to_window(data->mlx, data->image, 0, 0);
+	t_vect_i p = get_player_xy_position(data->dupMap);
+	printf("x = %d, y = %d\n", p.x, p.y);
+	data->dupMap[p.x][p.y] = '0';
+	data->dupMap[(int) data->pos_x][(int) data->pos_y] = 'N';
+	char **minimap = get_minimap(data->dupMap);
+	draw_mini_map(data, minimap);
+	free_split(minimap);
 }
 
 void ft_hook(void *args) {
@@ -203,15 +324,15 @@ void ft_hook(void *args) {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W)) {
-		if (worldMap[(int) (data->pos_x + data->dir_x * move_speed)][(int) (data->pos_y)] == false)
+		if (worldMap[(int) (data->pos_x + data->dir_x * move_speed)][(int) (data->pos_y)] == '0')
 			data->pos_x += data->dir_x * move_speed;
-		if (worldMap[(int) (data->pos_x)][(int) (data->pos_y + data->dir_y * move_speed)] == false)
+		if (worldMap[(int) (data->pos_x)][(int) (data->pos_y + data->dir_y * move_speed)] == '0')
 			data->pos_y += data->dir_y * move_speed;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S)) {
-		if (worldMap[(int) (data->pos_x - data->dir_x * move_speed)][(int) (data->pos_y)] == false)
+		if (worldMap[(int) (data->pos_x - data->dir_x * move_speed)][(int) (data->pos_y)] == '0')
 			data->pos_x -= data->dir_x * move_speed;
-		if (worldMap[(int) (data->pos_x)][(int) (data->pos_y - data->dir_y * move_speed)] == false)
+		if (worldMap[(int) (data->pos_x)][(int) (data->pos_y - data->dir_y * move_speed)] == '0')
 			data->pos_y -= data->dir_y * move_speed;
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)) {
@@ -234,20 +355,20 @@ void ft_hook(void *args) {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A)) {
 		double new_x = data->pos_x - data->plane_x * move_speed;
 		double new_y = data->pos_y - data->plane_y * move_speed;
-		if (worldMap[(int)new_x][(int)data->pos_y] == false) {
+		if (worldMap[(int) new_x][(int) data->pos_y] == '0') {
 			data->pos_x = new_x;
 		}
-		if (worldMap[(int)data->pos_x][(int)new_y] == false) {
+		if (worldMap[(int) data->pos_x][(int) new_y] == '0') {
 			data->pos_y = new_y;
 		}
 	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D)) {
 		double new_x = data->pos_x + data->plane_x * move_speed;
 		double new_y = data->pos_y + data->plane_y * move_speed;
-		if (worldMap[(int)new_x][(int)data->pos_y] == false) {
+		if (worldMap[(int) new_x][(int) data->pos_y] == '0') {
 			data->pos_x = new_x;
 		}
-		if (worldMap[(int)data->pos_x][(int)new_y] == false) {
+		if (worldMap[(int) data->pos_x][(int) new_y] == '0') {
 			data->pos_y = new_y;
 		}
 	}
@@ -255,15 +376,15 @@ void ft_hook(void *args) {
 
 
 void ft_init(t_data *data) {
-	data->pos_x = 11;
-	data->pos_y = 10;
+	data->pos_x = get_player_xy_position(worldMap).x;
+	data->pos_y = get_player_xy_position(worldMap).y;
 	data->dir_x = -1;
 	data->dir_y = 0;
 	data->plane_x = 0;
 	data->plane_y = 0.66;
 	data->c_time = 0;
 	data->old_time = 0;
-	data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "MLX42", true);
+	data->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "MLX42", false);
 	data->image = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx_image_to_window(data->mlx, data->image, 0, 0);
 }
@@ -274,11 +395,12 @@ int32_t main(int32_t argc, const char *argv[]) {
 	t_data data;
 
 	ft_init(&data);
+	data.dupMap = dup_worldMap(worldMap);
 
 	mlx_loop_hook(data.mlx, ft_draw, &data);
 	mlx_loop_hook(data.mlx, ft_hook, &data);
 
 	mlx_loop(data.mlx);
-	mlx_terminate(data.mlx);
+//	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
 }
