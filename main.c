@@ -53,7 +53,7 @@ char *worldMap[25] = {
 		"100000000000000000000001",
 		"100111111000000000000001",
 		"100100010000000000000001",
-		"10010N010000000000000001",
+		"100100010000000000000001",
 		"100100010000000000000001",
 		"100100010000000000000001",
 		"100100010000000000000001",
@@ -61,7 +61,7 @@ char *worldMap[25] = {
 		"100101110001000000000001",
 		"100100010000000000000001",
 		"100100011000100000000001",
-		"100100000000000000000001",
+		"10010000000000N000000001",
 		"100100000000000000000001",
 		"100100000000000000000001",
 		"100100100000000000000001",
@@ -189,6 +189,7 @@ void draw_mini_map(t_data *data, char **miniMap) {
 	int y = 0;
 
 	i = 0;
+	mlx_draw_square(data->image, 0, 0, 11 * MINI_CUB_SIZE, 0xFFFFFFFF);
 	while (miniMap[x]) {
 		j = 0;
 		y = 0;
@@ -196,9 +197,11 @@ void draw_mini_map(t_data *data, char **miniMap) {
 
 			if (miniMap[x][y] == '1')
 				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0x000000FF);
-			else {
+			else if (miniMap[x][y] == '0') {
 				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0xFFFFFFFF);
 			}
+			else
+				mlx_draw_square(data->image, i, j, 8, 0xFF0000FF);
 			j += MINI_CUB_SIZE;
 			y++;
 		}
@@ -401,6 +404,7 @@ int32_t main(int32_t argc, const char *argv[]) {
 	mlx_loop_hook(data.mlx, ft_hook, &data);
 
 	mlx_loop(data.mlx);
+	free_split(data.dupMap);
 //	mlx_terminate(data.mlx);
 	return (EXIT_SUCCESS);
 }
