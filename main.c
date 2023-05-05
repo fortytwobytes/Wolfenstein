@@ -163,6 +163,11 @@ char **get_minimap(char **realMap) {
 	minimap = malloc(sizeof(char *) * (11 + 1));
 
 	int x = player_pos.x - 5;
+
+	size_t map_width = strlen(realMap[0]);
+	size_t map_height = 0;
+	while (realMap[map_height])
+		map_height++;
 	while (++i < 11) {
 		int j = -1;
 		int y = player_pos.y - 5;
@@ -171,7 +176,7 @@ char **get_minimap(char **realMap) {
 		memset(minimap[i], '1', 11);
 
 		while (++j < 11) {
-			if (x >= 0 && y >= 0 && x < 24 && y <= 22)
+			if (x >= 0 && y >= 0 && x < map_height && y < map_width)
 				minimap[i][j] = realMap[x][y];
 			y++;
 		}
