@@ -171,7 +171,7 @@ char **get_minimap(char **realMap) {
 		memset(minimap[i], '1', 11);
 
 		while (++j < 11) {
-			if (x > 0 && y > 0)
+			if (x >= 0 && y >= 0 && x < 24 && y <= 22)
 				minimap[i][j] = realMap[x][y];
 			y++;
 		}
@@ -232,7 +232,7 @@ void set_env(mlx_image_t *image) {
 void vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd) {
 //	uint32_t color = ft_pixel(104, 252, 0, 255);
 	while (drawStart < drawEnd)
-		mlx_put_pixel(image, x, drawStart++, 0xFFF000FF);
+		mlx_put_pixel(image, x, drawStart++, 0x0000FFFF);
 }
 
 void ft_draw(void *args) {
