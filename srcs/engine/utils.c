@@ -36,4 +36,3 @@ void draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2, uint color) {
     }
 
 }
-

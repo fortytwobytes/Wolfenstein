@@ -134,6 +134,7 @@ struct s_ray {
 };
 
 void					move_hook(void *param);
+void					draw_hook(void *args);
 
 /************* parse_elements.c *****************/
 char					*readline_skipping_spaces(int fd);
@@ -183,5 +184,6 @@ t_vect_f	get_first_player_direction(char direction);
 
 //later
 char		**get_minimap(char **realMap);
+void		end_game(t_var *var);
 
 #endif // !SRCS_H

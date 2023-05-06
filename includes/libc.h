@@ -11,6 +11,7 @@
 # include <assert.h>
 # include "libc.h"
 # include <limits.h>
+#include <time.h>
 
 char	**ft_split(char *str, char *charset);
 char	*ft_strchr(const char *s, int c);
