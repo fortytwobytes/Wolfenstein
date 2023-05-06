@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <time.h>
+#include "includes/srcs.h"
 #include "lib/MLX42/include/MLX42/MLX42.h"
 
 #define MAP_WIDTH 24
@@ -50,24 +51,24 @@ char *worldMap[25] = {
 		"100000000000000000000001",
 		"100000000000000000000001",
 		"100000000000000000000001",
-		"100000000000000000000001",
+		"10000000000000N000000001",
 		"100111111000000000000001",
 		"100100010000000000000001",
 		"100100010000000000000001",
 		"100100010000000000000001",
-		"100100010000000000000001",
-		"100100010000000000000001",
-		"100100010000000000000001",
-		"100101110001000000000001",
+		"100100010000000011111111",
+		"100100010000000010000001",
+		"100100010000000010000001",
+		"100101110001000010000001",
 		"100100010000000000000001",
 		"100100011000100000000001",
-		"10010000000000N000000001",
-		"100100000000000000000001",
-		"100100000000000000000001",
-		"100100100000000000000001",
-		"100100000000000000000001",
-		"100100000000000000000001",
-		"100000000000000000000001",
+		"100100000000001000000001",
+		"100100000000001000001001",
+		"100100000000001000000001",
+		"100100100000001000001001",
+		"100100000000001000001001",
+		"100100000001111011111001",
+		"100000000001000000000001",
 		"100000000000000000000001",
 		"111111111111111111111111",
 		NULL
@@ -120,6 +121,24 @@ void	free_split(char **split) {
 	while (split[++i])
 		free(split[i]);
 	free(split);
+}
+
+void	mlx_draw_cercle(mlx_image_t *image, int x, int y, int size, uint32_t color) {
+
+	int radius = size / 2;
+	int cx = x + radius;
+	int cy = y + radius;
+
+	for (int i = x; i < x + size; i++) {
+		for (int j = y; j < y + size; j++) {
+			int dx = i - cx;
+			int dy = j - cy;
+			if (dx * dx + dy * dy <= radius * radius) {
+				mlx_put_pixel(image, i, j, color);
+			}
+		}
+	}
+
 }
 
 void mlx_draw_square(mlx_image_t *image, int x, int y, int size, uint32_t color) {
@@ -186,6 +205,17 @@ char **get_minimap(char **realMap) {
 	return (minimap);
 }
 
+void	draw_direction_(void *args, char **minimap, int32_t color)
+{
+	t_data *data = (t_data *)args;
+	t_vect_i player_pos = get_player_xy_position(minimap);
+	t_vect pos;
+	pos.x = player_pos.x * MINI_CUB_SIZE + 8 / 2;
+	pos.y = player_pos.y * MINI_CUB_SIZE + 8 / 2;
+	draw_line(data->image, pos, (t_vect) {pos.x + data->dir_x * 30, pos.y + data->dir_y * 30}, color);
+
+}
+
 void draw_mini_map(t_data *data, char **miniMap) {
 	int i = 0;
 	int j = 0;
@@ -206,14 +236,17 @@ void draw_mini_map(t_data *data, char **miniMap) {
 				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0xFFFFFFFF);
 			}
 			else
-				mlx_draw_square(data->image, i, j, 8, 0xFF0000FF);
+				mlx_draw_cercle(data->image, i, j, 8, 0xFF0000FF);
 			j += MINI_CUB_SIZE;
 			y++;
 		}
 		i += MINI_CUB_SIZE;
 		x++;
 	}
+	draw_direction_(data, miniMap, 0xFF0000FF);
 }
+
+
 
 void set_env(mlx_image_t *image) {
 	int i;
@@ -309,7 +342,6 @@ void ft_draw(void *args) {
 		vert_line(data->image, x, ray.line.draw_start, ray.line.draw_end);
 	}
 	t_vect_i p = get_player_xy_position(data->dupMap);
-	printf("x = %d, y = %d\n", p.x, p.y);
 	data->dupMap[p.x][p.y] = '0';
 	data->dupMap[(int) data->pos_x][(int) data->pos_y] = 'N';
 	char **minimap = get_minimap(data->dupMap);
