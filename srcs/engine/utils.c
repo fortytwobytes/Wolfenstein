@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -17,7 +17,7 @@ double distance_between_points(double x1, double y1, double x2, double y2)
     return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-void draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color) {
+void draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2, uint color) {
     int x0 = (int)p1.x;
     int y0 = (int)p1.y;
     int x1 = (int)p2.x;

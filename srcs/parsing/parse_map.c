@@ -96,6 +96,7 @@ int	ft_check_map(t_var *var)
 		if (ft_strchr(var->map.map[i], ' ') || ft_strchr(var->map.map[i], '\t'))
 			if (ft_check_spaces(&var->map, i))
 				fatal("exit error");
+		free(map_line);
 	}
 	if (var->player.first_view == '\0')
 		fatal("player error");

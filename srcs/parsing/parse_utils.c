@@ -21,7 +21,7 @@ void	skip_till_first_map_line(int fd, t_map *map)
 		line = readline_skipping_spaces(fd);
 		if (line == NULL)
 			break ;
-		if (strcmp(line, map->first_map_line) == 0)
+		if (ft_strcmp(line, map->first_map_line) == 0)
 		{
 			free(line);
 			break ;
@@ -40,6 +40,7 @@ mlx_image_t *get_texture(t_var *var, char *path)
         mlx_delete_xpm42(xpm);
         fatal(mlx_strerror(mlx_errno));
     }
+	mlx_delete_xpm42(xpm);
 	return (image);
 }
 
@@ -53,7 +54,7 @@ void	get_map_dimension(int fd, t_map *map)
 	while (true)
 	{
 		line = get_next_line(fd);
-		if (line == NULL || strcmp(line, "\n") == 0)
+		if (line == NULL || ft_strcmp(line, "\n") == 0)
 			break ;
 		line_len = ft_strlen(line) - 1;
 		if (line_len > map->width)
@@ -61,6 +62,7 @@ void	get_map_dimension(int fd, t_map *map)
 		map->height++;
 		free(line);
 	}
+	free(line);
 	rest_map = readline_skipping_spaces(fd);
 	if (rest_map != NULL)
 	{

@@ -547,7 +547,7 @@ void mlx_close_hook(mlx_t* mlx, mlx_closefunc func, void* param);
 void mlx_resize_hook(mlx_t* mlx, mlx_resizefunc func, void* param);
 
 /**
- * Generic loop hook for any custom hooks to add to the main loop. 
+ * Generic loop hook for any custom move_hook to add to the main loop.
  * Executes a function per frame, so be careful.
  * 
  * @param[in] mlx The MLX instance handle.
