@@ -32,6 +32,22 @@
 
 # define RED 0x000000FF
 
+
+t_vect get_first_player_direction(char direction)
+{
+	t_vect dir;
+
+	if (direction == 'N')
+		dir = (t_vect){0, -1};
+	else if (direction == 'S')
+		dir = (t_vect){0, 1};
+	else if (direction == 'E')
+		dir = (t_vect){1, 0};
+	else if (direction == 'W')
+		dir = (t_vect){-1, 0};
+	return (dir);
+}
+
 char **dup_worldMap(char **worldMap) {
 	char **buffer;
 	int i = -1;
@@ -50,25 +66,25 @@ char *worldMap[25] = {
 		"111111111111111111111111",
 		"100000000000000000000001",
 		"100000000000000000000001",
+		"1000000000W0000000000001",
 		"100000000000000000000001",
-		"10000000000000N000000001",
-		"100111111000000000000001",
-		"100100010000000000000001",
-		"100100010000000000000001",
-		"100100010000000000000001",
-		"100100010000000011111111",
-		"100100010000000010000001",
-		"100100010000000010000001",
-		"100101110001000010000001",
-		"100100010000000000000001",
-		"100100011000100000000001",
-		"100100000000001000000001",
-		"100100000000001000001001",
-		"100100000000001000000001",
-		"100100100000001000001001",
-		"100100000000001000001001",
-		"100100000001111011111001",
-		"100000000001000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
+		"100000000000000000000001",
 		"100000000000000000000001",
 		"111111111111111111111111",
 		NULL
@@ -166,10 +182,11 @@ t_vect_i get_player_xy_position(char **realMap) {
 	while (realMap[++x]) {
 		int y = -1;
 		while (realMap[x][++y]) {
-			if (strchr("NEWS", realMap[x][y]))
+			if (strchr("NEWSP", realMap[x][y]))
 				return ((t_vect_i) {x, y});
 		}
 	}
+	fatal("No player found");
 	return ((t_vect_i) {-1, -1});
 }
 
@@ -257,20 +274,20 @@ void set_env(mlx_image_t *image) {
 	while (++i < SCREEN_HEIGHT / 2) {
 		j = -1;
 		while (++j < SCREEN_WIDTH)
-			mlx_put_pixel(image, j, i, color);
+			mlx_put_pixel(image, j, i, 0x87CEEBFF);
 	}
 	color = ft_pixel(112, 128, 144, 255);
 	while (++i < SCREEN_HEIGHT) {
 		j = -1;
 		while (++j < SCREEN_WIDTH)
-			mlx_put_pixel(image, j, i, color);
+			mlx_put_pixel(image, j, i, 0x302e2aff);
 	}
 }
 
 void vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd) {
 //	uint32_t color = ft_pixel(104, 252, 0, 255);
 	while (drawStart < drawEnd)
-		mlx_put_pixel(image, x, drawStart++, 0x0000FFFF);
+		mlx_put_pixel(image, x, drawStart++, 0xff0000ff);
 }
 
 void ft_draw(void *args) {
@@ -342,8 +359,9 @@ void ft_draw(void *args) {
 		vert_line(data->image, x, ray.line.draw_start, ray.line.draw_end);
 	}
 	t_vect_i p = get_player_xy_position(data->dupMap);
+//	putchar(data->dupMap[p.x][p.y]);
 	data->dupMap[p.x][p.y] = '0';
-	data->dupMap[(int) data->pos_x][(int) data->pos_y] = 'N';
+	data->dupMap[(int) data->pos_x][(int) data->pos_y] = 'P';
 	char **minimap = get_minimap(data->dupMap);
 	draw_mini_map(data, minimap);
 	free_split(minimap);
@@ -375,23 +393,6 @@ void ft_hook(void *args) {
 		if (worldMap[(int) (data->pos_x)][(int) (data->pos_y - data->dir_y * move_speed)] == '0')
 			data->pos_y -= data->dir_y * move_speed;
 	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)) {
-		//both camera direction and camera plane must be rotated
-		double old_dir_x = data->dir_x;
-		data->dir_x = data->dir_x * cos(rot_speed) - data->dir_y * sin(rot_speed);
-		data->dir_y = old_dir_x * sin(rot_speed) + data->dir_y * cos(rot_speed);
-		double old_plane_x = data->plane_x;
-		data->plane_x = data->plane_x * cos(rot_speed) - data->plane_y * sin(rot_speed);
-		data->plane_y = old_plane_x * sin(rot_speed) + data->plane_y * cos(rot_speed);
-	}
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT)) {
-		double old_dir_x = data->dir_x;
-		data->dir_x = data->dir_x * cos(-rot_speed) - data->dir_y * sin(-rot_speed);
-		data->dir_y = old_dir_x * sin(-rot_speed) + data->dir_y * cos(-rot_speed);
-		double old_plane_x = data->plane_x;
-		data->plane_x = data->plane_x * cos(-rot_speed) - data->plane_y * sin(-rot_speed);
-		data->plane_y = old_plane_x * sin(-rot_speed) + data->plane_y * cos(-rot_speed);
-	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A)) {
 		double new_x = data->pos_x - data->plane_x * move_speed;
 		double new_y = data->pos_y - data->plane_y * move_speed;
@@ -412,14 +413,38 @@ void ft_hook(void *args) {
 			data->pos_y = new_y;
 		}
 	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)) {
+		//both camera direction and camera plane must be rotated
+		double old_dir_x = data->dir_x;
+		data->dir_x = data->dir_x * cos(rot_speed) - data->dir_y * sin(rot_speed);
+		data->dir_y = old_dir_x * sin(rot_speed) + data->dir_y * cos(rot_speed);
+		double old_plane_x = data->plane_x;
+		data->plane_x = data->plane_x * cos(rot_speed) - data->plane_y * sin(rot_speed);
+		data->plane_y = old_plane_x * sin(rot_speed) + data->plane_y * cos(rot_speed);
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT)) {
+		double old_dir_x = data->dir_x;
+		data->dir_x = data->dir_x * cos(-rot_speed) - data->dir_y * sin(-rot_speed);
+		data->dir_y = old_dir_x * sin(-rot_speed) + data->dir_y * cos(-rot_speed);
+		double old_plane_x = data->plane_x;
+		data->plane_x = data->plane_x * cos(-rot_speed) - data->plane_y * sin(-rot_speed);
+		data->plane_y = old_plane_x * sin(-rot_speed) + data->plane_y * cos(-rot_speed);
+	}
+	int x, y;
+	mlx_get_mouse_pos(data->mlx, &x, &y);
+//	printf("x: %d, y: %d\n", x, y);
 }
-
 
 void ft_init(t_data *data) {
 	data->pos_x = get_player_xy_position(worldMap).x;
 	data->pos_y = get_player_xy_position(worldMap).y;
-	data->dir_x = -1;
-	data->dir_y = 0;
+//	printf("pos_x: %f, pos_y: %f\n", data->pos_x, data->pos_y);
+//	printf("%c\n", worldMap[(int)data->pos_x][(int)data->pos_y]);
+	data->dir_x = get_first_player_direction(worldMap[(int)data->pos_x][(int)data->pos_y]).x;
+	data->dir_y = get_first_player_direction(worldMap[(int)data->pos_x][(int)data->pos_y]).y;
+	printf("dir_x: %f, dir_y: %f\n", data->dir_x, data->dir_y);
+	data->dir_x = -1.0;
+	data->dir_y = 0.0;
 	data->plane_x = 0;
 	data->plane_y = 0.66;
 	data->c_time = 0;
