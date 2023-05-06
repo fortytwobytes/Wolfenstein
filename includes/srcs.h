@@ -167,7 +167,7 @@ int						ft_open(const char *pathname);
 void					draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2, uint color);
 
 // ---------- srcs/engine/ ---------- //
-void draw_mini_map(t_var *data, char **miniMap);
+void					draw_mini_map(t_var *data, char **miniMap);
 
 // ---------- srcs/utils ---------- //
 // drawing.c
@@ -175,7 +175,7 @@ void		draw_direction(void *args, char **minimap, int32_t color);
 void		mlx_draw_circle(mlx_image_t *image, int x, int y, int size, uint32_t color);
 void		mlx_draw_square(mlx_image_t *image, int x, int y, int size, uint32_t color);
 void		draw_vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd);
-void		draw_floor_ceil(mlx_image_t *image);
+void		draw_floor_ceil(t_var *var);
 // helpers.c
 void		free_split(char **split);
 t_vect_i	get_player_xy_position(char **realMap);

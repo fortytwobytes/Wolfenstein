@@ -18,7 +18,7 @@ void	draw_vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd)
 		mlx_put_pixel(image, x, drawStart++, 0xff0000ff);
 }
 
-void draw_floor_ceil(mlx_image_t *image)
+void draw_floor_ceil(t_var *var)
 {
 	int i;
 	int j;
@@ -27,12 +27,12 @@ void draw_floor_ceil(mlx_image_t *image)
 	while (++i < SCREEN_HEIGHT / 2) {
 		j = -1;
 		while (++j < SCREEN_WIDTH)
-			mlx_put_pixel(image, j, i, 0x87CEEBFF);
+			mlx_put_pixel(var->image, j, i, var->map.f_color);
 	}
 	while (++i < SCREEN_HEIGHT) {
 		j = -1;
 		while (++j < SCREEN_WIDTH)
-			mlx_put_pixel(image, j, i, 0x302e2aff);
+			mlx_put_pixel(var->image, j, i, var->map.c_color);
 	}
 }
 

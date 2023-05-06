@@ -94,7 +94,7 @@ void draw_hook(void *args) {
 
 	var = args;
 	memset(var->image->pixels, 0, var->image->width * var->image->height * sizeof(uint32_t));
-	draw_floor_ceil(var->image);
+	draw_floor_ceil(var);
 
 	x = -1;
 	while (++x < SCREEN_WIDTH) {

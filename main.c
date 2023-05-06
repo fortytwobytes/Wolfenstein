@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "includes/srcs.h"
-#include <time.h>
-#include "lib/MLX42/include/MLX42/MLX42.h"
 
 void	end_game(t_var *var) {
 	free_split(var->map.map);
