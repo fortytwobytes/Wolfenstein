@@ -23,8 +23,6 @@ void draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color) {
     int x1 = (int)p2.x;
     int y1 = (int)p2.y;
 
-    printf("(in draw line function) from (x0 = %d, y0 = %d) to (x1 = %d, y1 = %d)\n", x0,y0,x1,y1);
-
     int dx =  abs (x1 - x0), sx = x0 < x1 ? 1 : -1;
     int dy = -abs (y1 - y0), sy = y0 < y1 ? 1 : -1;
     int err = dx + dy, e2; /* error value e_xy */
