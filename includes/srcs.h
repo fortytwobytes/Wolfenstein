@@ -159,7 +159,7 @@ void					draw_map(void *params);
 int						ft_open(const char *pathname);
 
 // ---------- srcs/engine/utils ---------- //
-void					draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2,
+void					draw_line(mlx_image_t *image, t_vect_i p1, t_vect_i p2,
 							uint32_t color);
 
 // ---------- srcs/engine/ ---------- //

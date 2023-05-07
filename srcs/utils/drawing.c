@@ -42,14 +42,16 @@ void	draw_direction(void *args, char **minimap, uint32_t color)
 {
 	t_var		*var;
 	t_vect_i	player_pos;
-	t_vect_f	pos;
+	t_vect_i	pos;
+	t_vect_i 	dir;
 
 	var = (t_var *)args;
 	player_pos = get_player_xy_position(minimap);
-	pos.x = player_pos.x * MINI_CUB_SIZE + (double)PLAYER_SIZE / 2;
-	pos.y = player_pos.y * MINI_CUB_SIZE + (double)PLAYER_SIZE / 2;
-	draw_line(var->image, pos, (t_vect_f){pos.x + var->dir.x * DIRECTION_LEN, pos.y
-			+ var->dir.y * DIRECTION_LEN}, color);
+	pos.x = player_pos.x * MINI_CUB_SIZE + PLAYER_SIZE / 2;
+	pos.y = player_pos.y * MINI_CUB_SIZE + PLAYER_SIZE / 2;
+	dir.x = pos.x + var->dir.x * DIRECTION_LEN;
+	dir.y = pos.y + var->dir.y * DIRECTION_LEN;
+	draw_line(var->image, pos, dir, color);
 }
 
 void	mlx_draw_circle(mlx_image_t *image, int x, int y, int size,
