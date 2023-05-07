@@ -25,9 +25,9 @@ char	**get_minimap(char **realMap)
 
 	i = -1;
 	player_pos = get_player_xy_position(realMap);
-	minimap = malloc(sizeof(char *) * (11 + 1));
+	minimap = ft_calloc(sizeof(char *) * (11 + 1));
 	x = player_pos.x - 5;
-	map_width = strlen(realMap[0]);
+	map_width = ft_strlen(realMap[0]);
 	map_height = 0;
 	while (realMap[map_height])
 		map_height++;
@@ -35,8 +35,7 @@ char	**get_minimap(char **realMap)
 	{
 		j = -1;
 		y = player_pos.y - 5;
-		minimap[i] = malloc(sizeof(char) * (11 + 1));
-		ft_bzero(minimap[i], 11 + 1);
+		minimap[i] = ft_calloc(sizeof(char) * (11 + 1));
 		ft_memset(minimap[i], '1', 11);
 		while (++j < 11)
 		{

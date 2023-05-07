@@ -52,7 +52,7 @@ void	draw_hook(void *args)
 	char		**minimap;
 
 	var = args;
-	memset(var->image->pixels, 0, var->image->width * var->image->height
+	ft_memset(var->image->pixels, 0, var->image->width * var->image->height
 			* sizeof(uint32_t));
 	draw_floor_ceil(var);
 	x = -1;

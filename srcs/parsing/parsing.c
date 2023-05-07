@@ -88,7 +88,7 @@ static void	fill_2d_map(int fd, t_map *map)
 	while (true)
 	{
 		map->map[i] = ft_calloc(sizeof(char) * (map->width + 1));
-		memset(map->map[i], ' ', map->width);
+		ft_memset(map->map[i], ' ', map->width);
 		ft_memcpy(map->map[i], line, ft_strlen(line) - 1);
 		free(line);
 		line = readline_skipping_spaces(fd);
