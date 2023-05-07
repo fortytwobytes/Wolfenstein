@@ -4,12 +4,14 @@ RM			=	rm -rf
 MKDIR		=	mkdir -p
 
 COMPILING	:=	-I lib/MLX42/include
+MLX42		:=	lib/MLX42
+MLX_LIB = lib/MLX42/build/libmlx42.a
 
 OS	        :=      $(shell uname -s)
 ifeq ($(OS),Linux)
-    LINKING     :=      lib/MLX42/build/libmlx42.a -ldl -lglfw -pthread -lm
+    LINKING     :=      $(MLX_LIB) -ldl -lglfw -pthread -lm
 else
-    LINKING     :=      lib/MLX42/build/libmlx42.a -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
+    LINKING     :=      $(MLX_LIB) -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
 SRCS		=	$(wildcard main.c lib/libc/*.c srcs/*.c srcs/parsing/*.c srcs/engine/*.c srcs/norm/*.c srcs/utils/*.c)
@@ -27,10 +29,14 @@ NAME		=	cub3D
 
 all: $(NAME)
 
-$(NAME):    $(OBJS)
+$(MLX_LIB):
+	cmake $(MLX42) -B $(MLX42)/build
+	make -C $(MLX42)/build -j4
+
+$(NAME):    $(OBJS) $(MLX_LIB)
 	@$(CC) $(CFLAGS) $^ $(LINKING) -o $@
 
-$(BIN_DIR)%.o:  %.c $(INCLUDES)
+$(BIN_DIR)%.o:  %.c $(INCLUDES) $(MLX_LIB)
 	@$(MKDIR) $(OBJS_DIRS)
 	$(CC) $(CFLAGS) $(COMPILING) -c $< -o $@
 
@@ -48,4 +54,3 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
-

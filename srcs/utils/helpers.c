@@ -33,7 +33,7 @@ t_vect_i	get_player_xy_position(char **realMap)
 		y = -1;
 		while (realMap[x][++y])
 		{
-			if (strchr("NEWSP", realMap[x][y]))
+			if (ft_strchr("NEWSP", realMap[x][y]))
 				return ((t_vect_i){x, y});
 		}
 	}
@@ -41,6 +41,7 @@ t_vect_i	get_player_xy_position(char **realMap)
 	return ((t_vect_i){-1, -1});
 }
 
+// TODO: check the right location
 t_vect_f	get_first_player_direction(char direction)
 {
 	t_vect_f	dir;
