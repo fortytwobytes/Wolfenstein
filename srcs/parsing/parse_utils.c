@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/24 07:35:02 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:50:43 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	skip_till_first_map_line(int fd, t_map *map)
 		line = readline_skipping_spaces(fd);
 		if (line == NULL)
 			break ;
-		if (strcmp(line, map->first_map_line) == 0)
+		if (ft_strcmp(line, map->first_map_line) == 0)
 		{
 			free(line);
 			break ;
@@ -30,16 +30,21 @@ void	skip_till_first_map_line(int fd, t_map *map)
 	}
 }
 
-mlx_image_t *get_texture(t_var *var, char *path)
+mlx_image_t	*get_texture(t_var *var, char *path)
 {
-	xpm_t *xpm = mlx_load_xpm42(path);
+	xpm_t		*xpm;
+	mlx_image_t	*image;
+
+	xpm = mlx_load_xpm42(path);
 	if (xpm == NULL)
 		fatal("invalid xpm texture");
-    mlx_image_t *image = mlx_texture_to_image(var->mlx, &xpm->texture);
-    if (image == NULL) {
-        mlx_delete_xpm42(xpm);
-        fatal(mlx_strerror(mlx_errno));
-    }
+	image = mlx_texture_to_image(var->mlx, &xpm->texture);
+	if (image == NULL)
+	{
+		mlx_delete_xpm42(xpm);
+		fatal(mlx_strerror(mlx_errno));
+	}
+	mlx_delete_xpm42(xpm);
 	return (image);
 }
 
@@ -53,7 +58,7 @@ void	get_map_dimension(int fd, t_map *map)
 	while (true)
 	{
 		line = get_next_line(fd);
-		if (line == NULL || strcmp(line, "\n") == 0)
+		if (line == NULL || ft_strcmp(line, "\n") == 0)
 			break ;
 		line_len = ft_strlen(line) - 1;
 		if (line_len > map->width)
@@ -61,6 +66,7 @@ void	get_map_dimension(int fd, t_map *map)
 		map->height++;
 		free(line);
 	}
+	free(line);
 	rest_map = readline_skipping_spaces(fd);
 	if (rest_map != NULL)
 	{
@@ -69,11 +75,11 @@ void	get_map_dimension(int fd, t_map *map)
 	}
 }
 
-u_int32_t get_color(int *rgb)
+u_int32_t	get_color(int *rgb)
 {
-	ushort red;
-	ushort green;
-	ushort blue;
+	ushort	red;
+	ushort	green;
+	ushort	blue;
 
 	red = rgb[0];
 	green = rgb[1];

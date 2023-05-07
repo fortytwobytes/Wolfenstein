@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   srcs.h                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
+/*   Updated: 2023/05/07 00:49:34 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SRCS_H
 # define SRCS_H
 
@@ -10,6 +22,10 @@
 # define PLAYER_SIZE 8
 # define WIN_HEIGHT 512
 # define WIN_WIDTH 1024
+# define SCREEN_WIDTH 1024
+# define SCREEN_HEIGHT 512
+
+# define MINI_CUB_SIZE 20
 
 // COLORS
 # define BLACK 0x000000FFL
@@ -28,39 +44,40 @@
 # define PI_2 6.283185307179586
 # define FOV 60
 
-typedef unsigned int uint;
-typedef unsigned short ushort;
+typedef unsigned int	uint;
+typedef unsigned short	ushort;
 
 typedef struct s_player	t_player;
-typedef struct s_vect	t_vect;
+typedef struct s_vect_f	t_vect_f;
+typedef struct s_vect_i	t_vect_i;
 typedef struct s_var	t_var;
 typedef struct s_map	t_map;
-typedef struct s_rect	t_rect;
+typedef struct s_ray	t_ray;
+typedef struct s_line	t_line;
 
-struct					s_vect
+struct					s_vect_i
+{
+	int					x;
+	int					y;
+};
+
+struct					s_vect_f
 {
 	double				x;
 	double				y;
-};
-
-struct					s_rect
-{
-	t_vect				coor;
-	uint32_t			width;
-	uint32_t			height;
 };
 
 // (x_pixel, y_pixel) are pointers to the location of the player
 // for moving instances you can just differentiate the pointers
 struct					s_player
 {
-	t_vect				first_pos;
-	t_vect				direction;
+	t_vect_f			first_pos;
+	t_vect_f			direction;
 	int					*x_pixel;
-	int 				*y_pixel;
-    int                 x_map;
-    int                 y_map;
-    t_vect              next_pos;
+	int					*y_pixel;
+	int					x_map;
+	int					y_map;
+	t_vect_f			next_pos;
 	double				angle;
 	char				first_view;
 	mlx_image_t			*img;
@@ -83,14 +100,43 @@ struct					s_map
 struct					s_var
 {
 	mlx_t				*mlx;
-	mlx_image_t			*scene3d;
-	mlx_image_t			*minimap;
-	mlx_image_t 		*rays;
+	mlx_image_t			*image;
 	t_player			player;
 	t_map				map;
+	t_vect_f			pos;
+	t_vect_f			dir;
+	t_vect_f			plane;
+	double				c_time;
+	double				old_time;
+	char				**dupMap;
 };
 
-void					hooks(void *param);
+struct					s_line
+{
+	int					line_height;
+	int					draw_start;
+	int					draw_end;
+};
+
+struct					s_ray
+{
+	double				camera_x;
+	double				ray_dir_x;
+	double				ray_dir_y;
+	double				side_dist_x;
+	double				side_dist_y;
+	double				perp_wall_dist;
+	double				delta_dist_x;
+	double				delta_dist_y;
+	int					map_x;
+	int					map_y;
+	int					step_x;
+	int					step_y;
+	t_line				line;
+};
+
+void					move_hook(void *param);
+void					draw_hook(void *args);
 
 /************* parse_elements.c *****************/
 char					*readline_skipping_spaces(int fd);
@@ -106,7 +152,7 @@ u_int32_t				get_color(int *rgb);
 int						ft_check_map(t_var *var);
 
 /************** parsing.c ***********************/
-void					parsing(t_var *var, char *cubFilename);
+void					parsing(t_var *var, const char *cubFilename);
 
 /* ***** inits.c ***** */
 void					init_window(t_var *var);
@@ -119,21 +165,39 @@ void					draw_map(void *params);
 // ---------- syscalls.c ---------- //
 int						ft_open(const char *pathname);
 
-// ---------- srcs/engine/utils.c ---------- //
-double					distance_between_points(double x1, double y1, double x2, double y2);
-void					draw_line(mlx_image_t *image, t_vect p1, t_vect p2, uint color);
-void                    draw_direction(void *params);
+// ---------- srcs/engine/utils ---------- //
+void					draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2,
+							uint color);
 
-// ---------- srcs/engine/move.c ---------- //
-void                    adjust_view(t_player *p, int key);
-void                    move_up(t_map map, t_player *p);
-void                    move_down(t_map map, t_player *p);
-void                    move_left(t_map map, t_player *p);
-void                    move_right(t_map map, t_player *p);
+// ---------- srcs/engine/ ---------- //
+void					draw_mini_map(t_var *data, char **miniMap);
+// view.c
+void					change_to_left(t_var *var, double rotSpeed);
+void					change_to_right(t_var *var, double rotSpeed);
+// move.c
+void					move_forward(t_var *var, double moveSpeed);
+void					move_backward(t_var *var, double moveSpeed);
+void					move_left(t_var *var, double moveSpeed);
+void					move_right(t_var *var, double moveSpeed);
 
+// ---------- srcs/utils ---------- //
+// drawing.c
+void					draw_direction(void *args, char **minimap,
+							uint32_t color);
+void					mlx_draw_circle(mlx_image_t *image, int x, int y,
+							int size, uint32_t color);
+void					mlx_draw_square(mlx_image_t *image, int x, int y,
+							int size, uint32_t color);
+void					draw_vert_line(mlx_image_t *image, int x, int drawStart,
+							int drawEnd);
+void					draw_floor_ceil(t_var *var);
+// helpers.c
+void					free_split(char **split);
+t_vect_i				get_player_xy_position(char **realMap);
+t_vect_f				get_first_player_direction(char direction);
 
-double                  get_angle(double angle);
-void                    update_player_position(t_map map, t_player *p);
-void                    draw_scene(t_var *var);
+//later
+char					**get_minimap(char **realMap);
+void					end_game(t_var *var);
 
 #endif // !SRCS_H

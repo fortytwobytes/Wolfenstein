@@ -267,7 +267,7 @@ void ft_randomize(void* param)
 	}
 }
 
-void ft_hook(void* param)
+void move_hook(void* param)
 {
 	mlx_t* mlx = param;
 
@@ -309,7 +309,7 @@ int32_t main(int32_t argc, const char* argv[])
 	}
 	
 	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop_hook(mlx, move_hook, mlx);
 
 	mlx_loop(mlx);
 	mlx_terminate(mlx);

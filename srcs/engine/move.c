@@ -1,43 +1,76 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/07 00:43:56 by relkabou          #+#    #+#             */
+/*   Updated: 2023/05/07 00:46:32 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/srcs.h"
 
-void    adjust_view(t_player *p, int key)
-{
-    double  angle;
+static bool	can_move(char block);
 
-    angle = p->angle;
-    if (key == MLX_KEY_LEFT)
-        angle -= ROTATE_SPEED;
-    else
-        angle += ROTATE_SPEED;
-    p->angle = get_angle(angle);
-    p->direction.x = cos(p->angle);
-    p->direction.y = sin(p->angle);
+void	move_forward(t_var *var, double moveSpeed)
+{
+	if (can_move(var->map.map[(int)(var->pos.x + var->dir.x
+				* moveSpeed)][(int)(var->pos.y)]))
+		var->pos.x += var->dir.x * moveSpeed;
+	if (can_move(var->map.map[(int)(var->pos.x)][(int)(var->pos.y + var->dir.y
+				* moveSpeed)]))
+		var->pos.y += var->dir.y * moveSpeed;
 }
 
-void    move_up(t_map map, t_player *p)
+void	move_backward(t_var *var, double moveSpeed)
 {
-    p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
-    p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
-    update_player_position(map, p);
+	if (can_move(var->map.map[(int)(var->pos.x - var->dir.x
+				* moveSpeed)][(int)(var->pos.y)]))
+		var->pos.x -= var->dir.x * moveSpeed;
+	if (can_move(var->map.map[(int)(var->pos.x)][(int)(var->pos.y - var->dir.y
+				* moveSpeed)]))
+		var->pos.y -= var->dir.y * moveSpeed;
 }
 
-void    move_down(t_map map, t_player *p)
+void	move_left(t_var *var, double moveSpeed)
 {
-    p->next_pos.x = *p->x_pixel - p->direction.x * SPEED;
-    p->next_pos.y = *p->y_pixel - p->direction.y * SPEED;
-    update_player_position(map, p);
+	double	new_x;
+	double	new_y;
+
+	new_x = var->pos.x - var->plane.x * moveSpeed;
+	new_y = var->pos.y - var->plane.y * moveSpeed;
+	if (can_move(var->map.map[(int)new_x][(int)var->pos.y]))
+		var->pos.x = new_x;
+	if (can_move(var->map.map[(int)var->pos.x][(int)new_y]))
+		var->pos.y = new_y;
 }
 
-void    move_left(t_map map, t_player *p)
+void	move_right(t_var *var, double moveSpeed)
 {
-    p->next_pos.x = *p->x_pixel - cos (p->direction.x * M_PI) * SPEED;
-    p->next_pos.y = *p->y_pixel - sin (p->direction.y * M_PI) * SPEED;
-    update_player_position(map, p);
+	double	new_x;
+	double	new_y;
+
+	new_x = var->pos.x + var->plane.x * moveSpeed;
+	new_y = var->pos.y + var->plane.y * moveSpeed;
+	if (can_move(var->map.map[(int)new_x][(int)var->pos.y]))
+		var->pos.x = new_x;
+	if (can_move(var->map.map[(int)var->pos.x][(int)new_y]))
+		var->pos.y = new_y;
 }
 
-void    move_right(t_map map, t_player *p)
+static bool	can_move(char block)
 {
-    p->next_pos.x = *p->x_pixel + cos (p->direction.x * M_PI) * SPEED;
-    p->next_pos.y = *p->y_pixel + sin (p->direction.y * M_PI) * SPEED;
-    update_player_position(map, p);
+	const char	*allowed_blocks;
+
+	allowed_blocks = "0NSWEP";
+	for (int i = 0; allowed_blocks[i]; i++)
+	{
+		if (block == allowed_blocks[i])
+		{
+			return (true);
+		}
+	}
+	return (false);
 }
