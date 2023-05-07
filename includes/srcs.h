@@ -31,21 +31,15 @@
 # define BLACK 0x000000FFL
 # define RED 0xFF0000FFL
 # define WHITE 0xFFFFFFFFL
-# define GREEN 0x00FF00FFL
 
 // GAME
-# define SPEED 5
-# define ROTATE_SPEED M_PI / 48.0f
+# define MOVE_SPEED 5.0f
+# define ROTATE_SPEED 3.0f
 # define DIRECTION_LEN 50
 
 // MISC
 # define SPACES " \t\n"
 # define NBROF_ELEMENTS 6
-# define PI_2 6.283185307179586
-# define FOV 60
-
-typedef unsigned int	uint;
-typedef unsigned short	ushort;
 
 typedef struct s_player	t_player;
 typedef struct s_vect_f	t_vect_f;
@@ -108,7 +102,6 @@ struct					s_var
 	t_vect_f			plane;
 	double				c_time;
 	double				old_time;
-	char				**dupMap;
 };
 
 struct					s_line
@@ -162,12 +155,12 @@ void					init_images(t_var *var);
 void					draw_player(void *params);
 void					draw_map(void *params);
 
-// ---------- syscalls.c ---------- //
+// ---------- sys_calls.c ---------- //
 int						ft_open(const char *pathname);
 
 // ---------- srcs/engine/utils ---------- //
 void					draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2,
-							uint color);
+							uint32_t color);
 
 // ---------- srcs/engine/ ---------- //
 void					draw_mini_map(t_var *data, char **miniMap);
@@ -198,6 +191,13 @@ t_vect_f				get_first_player_direction(char direction);
 
 //later
 char					**get_minimap(char **realMap);
+char					**get_small_map(t_var *var);
 void					end_game(t_var *var);
+
+// casting.c
+void	resetting_ray(t_var *var, t_ray *ray, int x);
+void	set_step_and_side_distances(t_var *var, t_ray *ray);
+void	cast_ray_till_wall(t_var *var, t_ray *ray, int *side);
+void	calculate_line_properties(t_ray *ray, int side);
 
 #endif // !SRCS_H

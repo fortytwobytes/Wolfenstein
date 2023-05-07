@@ -77,9 +77,9 @@ void	get_map_dimension(int fd, t_map *map)
 
 u_int32_t	get_color(int *rgb)
 {
-	ushort	red;
-	ushort	green;
-	ushort	blue;
+	uint8_t red;
+	uint8_t green;
+	uint8_t blue;
 
 	red = rgb[0];
 	green = rgb[1];

@@ -30,15 +30,15 @@ void	init_window(t_var *var)
 
 static void	init_player(t_var *var, t_player *p)
 {
-	p->angle = get_angle_for_direction(var->player.first_view);
-	p->direction.x = cos(p->angle);
-	p->direction.y = sin(p->angle);
-	p->x_pixel = &p->img->instances[0].x;
-	p->y_pixel = &p->img->instances[0].y;
-	p->x_map = *var->player.x_pixel / CUBE_SIZE;
-	p->y_map = *var->player.y_pixel / CUBE_SIZE;
-	p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
-	p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
+//	p->angle = get_angle_for_direction(var->player.first_view);
+//	p->direction.x = cos(p->angle);
+//	p->direction.y = sin(p->angle);
+//	p->x_pixel = &p->img->instances[0].x;
+//	p->y_pixel = &p->img->instances[0].y;
+//	p->x_map = *var->player.x_pixel / CUBE_SIZE;
+//	p->y_map = *var->player.y_pixel / CUBE_SIZE;
+//	p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
+//	p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
 }
 
 static double	get_angle_for_direction(char direction)
