@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:33:19 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/20 14:25:08 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:50:18 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ char	*readline_skipping_spaces(int fd)
 // TODO: refactor this function
 static u_int32_t	get_rgb(char *arg)
 {
-	int		i;
-	char	*rgb;
-	int		*rgb_arr;
-	char	**elements;
-	u_int32_t color;
+	int			i;
+	char		*rgb;
+	int			*rgb_arr;
+	char		**elements;
+	u_int32_t	color;
 
 	rgb_arr = ft_calloc(sizeof(int) * 3);
 	rgb = ft_strtrim(arg, "()");
@@ -97,7 +97,8 @@ static u_int32_t	get_rgb(char *arg)
 // TODO: add another check for the colors the old is redundant
 void	fill_map_struct(t_var *var, char *element, char *arg)
 {
-	if (!ft_strcmp(element, "NO") && var->map.no_image == NULL) {
+	if (!ft_strcmp(element, "NO") && var->map.no_image == NULL)
+	{
 		var->map.no_image = get_texture(var, arg);
 	}
 	else if (!ft_strcmp(element, "SO") && var->map.so_image == NULL)

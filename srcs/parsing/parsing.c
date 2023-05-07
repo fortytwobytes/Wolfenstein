@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:53:04 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/06 18:02:36 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/07 00:50:51 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	parsing(t_var *var, const char *cubFilename)
 
 static void	init_map(t_var *var)
 {
-    var->map.c_color = -1;
-    var->map.f_color = -1;
-    var->map.height = 1;
+	var->map.c_color = -1;
+	var->map.f_color = -1;
+	var->map.height = 1;
 	var->map.no_image = NULL;
 	var->map.so_image = NULL;
 	var->map.ea_image = NULL;
