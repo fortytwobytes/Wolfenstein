@@ -17,7 +17,7 @@ double	distance_between_points(double x1, double y1, double x2, double y2)
 	return (sqrt(pow(x2 - x1, 2) + pow(y2 - y1, 2)));
 }
 
-void	draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2, uint color)
+void	draw_line(mlx_image_t *image, t_vect_f p1, t_vect_f p2, uint32_t color)
 {
 	int	x0;
 	int	y0;

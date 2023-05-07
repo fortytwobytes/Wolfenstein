@@ -12,6 +12,18 @@
 
 #include "../../includes/srcs.h"
 
+char	**get_small_map(t_var *var)
+{
+	t_vect_i player_pos;
+	char	**map;
+
+	player_pos = get_player_xy_position(var->map.map);
+	var->map.map[player_pos.x][player_pos.y] = '0';
+	var->map.map[(int) var->pos.x][(int) var->pos.y] = 'P';
+	map = get_minimap(var->map.map);
+	return (map);
+}
+
 char	**get_minimap(char **realMap)
 {
 	char		**minimap;
@@ -58,7 +70,7 @@ void	draw_mini_map(t_var *data, char **miniMap)
 
 	x = 0;
 	i = 0;
-	mlx_draw_square(data->image, 0, 0, 11 * MINI_CUB_SIZE, 0xFFFFFFFF);
+	mlx_draw_square(data->image, 0, 0, 11 * MINI_CUB_SIZE, WHITE);
 	while (miniMap[x])
 	{
 		j = 0;
@@ -66,19 +78,20 @@ void	draw_mini_map(t_var *data, char **miniMap)
 		while (miniMap[x][y])
 		{
 			if (miniMap[x][y] == '1')
-				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0x000000FF);
+				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, BLACK);
 			else if (miniMap[x][y] == '0')
-				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, 0xFFFFFFFF);
+				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, WHITE);
 			// to change this condition later
 			else if (miniMap[x][y] == 'N' || miniMap[x][y] == 'S'
 					|| miniMap[x][y] == 'E' || miniMap[x][y] == 'W'
 					|| miniMap[x][y] == 'P')
-				mlx_draw_circle(data->image, i, j, 8, 0xFF0000FF);
+				mlx_draw_circle(data->image, i, j, PLAYER_SIZE, RED);
 			j += MINI_CUB_SIZE;
 			y++;
 		}
 		i += MINI_CUB_SIZE;
 		x++;
 	}
-	draw_direction(data, miniMap, 0xFF0000FF);
+	draw_direction(data, miniMap, RED);
+	free_split(miniMap);
 }
