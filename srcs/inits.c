@@ -29,11 +29,8 @@ void init(t_var *var)
 {
 	var->pos.x = get_player_xy_position(var->map.map).x;
 	var->pos.y = get_player_xy_position(var->map.map).y;
-	// TODO: we should change this to get the first player direction
-//	var->dir.x = get_first_player_direction(worldMap[(int)data->pos.x][(int)data->pos.y]).x;
-//	var->dir.y = get_first_player_direction(worldMap[(int)data->pos.x][(int)data->pos.y]).y;
-	var->dir.x = -1.0;
-	var->dir.y = 0.0;
+	var->dir.x = get_first_player_direction(var->map.map[(int)var->pos.x][(int)var->pos.y]).x;
+	var->dir.y = get_first_player_direction(var->map.map[(int)var->pos.x][(int)var->pos.y]).y;
 	var->plane.x = 0;
 	var->plane.y = 0.66;
 	var->c_time = 0;
