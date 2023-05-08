@@ -69,8 +69,7 @@ void	cast_ray_till_wall(t_var *var, t_ray *ray, int *side)
 			ray->map_y += ray->step_y;
 			*side = 1;
 		}
-		// change this condition if only facing walls or sprites
-		if (var->map.map[ray->map_x][ray->map_y] > '0')
+		if (var->map.map[ray->map_x][ray->map_y] == '1')
 			break ;
 	}
 }
