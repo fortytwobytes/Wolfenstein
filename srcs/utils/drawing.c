@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:44 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 00:51:02 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/08 01:14:49 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	draw_direction(void *args, char **minimap, uint32_t color)
 	t_var		*var;
 	t_vect_i	player_pos;
 	t_vect_i	pos;
-	t_vect_i 	dir;
+	t_vect_i	dir;
 
 	var = (t_var *)args;
 	player_pos = get_player_xy_position(minimap);
@@ -54,28 +54,27 @@ void	draw_direction(void *args, char **minimap, uint32_t color)
 	draw_line(var->image, pos, dir, color);
 }
 
-void	mlx_draw_circle(mlx_image_t *image, int x, int y, int size,
-		uint32_t color)
+void	mlx_draw_circle(mlx_image_t *image, t_vect_i p, int size, uint32_t color)
 {
-	int	radius;
-	int	cx;
-	int	cy;
-	int	dx;
-	int	dy;
+	int			i;
+	int			j;
+	int			radius;
+	t_vect_i	c;
+	t_vect_i	d;
 
+	i = p.x - 1;
 	radius = size / 2;
-	cx = x + radius;
-	cy = y + radius;
-	for (int i = x; i < x + size; i++)
+	c.x = p.x + radius;
+	c.y = p.y + radius;
+	while (++i < p.x + size)
 	{
-		for (int j = y; j < y + size; j++)
+		j = p.y - 1;
+		while (++j < p.y + size)
 		{
-			dx = i - cx;
-			dy = j - cy;
-			if (dx * dx + dy * dy <= radius * radius)
-			{
+			d.x = i - c.x;
+			d.y = j - c.y;
+			if (d.x * d.x + d.y * d.y <= radius * radius)
 				mlx_put_pixel(image, i, j, color);
-			}
 		}
 	}
 }

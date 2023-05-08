@@ -12,9 +12,6 @@
 
 #include "../includes/srcs.h"
 
-static void		init_player(t_var *var, t_player *p);
-static double	get_angle_for_direction(char direction);
-
 void	init_window(t_var *var)
 {
 	mlx_set_setting(MLX_STRETCH_IMAGE, false);
@@ -28,26 +25,20 @@ void	init_window(t_var *var)
 			WIN_HEIGHT);
 }
 
-static void	init_player(t_var *var, t_player *p)
+void init(t_var *var)
 {
-//	p->angle = get_angle_for_direction(var->player.first_view);
-//	p->direction.x = cos(p->angle);
-//	p->direction.y = sin(p->angle);
-//	p->x_pixel = &p->img->instances[0].x;
-//	p->y_pixel = &p->img->instances[0].y;
-//	p->x_map = *var->player.x_pixel / CUBE_SIZE;
-//	p->y_map = *var->player.y_pixel / CUBE_SIZE;
-//	p->next_pos.x = *p->x_pixel + p->direction.x * SPEED;
-//	p->next_pos.y = *p->y_pixel + p->direction.y * SPEED;
-}
-
-static double	get_angle_for_direction(char direction)
-{
-	if (direction == 'N')
-		return (3 * M_PI_2);
-	if (direction == 'W')
-		return (M_PI);
-	if (direction == 'S')
-		return (M_PI_2);
-	return (0);
+	var->pos.x = get_player_xy_position(var->map.map).x;
+	var->pos.y = get_player_xy_position(var->map.map).y;
+	// TODO: we should change this to get the first player direction
+//	var->dir.x = get_first_player_direction(worldMap[(int)data->pos.x][(int)data->pos.y]).x;
+//	var->dir.y = get_first_player_direction(worldMap[(int)data->pos.x][(int)data->pos.y]).y;
+	var->dir.x = -1.0;
+	var->dir.y = 0.0;
+	var->plane.x = 0;
+	var->plane.y = 0.66;
+	var->c_time = 0;
+	var->old_time = 0;
+	var->map.map[(int)var->pos.x][(int)var->pos.y] = 'P';
+	var->image = mlx_new_image(var->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	mlx_image_to_window(var->mlx, var->image, 0, 0);
 }

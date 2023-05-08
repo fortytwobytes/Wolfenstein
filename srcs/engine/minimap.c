@@ -81,11 +81,9 @@ void	draw_mini_map(t_var *data, char **miniMap)
 				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, BLACK);
 			else if (miniMap[x][y] == '0')
 				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, WHITE);
-			// to change this condition later
-			else if (miniMap[x][y] == 'N' || miniMap[x][y] == 'S'
-					|| miniMap[x][y] == 'E' || miniMap[x][y] == 'W'
-					|| miniMap[x][y] == 'P')
-				mlx_draw_circle(data->image, i, j, PLAYER_SIZE, RED);
+			// TODO: to change this condition later
+			else if (miniMap[x][y] == 'P')
+				mlx_draw_circle(data->image, (t_vect_i) {i, j}, PLAYER_SIZE, RED);
 			j += MINI_CUB_SIZE;
 			y++;
 		}
