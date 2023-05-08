@@ -177,7 +177,7 @@ void					move_right(t_var *var, double moveSpeed);
 // drawing.c
 void					draw_direction(void *args, char **minimap,
 							uint32_t color);
-void					mlx_draw_circle(mlx_image_t *image, int x, int y,
+void					mlx_draw_circle(mlx_image_t *image, t_vect_i p,
 							int size, uint32_t color);
 void					mlx_draw_square(mlx_image_t *image, int x, int y,
 							int size, uint32_t color);
@@ -193,6 +193,7 @@ t_vect_f				get_first_player_direction(char direction);
 char					**get_minimap(char **realMap);
 char					**get_small_map(t_var *var);
 void					end_game(t_var *var);
+void					init(t_var *var);
 
 // casting.c
 void	resetting_ray(t_var *var, t_ray *ray, int x);
