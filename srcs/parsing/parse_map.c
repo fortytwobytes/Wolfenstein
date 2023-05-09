@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 13:24:35 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/07 00:50:35 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/08 01:07:05 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_check_content(char *line, t_var *var, int y)
 			&& line[i] != '\t')
 			return (free(line), -1);
 		else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
-				|| line[i] == 'W')
+			|| line[i] == 'W')
 		{
 			if (var->player.first_view != '\0')
 				return (free(line), -1);
