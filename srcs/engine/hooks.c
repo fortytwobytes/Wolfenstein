@@ -39,6 +39,7 @@ void	move_hook(void *param)
 		change_to_left(var, rot_speed);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT))
 		change_to_right(var, rot_speed);
+	mouse_move(var);
 }
 
 void	draw_hook(void *args)

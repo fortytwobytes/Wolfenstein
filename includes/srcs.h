@@ -106,6 +106,7 @@ struct					s_var
 	t_vect_f			pos;
 	t_vect_f			dir;
 	t_vect_f			plane;
+	t_vect_i 			mouse;
 	double				c_time;
 	double				old_time;
 	char				**dupMap;
@@ -199,5 +200,7 @@ t_vect_f				get_first_player_direction(char direction);
 //later
 char					**get_minimap(char **realMap);
 void					end_game(t_var *var);
+void					mouse_move(t_var *var);
+
 
 #endif // !SRCS_H
