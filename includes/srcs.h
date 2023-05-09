@@ -100,6 +100,7 @@ struct					s_var
 	t_vect_f			pos;
 	t_vect_f			dir;
 	t_vect_f			plane;
+	t_vect_i 			mouse;
 	double				c_time;
 	double				old_time;
 };
@@ -193,6 +194,9 @@ t_vect_f				get_first_player_direction(char direction);
 char					**get_minimap(char **realMap);
 char					**get_small_map(t_var *var);
 void					end_game(t_var *var);
+
+void					mouse_move(t_var *var);
+
 void					init(t_var *var);
 
 // casting.c
