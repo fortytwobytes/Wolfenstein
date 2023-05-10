@@ -103,7 +103,7 @@ void	draw_hook(void *args)
 				ray.map_y += ray.step_y;
 				side = 1;
 			}
-			if (var->map.map[ray.map_x][ray.map_y] > '0')
+			if (var->map.map[ray.map_x][ray.map_y] == '1')
 				hit = 1;
 		}
 		ray.perp_wall_dist = (ray.side_dist_y - ray.delta_dist_y);
