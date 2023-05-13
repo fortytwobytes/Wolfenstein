@@ -40,9 +40,6 @@ $(BIN_DIR)%.o:  %.c $(INCLUDES) $(MLX_LIB)
 	@$(MKDIR) $(OBJS_DIRS)
 	$(CC) $(CFLAGS) $(COMPILING) -c $< -o $@
 
-test: re
-	@make -C tests/
-
 forb:
 	@sh ./list_forb_functions.sh
 

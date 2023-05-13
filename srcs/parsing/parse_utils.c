@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/07 00:50:43 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/08 01:06:27 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	get_map_dimension(int fd, t_map *map)
 
 u_int32_t	get_color(int *rgb)
 {
-	ushort	red;
-	ushort	green;
-	ushort	blue;
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
 
 	red = rgb[0];
 	green = rgb[1];
