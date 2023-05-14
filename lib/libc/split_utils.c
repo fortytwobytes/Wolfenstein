@@ -1,7 +1,16 @@
-#include "../../includes/libc.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/18 01:40:27 by relkabou          #+#    #+#             */
+/*   Updated: 2023/04/18 01:40:27 by relkabou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int		ft_split_len(char **elements);
-void	ft_free_split(char **split);
+#include "../../includes/libc.h"
 
 void	ft_free_split(char **split)
 {

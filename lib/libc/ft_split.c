@@ -19,8 +19,8 @@ static char	*allocate_word(char *str, char *charset);
 
 char	**ft_split(char *str, char *charset)
 {
-	char **strings;
-	int i;
+	char	**strings;
+	int		i;
 
 	i = 0;
 	strings = ft_calloc(sizeof(char *) * (count_strings(str, charset) + 1));
@@ -91,7 +91,7 @@ static char	*allocate_word(char *str, char *charset)
 
 	i = 0;
 	len_word = ft_strlen_sep(str, charset);
-	word = (char *) ft_calloc(sizeof(char) * (len_word + 1));
+	word = (char *)ft_calloc(sizeof(char) * (len_word + 1));
 	while (i < len_word)
 	{
 		*(word + i) = *(str + i);
@@ -100,5 +100,3 @@ static char	*allocate_word(char *str, char *charset)
 	*(word + i) = '\0';
 	return (word);
 }
-
-

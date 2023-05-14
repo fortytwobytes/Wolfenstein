@@ -14,81 +14,72 @@
 
 char	**get_small_map(t_var *var)
 {
-	t_vect_i player_pos;
-	char	**map;
+	t_vect_i	player_pos;
+	char		**map;
 
 	player_pos = get_player_xy_position(var->map.map);
 	var->map.map[player_pos.x][player_pos.y] = '0';
-	var->map.map[(int) var->pos.x][(int) var->pos.y] = 'P';
+	var->map.map[(int)var->pos.x][(int)var->pos.y] = 'P';
 	map = get_minimap(var->map.map);
 	return (map);
 }
 
+// 11 is the height and width in the minimap (char**)
 char	**get_minimap(char **realMap)
 {
-	char		**minimap;
-	int			i;
-	t_vect_i	player_pos;
-	int			x;
-	size_t		map_width;
-	size_t		map_height;
-	int			j;
-	int			y;
+	t_minimap	m;
 
-	i = -1;
-	player_pos = get_player_xy_position(realMap);
-	minimap = ft_calloc(sizeof(char *) * (11 + 1));
-	x = player_pos.x - 5;
-	map_width = ft_strlen(realMap[0]);
-	map_height = 0;
-	while (realMap[map_height])
-		map_height++;
-	while (++i < 11)
+	m.i = -1;
+	m.player_pos = get_player_xy_position(realMap);
+	m.minimap = ft_calloc(sizeof(char *) * (11 + 1));
+	m.p.x = m.player_pos.x - 5;
+	m.map.x = (int)ft_strlen(realMap[0]);
+	m.map.y = 0;
+	while (realMap[m.map.y])
+		m.map.y++;
+	while (++m.i < 11)
 	{
-		j = -1;
-		y = player_pos.y - 5;
-		minimap[i] = ft_calloc(sizeof(char) * (11 + 1));
-		ft_memset(minimap[i], '1', 11);
-		while (++j < 11)
+		m.j = -1;
+		m.p.y = m.player_pos.y - 5;
+		m.minimap[m.i] = ft_calloc(sizeof(char) * (11 + 1));
+		ft_memset(m.minimap[m.i], '1', 11);
+		while (++m.j < 11)
 		{
-			if (x >= 0 && y >= 0 && x < map_height && y < map_width)
-				minimap[i][j] = realMap[x][y];
-			y++;
+			if (m.p.x >= 0 && m.p.y >= 0 && m.p.x < m.map.y && m.p.y < m.map.x)
+				m.minimap[m.i][m.j] = realMap[m.p.x][m.p.y];
+			m.p.y++;
 		}
-		x++;
+		m.p.x++;
 	}
-	minimap[i] = NULL;
-	return (minimap);
+	return (m.minimap);
 }
 
 void	draw_mini_map(t_var *data, char **miniMap)
 {
-	int	i;
-	int	j;
-	int	x;
-	int	y;
+	t_vect_i	p;
+	t_idxs		idx;
 
-	x = 0;
-	i = 0;
-	mlx_draw_square(data->image, 0, 0, 11 * MINI_CUB_SIZE, WHITE);
-	while (miniMap[x])
+	p.x = -1;
+	idx.i = 0;
+	draw_square(data->image, (t_vect_i){0, 0}, 11 * MINI_CUB_SIZE, WHITE);
+	while (miniMap[++p.x])
 	{
-		j = 0;
-		y = 0;
-		while (miniMap[x][y])
+		idx.j = 0;
+		p.y = -1;
+		while (miniMap[p.x][++p.y])
 		{
-			if (miniMap[x][y] == '1')
-				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, BLACK);
-			else if (miniMap[x][y] == '0')
-				mlx_draw_square(data->image, i, j, MINI_CUB_SIZE, WHITE);
-			// TODO: to change this condition later
-			else if (miniMap[x][y] == 'P')
-				mlx_draw_circle(data->image, (t_vect_i) {i, j}, PLAYER_SIZE, RED);
-			j += MINI_CUB_SIZE;
-			y++;
+			if (miniMap[p.x][p.y] == '1')
+				draw_square(data->image, (t_vect_i){idx.i, idx.j},
+						MINI_CUB_SIZE, BLACK);
+			else if (miniMap[p.x][p.y] == '0')
+				draw_square(data->image, (t_vect_i){idx.i, idx.j},
+						MINI_CUB_SIZE, WHITE);
+			else if (miniMap[p.x][p.y] == 'P')
+				draw_circle(data->image, (t_vect_i){idx.i, idx.j}, PLAYER_SIZE,
+						RED);
+			idx.j += MINI_CUB_SIZE;
 		}
-		i += MINI_CUB_SIZE;
-		x++;
+		idx.i += MINI_CUB_SIZE;
 	}
 	draw_direction(data, miniMap, RED);
 	free_split(miniMap);

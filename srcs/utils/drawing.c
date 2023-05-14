@@ -54,7 +54,7 @@ void	draw_direction(void *args, char **minimap, uint32_t color)
 	draw_line(var->image, pos, dir, color);
 }
 
-void	mlx_draw_circle(mlx_image_t *image, t_vect_i p, int size, uint32_t color)
+void	draw_circle(mlx_image_t *image, t_vect_i p, int size, uint32_t color)
 {
 	int			i;
 	int			j;
@@ -79,24 +79,23 @@ void	mlx_draw_circle(mlx_image_t *image, t_vect_i p, int size, uint32_t color)
 	}
 }
 
-void	mlx_draw_square(mlx_image_t *image, int x, int y, int size,
-		uint32_t color)
+void	draw_square(mlx_image_t *image, t_vect_i p, int size, uint32_t color)
 {
 	int	x_end;
 	int	y_end;
 	int	j;
 
-	x_end = x + size;
-	y_end = y + size;
-	j = y;
-	while (x < x_end)
+	x_end = p.x + size;
+	y_end = p.y + size;
+	j = p.y;
+	while (p.x < x_end)
 	{
-		y = j;
-		while (y < y_end)
+		p.y = j;
+		while (p.y < y_end)
 		{
-			mlx_put_pixel(image, x, y, color);
-			y++;
+			mlx_put_pixel(image, p.x, p.y, color);
+			p.y++;
 		}
-		x++;
+		p.x++;
 	}
 }

@@ -28,4 +28,3 @@ void	*ft_calloc(size_t size)
 	}
 	return ((void *)buffer);
 }
-
