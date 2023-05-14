@@ -23,8 +23,8 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	if (n == 0)
 		return (0);
-	while ((_s1[i] == _s2[i]) && (_s1[i] != '\0'
-			&& _s2[i] != '\0') && i < n - 1)
+	while ((_s1[i] == _s2[i]) && (_s1[i] != '\0' && _s2[i] != '\0') && i < n
+		- 1)
 		i++;
 	return (_s1[i] - _s2[i]);
 }

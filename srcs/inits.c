@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:26 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 00:51:26 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:37:51 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@ void	init_window(t_var *var)
 		fatal(mlx_strerror(mlx_errno));
 	}
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
-			WIN_HEIGHT);
+		WIN_HEIGHT);
 }
 
-void init(t_var *var)
+void	init(t_var *var)
 {
 	var->pos.x = get_player_xy_position(var->map.map).x;
 	var->pos.y = get_player_xy_position(var->map.map).y;
-	var->dir.x = get_first_player_direction(var->map.map[(int)var->pos.x][(int)var->pos.y]).x;
-	var->dir.y = get_first_player_direction(var->map.map[(int)var->pos.x][(int)var->pos.y]).y;
+	var->dir.x = get_first_player_direction(var->map.map[
+			(int)var->pos.x][(int)var->pos.y]).x;
+	var->dir.y = get_first_player_direction(var->map.map[
+			(int)var->pos.x][(int)var->pos.y]).y;
 	var->plane.x = 0;
 	var->plane.y = 0.66;
 	var->c_time = 0;

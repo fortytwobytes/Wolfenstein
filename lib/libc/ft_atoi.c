@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/13 12:51:28 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 21:11:02by relkabou         ###   ########.fr       */
+/*   Created: 2023/05/13 17:44:55 by relkabou          #+#    #+#             */
+/*   Updated: 2023/05/13 17:44:55 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	ft_atoi(const char *str)
 		res = res * 10 + *str - 48;
 		str++;
 	}
-	if (res >= (size_t) -1 / 2 && sign > 0)
+	if (res >= (size_t)-1 / 2 && sign > 0)
 		return (-1);
-	if (res > (size_t) -1 / 2 && sign < 0)
+	if (res > (size_t)-1 / 2 && sign < 0)
 		return (0);
 	res *= sign;
 	return ((int)res);

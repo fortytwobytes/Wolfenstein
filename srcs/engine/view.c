@@ -39,16 +39,16 @@ void	change_to_right(t_var *var, double rotSpeed)
 	var->plane.y = old_plane_x * sin(-rotSpeed) + var->plane.y * cos(-rotSpeed);
 }
 
-void    mouse_move(t_var *var)
+void	mouse_move(t_var *var)
 {
-    double  half_screen;
+	double	half_screen;
 
-    half_screen = var->image->width / 2.0;
-    mlx_get_mouse_pos(var->mlx, &var->mouse.x, &var->mouse.y);
-    if (mlx_is_mouse_down(var->mlx, MLX_MOUSE_BUTTON_LEFT) == false)
-        return ;
-    if (var->mouse.x < half_screen)
-        change_to_left(var, ROTATE_SPEED / 50);
-    else if (var->mouse.x > half_screen)
-        change_to_right(var, ROTATE_SPEED / 50);
+	half_screen = var->image->width / 2.0;
+	mlx_get_mouse_pos(var->mlx, &var->mouse.x, &var->mouse.y);
+	if (mlx_is_mouse_down(var->mlx, MLX_MOUSE_BUTTON_LEFT) == false)
+		return ;
+	if (var->mouse.x < half_screen)
+		change_to_left(var, ROTATE_SPEED / 50);
+	else if (var->mouse.x > half_screen)
+		change_to_right(var, ROTATE_SPEED / 50);
 }

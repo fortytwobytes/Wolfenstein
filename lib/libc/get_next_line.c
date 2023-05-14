@@ -98,7 +98,7 @@ static char	*ft_truncate_right(char **str)
 
 	i = 0;
 	while ((*str)[i] && (*str)[i] != '\n')
-			i++;
+		i++;
 	if (!(*str)[i])
 	{
 		free(*str);
@@ -121,9 +121,10 @@ static char	*ft_truncate_right(char **str)
 
 char	*get_next_line(int fd)
 {
-	static char	*reserve = NULL;
+	static char	*reserve;
 	char		*result;
 
+	reserve = NULL;
 	if (fd < 0)
 		return (0);
 	reserve = ft_read_line(fd, reserve);

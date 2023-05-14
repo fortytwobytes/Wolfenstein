@@ -44,14 +44,14 @@ void	move_hook(void *param)
 
 void	draw_hook(void *args)
 {
-	t_var		*var;
-	t_ray		ray;
-	int			side;
-	int			x;
+	t_var	*var;
+	t_ray	ray;
+	int		side;
+	int		x;
 
 	var = args;
 	ft_memset(var->image->pixels, 0, var->image->width * var->image->height
-		* sizeof(uint32_t));
+			* sizeof(uint32_t));
 	draw_floor_ceil(var);
 	x = -1;
 	while (++x < SCREEN_WIDTH)
