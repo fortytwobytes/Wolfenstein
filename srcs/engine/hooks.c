@@ -60,7 +60,7 @@ void	draw_hook(void *args)
 		set_step_and_side_distances(var, &ray);
 		cast_ray_till_wall(var, &ray, &side);
 		calculate_line_properties(&ray, side);
-		draw_vert_line(var->image, x, ray.line.draw_start, ray.line.draw_end);
+		draw_vert_line(var, x, ray.line.draw_start, ray.line.draw_end);
 	}
 	draw_mini_map(var, get_small_map(var));
 }

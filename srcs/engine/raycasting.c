@@ -12,9 +12,9 @@
 
 #include "../../includes/srcs.h"
 
-void	resetting_ray(t_var *var, t_ray *ray, int x)
+void	resetting_ray(t_var *var, t_ray *ray, int xPixel)
 {
-	ray->camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+	ray->camera_x = 2 * xPixel / (double)SCREEN_WIDTH - 1;
 	ray->ray_dir_x = var->dir.x + var->plane.x * ray->camera_x;
 	ray->ray_dir_y = var->dir.y + var->plane.y * ray->camera_x;
 	ray->map_x = (int)var->pos.x;

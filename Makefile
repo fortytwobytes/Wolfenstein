@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-fsanitize=address -g # -Wall -Wextra -Werror
+CFLAGS		=	-fsanitize=address -g -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
 
@@ -51,3 +51,4 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
+

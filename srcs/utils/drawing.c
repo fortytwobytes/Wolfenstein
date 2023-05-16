@@ -12,10 +12,16 @@
 
 #include "../../includes/srcs.h"
 
-void	draw_vert_line(mlx_image_t *image, int x, int drawStart, int drawEnd)
+void	draw_vert_line(t_var *var, int x, int drawStart, int drawEnd)
 {
+	uint32_t color;
+	mlx_resize_image(var->map.no_image, CUBE_SIZE, abs(drawStart - drawEnd));
 	while (drawStart < drawEnd)
-		mlx_put_pixel(image, x, drawStart++, 0xff0000ff);
+	{
+		color = get_image_color(var->map.ea_image, (t_vect_i) {x, drawStart});
+		mlx_put_pixel(var->image, x, drawStart, color);
+		drawStart++;
+	}
 }
 
 void	draw_floor_ceil(t_var *var)
@@ -36,22 +42,6 @@ void	draw_floor_ceil(t_var *var)
 		while (++j < SCREEN_WIDTH)
 			mlx_put_pixel(var->image, j, i, var->map.c_color);
 	}
-}
-
-void	draw_direction(void *args, char **minimap, uint32_t color)
-{
-	t_var		*var;
-	t_vect_i	player_pos;
-	t_vect_i	pos;
-	t_vect_i	dir;
-
-	var = (t_var *)args;
-	player_pos = get_player_xy_position(minimap);
-	pos.x = player_pos.x * MINI_CUB_SIZE + PLAYER_SIZE / 2;
-	pos.y = player_pos.y * MINI_CUB_SIZE + PLAYER_SIZE / 2;
-	dir.x = pos.x + var->dir.x * DIRECTION_LEN;
-	dir.y = pos.y + var->dir.y * DIRECTION_LEN;
-	draw_line(var->image, pos, dir, color);
 }
 
 void	draw_circle(mlx_image_t *image, t_vect_i p, int size, uint32_t color)

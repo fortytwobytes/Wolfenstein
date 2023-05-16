@@ -34,4 +34,3 @@ Shaders aren't really meant to be used by students but are more there for the co
 # Compiliation
 
 Shaders are converted into a `.c` appropriate format and then compiled into the library and referenced via a `extern` global variable appropriately named `vert_shader` & `frag_shader`. The reason this is done is to keep the final game/executable portable, that is being able to use it at any given location within a filesystem, while still being easy to work on the shaders instead of having to mess with it in the `.c` files directly. 
-

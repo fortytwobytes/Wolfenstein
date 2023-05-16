@@ -33,8 +33,8 @@
 # define WHITE 0xFFFFFFFFL
 
 // GAME
-# define MOVE_SPEED 4.0f
-# define ROTATE_SPEED 2.0f
+# define MOVE_SPEED 2.0f
+# define ROTATE_SPEED 1.0f
 # define DIRECTION_LEN 50
 
 // MISC
@@ -140,32 +140,32 @@ struct						s_ray
 void						move_hook(void *param);
 void						draw_hook(void *args);
 
-/************* parse_elements.c *****************/
+/************* parse_elements.fix_coor *****************/
 char						*readline_skipping_spaces(int fd);
 void						fill_map_struct(t_var *var, char *element,
 								char *arg);
 
-/************** parse_utils.c *******************/
+/************** parse_utils.fix_coor *******************/
 void						get_map_dimension(int fd, t_map *map);
 void						skip_till_first_map_line(int fd, t_map *map);
 mlx_image_t					*get_texture(t_var *var, char *path);
 u_int32_t					get_color(int *rgb);
 
-/************** parse_map.c *********************/
+/************** parse_map.fix_coor *********************/
 int							ft_check_map(t_var *var);
 
-/************** parsing.c ***********************/
+/************** parsing.fix_coor ***********************/
 void						parsing(t_var *var, const char *cubFilename);
 
-/* ***** inits.c ***** */
+/* ***** inits.fix_coor ***** */
 void						init_window(t_var *var);
 void						init_images(t_var *var);
 
-// drawing.c
+// drawing.fix_coor
 void						draw_player(void *params);
 void						draw_map(void *params);
 
-// ---------- sys_calls.c ---------- //
+// ---------- sys_calls.fix_coor ---------- //
 int							ft_open(const char *pathname);
 
 // ---------- srcs/engine/utils ---------- //
@@ -174,27 +174,27 @@ void						draw_line(mlx_image_t *image, t_vect_i p1,
 
 // ---------- srcs/engine/ ---------- //
 void						draw_mini_map(t_var *data, char **miniMap);
-// view.c
+// view.fix_coor
 void						change_to_left(t_var *var, double rotSpeed);
 void						change_to_right(t_var *var, double rotSpeed);
-// move.c
+// move.fix_coor
 void						move_forward(t_var *var, double moveSpeed);
 void						move_backward(t_var *var, double moveSpeed);
 void						move_left(t_var *var, double moveSpeed);
 void						move_right(t_var *var, double moveSpeed);
 
 // ---------- srcs/utils ---------- //
-// drawing.c
+// drawing.fix_coor
 void						draw_direction(void *args, char **minimap,
 								uint32_t color);
 void						draw_circle(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
 void						draw_square(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
-void						draw_vert_line(mlx_image_t *image, int x,
+void						draw_vert_line(t_var *image, int x,
 								int drawStart, int drawEnd);
 void						draw_floor_ceil(t_var *var);
-// helpers.c
+// helpers.fix_coor
 void						free_split(char **split);
 t_vect_i					get_player_xy_position(char **realMap);
 t_vect_f					get_first_player_direction(char direction);
@@ -208,11 +208,12 @@ void						mouse_move(t_var *var);
 
 void						init(t_var *var);
 
-// casting.c
-void						resetting_ray(t_var *var, t_ray *ray, int x);
+// casting.fix_coor
+void						resetting_ray(t_var *var, t_ray *ray, int xPixel);
 void						set_step_and_side_distances(t_var *var, t_ray *ray);
 void						cast_ray_till_wall(t_var *var, t_ray *ray,
 								int *side);
 void						calculate_line_properties(t_ray *ray, int side);
+uint32_t					get_image_color(mlx_image_t *image, t_vect_i p);
 
 #endif // !SRCS_H

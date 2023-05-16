@@ -45,6 +45,7 @@ mlx_image_t	*get_texture(t_var *var, char *path)
 		fatal(mlx_strerror(mlx_errno));
 	}
 	mlx_delete_xpm42(xpm);
+	mlx_resize_image(image, CUBE_SIZE, CUBE_SIZE);
 	return (image);
 }
 

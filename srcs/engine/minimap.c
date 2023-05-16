@@ -12,6 +12,15 @@
 
 #include "../../includes/srcs.h"
 
+static t_vect_i	fix_coor(int x, int y, int size)
+{
+	t_vect_i	result;
+
+	result.x = x;
+	result.y = size - y;
+	return (result);
+}
+
 char	**get_small_map(t_var *var)
 {
 	t_vect_i	player_pos;
@@ -24,7 +33,7 @@ char	**get_small_map(t_var *var)
 	return (map);
 }
 
-// 11 is the height and width in the minimap (char**)
+// 10 is the height and width in the minimap (char**)
 char	**get_minimap(char **realMap)
 {
 	t_minimap	m;
@@ -69,18 +78,35 @@ void	draw_mini_map(t_var *data, char **miniMap)
 		while (miniMap[p.x][++p.y])
 		{
 			if (miniMap[p.x][p.y] == '1')
-				draw_square(data->image, (t_vect_i){idx.i, idx.j},
-						MINI_CUB_SIZE, BLACK);
+				draw_square(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, BLACK);
 			else if (miniMap[p.x][p.y] == '0')
-				draw_square(data->image, (t_vect_i){idx.i, idx.j},
-						MINI_CUB_SIZE, WHITE);
+				draw_square(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, WHITE);
 			else if (miniMap[p.x][p.y] == 'P')
-				draw_circle(data->image, (t_vect_i){idx.i, idx.j}, PLAYER_SIZE,
-						RED);
+				draw_circle(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), PLAYER_SIZE, RED);
 			idx.j += MINI_CUB_SIZE;
 		}
 		idx.i += MINI_CUB_SIZE;
 	}
 	draw_direction(data, miniMap, RED);
 	free_split(miniMap);
+}
+
+void	draw_direction(void *args, char **minimap, uint32_t color)
+{
+	t_var		*var;
+	t_vect_i	player_pos;
+	t_vect_i	pos;
+	t_vect_i	dir;
+
+	var = (t_var *)args;
+	player_pos = get_player_xy_position(minimap);
+	pos.x = player_pos.x * MINI_CUB_SIZE + PLAYER_SIZE / 2;
+	pos.y = player_pos.y * MINI_CUB_SIZE - PLAYER_SIZE / 2;
+	dir.x = pos.x + var->dir.x * DIRECTION_LEN;
+	dir.y = pos.y + var->dir.y * DIRECTION_LEN;
+	draw_line(var->image, fix_coor(pos.x, pos.y, 10 * MINI_CUB_SIZE),
+			  fix_coor(dir.x, dir.y, 10 * MINI_CUB_SIZE), color);
 }
