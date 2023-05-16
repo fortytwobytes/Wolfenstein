@@ -30,22 +30,18 @@ void	skip_till_first_map_line(int fd, t_map *map)
 	}
 }
 
+// TODO: maybe you should hold the texture too
 mlx_image_t	*get_texture(t_var *var, char *path)
 {
-	xpm_t		*xpm;
 	mlx_image_t	*image;
+    mlx_texture_t *texture;
 
-	xpm = mlx_load_xpm42(path);
-	if (xpm == NULL)
-		fatal("invalid xpm texture");
-	image = mlx_texture_to_image(var->mlx, &xpm->texture);
-	if (image == NULL)
-	{
-		mlx_delete_xpm42(xpm);
+	texture = mlx_load_png(path);
+	if (texture == NULL)
 		fatal(mlx_strerror(mlx_errno));
-	}
-	mlx_delete_xpm42(xpm);
-	mlx_resize_image(image, CUBE_SIZE, CUBE_SIZE);
+    image = mlx_texture_to_image(var->mlx, texture);
+    mlx_delete_texture(texture);
+    mlx_resize_image(image, CUBE_SIZE, CUBE_SIZE);
 	return (image);
 }
 

@@ -48,7 +48,7 @@ void	mouse_move(t_var *var)
 	if (mlx_is_mouse_down(var->mlx, MLX_MOUSE_BUTTON_LEFT) == false)
 		return ;
 	if (var->mouse.x < half_screen)
-		change_to_left(var, ROTATE_SPEED / 50);
+		change_to_left(var, ROTATE_SPEED / 20);
 	else if (var->mouse.x > half_screen)
-		change_to_right(var, ROTATE_SPEED / 50);
+		change_to_right(var, ROTATE_SPEED / 20);
 }

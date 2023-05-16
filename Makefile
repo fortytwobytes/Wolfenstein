@@ -40,9 +40,6 @@ $(BIN_DIR)%.o:  %.c $(INCLUDES) $(MLX_LIB)
 	@$(MKDIR) $(OBJS_DIRS)
 	$(CC) $(CFLAGS) $(COMPILING) -c $< -o $@
 
-forb:
-	@sh ./list_forb_functions.sh
-
 clean:
 	@$(RM) $(BIN_DIR) a.out
 	@$(RM) $(basename $(wildcard tests/test_*.c) .c)
@@ -51,4 +48,3 @@ fclean: clean
 	@$(RM) $(NAME)
 
 re: fclean all
-

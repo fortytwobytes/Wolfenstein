@@ -1,7 +1,7 @@
-NO ./assets/textures/wall.xpm42
-SO ./assets/textures/grass.xpm42
-WE ./assets/textures/brick.xpm42
-EA ./assets/textures/wood.xpm42
+NO ./assets/textures/redbrick.png
+SO ./assets/textures/wood.png
+WE ./assets/textures/greystone.png
+EA ./assets/textures/colorstone.png
 
 F 135,206,235
 C 48,46,42
