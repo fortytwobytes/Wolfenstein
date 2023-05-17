@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 01:36:13 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 01:36:13 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:31:53y relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	move_hook(void *param)
 void	draw_hook(void *args)
 {
 	t_var	*var;
-	t_ray	ray;
 	int		side;
 	int		x;
 
@@ -56,11 +55,11 @@ void	draw_hook(void *args)
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
-		resetting_ray(var, &ray, x);
-		set_step_and_side_distances(var, &ray);
-		cast_ray_till_wall(var, &ray, &side);
-		calculate_line_properties(&ray, side);
-		draw_vert_line(var, x, ray.line.draw_start, ray.line.draw_end);
+		resetting_ray(var, &var->ray, x);
+		set_step_and_side_distances(var, &var->ray);
+		cast_ray_till_wall(var, &var->ray, &side);
+		calculate_line_properties(&var->ray, side);
+		draw_vert_line(var, x, (t_vect_i) {var->ray.line.draw_start, var->ray.line.draw_end}, side);
 	}
 	draw_mini_map(var, get_small_map(var));
 }

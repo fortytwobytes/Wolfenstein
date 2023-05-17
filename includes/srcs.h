@@ -6,7 +6,7 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 00:49:34 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/17 22:50:09 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,7 @@ struct						s_map
 	char					*first_map_line;
 };
 
-struct						s_var
-{
-	mlx_t					*mlx;
-	mlx_image_t				*image;
-	t_player				player;
-	t_map					map;
-	t_vect_f				pos;
-	t_vect_f				dir;
-	t_vect_f				plane;
-	t_vect_i				mouse;
-	double					c_time;
-	double					old_time;
-};
+
 
 struct						s_line
 {
@@ -135,6 +123,21 @@ struct						s_ray
 	int						step_x;
 	int						step_y;
 	t_line					line;
+};
+
+struct						s_var
+{
+	mlx_t					*mlx;
+	mlx_image_t				*image;
+	t_player				player;
+	t_map					map;
+	t_vect_f				pos;
+	t_vect_f				dir;
+	t_vect_f				plane;
+	t_vect_i				mouse;
+	t_ray					ray;
+	double					c_time;
+	double					old_time;
 };
 
 void						move_hook(void *param);
@@ -192,7 +195,7 @@ void						draw_circle(mlx_image_t *image, t_vect_i p,
 void						draw_square(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
 void						draw_vert_line(t_var *image, int x,
-								int drawStart, int drawEnd);
+								t_vect_i draw, int side);
 void						draw_floor_ceil(t_var *var);
 // helpers.fix_coor
 void						free_split(char **split);

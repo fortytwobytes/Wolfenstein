@@ -6,21 +6,32 @@
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:44 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/08 01:14:49 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/17 23:03:03 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/srcs.h"
 
-void	draw_vert_line(t_var *var, int x, int drawStart, int drawEnd)
+// draw.x == starting point
+// draw.y == ending point
+void	draw_vert_line(t_var *var, int x, t_vect_i draw, int side)
 {
-	uint32_t color;
-	mlx_resize_image(var->map.no_image, CUBE_SIZE, abs(drawStart - drawEnd));
-	while (drawStart < drawEnd)
+	while (draw.x < draw.y)
 	{
-		color = get_image_color(var->map.ea_image, (t_vect_i) {x, drawStart});
-		mlx_put_pixel(var->image, x, drawStart, color);
-		drawStart++;
+		t_vect_i cord = (t_vect_i) {x, draw.x};
+		if (side == 0 && var->ray.ray_dir_x > 0)
+			mlx_put_pixel(var->image, x, draw.x,
+				get_image_color(var->map.so_image, cord));
+		else if (side == 0)
+			mlx_put_pixel(var->image, x, draw.x,
+				get_image_color(var->map.no_image, cord));
+		else if (var->ray.ray_dir_y > 0)
+			mlx_put_pixel(var->image, x, draw.x,
+				get_image_color(var->map.ea_image, cord));
+		else
+			mlx_put_pixel(var->image, x, draw.x,
+				get_image_color(var->map.we_image, cord));
+		draw.x++;
 	}
 }
 
