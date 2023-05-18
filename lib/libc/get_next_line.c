@@ -132,5 +132,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	result = ft_truncate_left(reserve);
 	reserve = ft_truncate_right(&reserve);
+	// TODO: check memory leak
+	free(reserve);
 	return (result);
 }

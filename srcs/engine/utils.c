@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils.fix_coor                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,6 +14,19 @@
 
 static void	init_values(t_vect_i *inc, t_vect_i p0, t_vect_i p1,
 				t_vect_i *delta);
+
+uint32_t	get_image_color(mlx_image_t *image, t_vect_i p)
+{
+	uint32_t	color;
+	uint32_t	index;
+
+	index = (p.y % image->height * image->width + p.x % image->width) * 4;
+	color = image->pixels[index] << 24;
+	color |= image->pixels[index + 1] << 16;
+	color |= image->pixels[index + 2] << 8;
+	color |= 0x000000FF;
+	return (color);
+}
 
 void	draw_line(mlx_image_t *image, t_vect_i p0, t_vect_i p1, uint32_t color)
 {

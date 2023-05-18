@@ -1,10 +1,11 @@
-NO ./assets/textures/wall.xpm42
-SO ./assets/textures/wall.xpm42
-WE ./assets/textures/wall.xpm42
-EA ./assets/textures/wall.xpm42
+NO ./assets/textures/redbrick.png
+SO ./assets/textures/wood.png
+WE ./assets/textures/greystone.png
+EA ./assets/textures/colorstone.png
 
-F 255,255,0
-C 0,255,255
+F 135,206,235
+C 48,46,42
+
 
 11111111
 10101001

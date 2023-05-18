@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-fsanitize=address -g # -Wall -Wextra -Werror
+CFLAGS		=	-fsanitize=address -g -Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
 
@@ -39,9 +39,6 @@ $(NAME):    $(OBJS) $(MLX_LIB)
 $(BIN_DIR)%.o:  %.c $(INCLUDES) $(MLX_LIB)
 	@$(MKDIR) $(OBJS_DIRS)
 	$(CC) $(CFLAGS) $(COMPILING) -c $< -o $@
-
-forb:
-	@sh ./list_forb_functions.sh
 
 clean:
 	@$(RM) $(BIN_DIR) a.out
