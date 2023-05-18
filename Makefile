@@ -1,5 +1,5 @@
 CC			=	cc
-CFLAGS		=	-fsanitize=address -g -Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror
 RM			=	rm -rf
 MKDIR		=	mkdir -p
 

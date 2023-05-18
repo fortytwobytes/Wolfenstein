@@ -45,21 +45,22 @@ void	move_hook(void *param)
 void	draw_hook(void *args)
 {
 	t_var	*var;
-	int		side;
 	int		x;
 
 	var = args;
 	ft_memset(var->image->pixels, 0, var->image->width * var->image->height
 			* sizeof(uint32_t));
-	draw_floor_ceil(var);
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
 		resetting_ray(var, &var->ray, x);
 		set_step_and_side_distances(var, &var->ray);
-		cast_ray_till_wall(var, &var->ray, &side);
-		calculate_line_properties(&var->ray, side);
-		draw_vert_line(var, x, (t_vect_i) {var->ray.line.draw_start, var->ray.line.draw_end}, side);
+		cast_ray_till_wall(var, &var->ray, &var->texture.side);
+		calculate_line_properties(&var->ray, var->texture.side);
+		set_texture_params(var);
+		fill_texture_buffer(var, x, var->ray.line.draw_start,
+				var->ray.line.draw_end);
 	}
+	draw_3d_scene(var);
 	draw_mini_map(var, get_small_map(var));
 }

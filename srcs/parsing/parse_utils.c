@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/08 01:06:27 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:08:19 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	skip_till_first_map_line(int fd, t_map *map)
 	}
 }
 
-// TODO: maybe you should hold the texture too
 mlx_image_t	*get_texture(t_var *var, char *path)
 {
 	mlx_image_t	*image;
@@ -51,6 +50,8 @@ void	get_map_dimension(int fd, t_map *map)
 	int		line_len;
 	char	*rest_map;
 
+	if (!map->first_map_line)
+		fatal("Invalid map !!");
 	map->width = ft_strlen(map->first_map_line) - 1;
 	while (true)
 	{

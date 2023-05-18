@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   srcs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:50:09 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:48:17 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_ray		t_ray;
 typedef struct s_line		t_line;
 typedef struct s_idxs		t_idxs;
 typedef struct s_minimap	t_minimap;
+typedef struct s_texture	t_texture;
 
 struct						s_vect_i
 {
@@ -75,6 +76,16 @@ struct						s_player
 	char					first_view;
 };
 
+struct						s_texture
+{
+	uint32_t				**buffer;
+	double					pos;
+	int						tex_x;
+	int						tex_y;
+	int						side;
+	double					step;
+};
+
 struct						s_minimap
 {
 	t_vect_i				p;
@@ -98,8 +109,6 @@ struct						s_map
 	char					**map;
 	char					*first_map_line;
 };
-
-
 
 struct						s_line
 {
@@ -130,6 +139,7 @@ struct						s_var
 	mlx_t					*mlx;
 	mlx_image_t				*image;
 	t_player				player;
+	t_texture				texture;
 	t_map					map;
 	t_vect_f				pos;
 	t_vect_f				dir;
@@ -194,13 +204,14 @@ void						draw_circle(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
 void						draw_square(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
-void						draw_vert_line(t_var *image, int x,
-								t_vect_i draw, int side);
+void						fill_texture_buffer(t_var *image, int x,
+								int drawStart, int drawEnd);
 void						draw_floor_ceil(t_var *var);
 // helpers.fix_coor
 void						free_split(char **split);
 t_vect_i					get_player_xy_position(char **realMap);
-t_vect_f					get_first_player_direction(t_var *var, char direction);
+t_vect_f					get_first_player_direction(t_var *var,
+								char direction);
 
 //later
 char						**get_minimap(char **realMap);
@@ -218,5 +229,11 @@ void						cast_ray_till_wall(t_var *var, t_ray *ray,
 								int *side);
 void						calculate_line_properties(t_ray *ray, int side);
 uint32_t					get_image_color(mlx_image_t *image, t_vect_i p);
+
+void						set_texture_params(t_var *var);
+void						set_env(t_var *var);
+void						draw_3d_scene(t_var *var);
+void						fill_texture_buffer(t_var *var, int x,
+								int drawStart, int drawEnd);
 
 #endif // !SRCS_H
