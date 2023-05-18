@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/18 17:08:19 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:34:23 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,15 @@ void	skip_till_first_map_line(int fd, t_map *map)
 
 mlx_image_t	*get_texture(t_var *var, char *path)
 {
-	mlx_image_t	*image;
-    mlx_texture_t *texture;
+	mlx_image_t		*image;
+	mlx_texture_t	*texture;
 
 	texture = mlx_load_png(path);
 	if (texture == NULL)
 		fatal(mlx_strerror(mlx_errno));
-    image = mlx_texture_to_image(var->mlx, texture);
-    mlx_delete_texture(texture);
-    mlx_resize_image(image, CUBE_SIZE, CUBE_SIZE);
+	image = mlx_texture_to_image(var->mlx, texture);
+	mlx_delete_texture(texture);
+	mlx_resize_image(image, CUBE_SIZE, CUBE_SIZE);
 	return (image);
 }
 

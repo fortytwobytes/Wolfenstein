@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 01:36:13 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:31:53y relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:13:57 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,12 @@
 void	move_hook(void *param)
 {
 	t_var	*var;
-	double	frame_time;
 	double	move_speed;
 	double	rot_speed;
 
 	var = param;
-	var->old_time = var->c_time;
-	var->c_time = (double)clock();
-	frame_time = (var->c_time - var->old_time) / 500000;
-	move_speed = frame_time * MOVE_SPEED;
-	rot_speed = frame_time * ROTATE_SPEED;
+	move_speed = 0.04 * MOVE_SPEED;
+	rot_speed = 0.04 * ROTATE_SPEED;
 	if (mlx_is_key_down(var->mlx, MLX_KEY_ESCAPE))
 		end_game(var);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_W))
@@ -49,7 +45,7 @@ void	draw_hook(void *args)
 
 	var = args;
 	ft_memset(var->image->pixels, 0, var->image->width * var->image->height
-			* sizeof(uint32_t));
+		* sizeof(uint32_t));
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
@@ -59,7 +55,7 @@ void	draw_hook(void *args)
 		calculate_line_properties(&var->ray, var->texture.side);
 		set_texture_params(var);
 		fill_texture_buffer(var, x, var->ray.line.draw_start,
-				var->ray.line.draw_end);
+			var->ray.line.draw_end);
 	}
 	draw_3d_scene(var);
 	draw_mini_map(var, get_small_map(var));

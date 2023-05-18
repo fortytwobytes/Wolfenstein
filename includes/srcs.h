@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/18 16:48:17 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:36:59 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,5 +235,7 @@ void						set_env(t_var *var);
 void						draw_3d_scene(t_var *var);
 void						fill_texture_buffer(t_var *var, int x,
 								int drawStart, int drawEnd);
-
+t_vect_i					fix_coor(int x, int y, int size);
+void						check_cube(t_var *data, char **miniMap, t_idxs idx,
+								t_vect_i p);
 #endif // !SRCS_H

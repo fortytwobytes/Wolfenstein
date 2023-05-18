@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:26 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/18 16:48:53 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:35:39 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_window(t_var *var)
 		fatal(mlx_strerror(mlx_errno));
 	}
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
-			WIN_HEIGHT);
+		WIN_HEIGHT);
 }
 
 void	init(t_var *var)

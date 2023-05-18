@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:11 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 00:51:11 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:34:56 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ t_vect_f	get_first_player_direction(t_var *var, char direction)
 {
 	t_vect_f	dir;
 
-    dir = (t_vect_f) {0.0, -1.0};
+	dir = (t_vect_f){0.0, -1.0};
 	var->plane.x = -0.66;
 	var->plane.y = 0;
 	if (direction == 'N')
-    {
-        dir = (t_vect_f){-1.0, 0.0};
+	{
+		dir = (t_vect_f){-1.0, 0.0};
 		var->plane.x = 0;
 		var->plane.y = 0.66;
-    }
+	}
 	else if (direction == 'S')
 	{
 		dir = (t_vect_f){1.0, 0.0};
