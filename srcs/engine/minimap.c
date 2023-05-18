@@ -69,6 +69,15 @@ void	draw_mini_map(t_var *data, char **miniMap)
 		while (miniMap[p.x][++p.y])
 		{
 			check_cube(data, miniMap, idx, p);
+			if (miniMap[p.x][p.y] == '1')
+				draw_square(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, BLACK);
+			else if (miniMap[p.x][p.y] == '0')
+				draw_square(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, WHITE);
+			else if (miniMap[p.x][p.y] == 'P')
+				draw_circle(data->image,
+							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, RED);
 			idx.j += MINI_CUB_SIZE;
 		}
 		idx.i += MINI_CUB_SIZE;
@@ -86,8 +95,8 @@ void	draw_direction(void *args, char **minimap, uint32_t color)
 
 	var = (t_var *)args;
 	player_pos = get_player_xy_position(minimap);
-	pos.x = player_pos.x * MINI_CUB_SIZE + PLAYER_SIZE / 2;
-	pos.y = player_pos.y * MINI_CUB_SIZE - PLAYER_SIZE / 2;
+	pos.x = player_pos.x * MINI_CUB_SIZE + MINI_CUB_SIZE / 2;
+	pos.y = player_pos.y * MINI_CUB_SIZE - MINI_CUB_SIZE / 2;
 	dir.x = pos.x + var->dir.x * DIRECTION_LEN;
 	dir.y = pos.y + var->dir.y * DIRECTION_LEN;
 	draw_line(var->image, fix_coor(pos.x, pos.y, 10 * MINI_CUB_SIZE),

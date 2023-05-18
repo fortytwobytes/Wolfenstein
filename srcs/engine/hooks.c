@@ -15,26 +15,22 @@
 void	move_hook(void *param)
 {
 	t_var	*var;
-	double	move_speed;
-	double	rot_speed;
 
 	var = param;
-	move_speed = 0.04 * MOVE_SPEED;
-	rot_speed = 0.04 * ROTATE_SPEED;
 	if (mlx_is_key_down(var->mlx, MLX_KEY_ESCAPE))
 		end_game(var);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_W))
-		move_forward(var, move_speed);
+		move_forward(var, MOVE_SPEED);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_S))
-		move_backward(var, move_speed);
+		move_backward(var, MOVE_SPEED);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_A))
-		move_left(var, move_speed);
+		move_left(var, MOVE_SPEED);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_D))
-		move_right(var, move_speed);
+		move_right(var, MOVE_SPEED);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_LEFT))
-		change_to_left(var, rot_speed);
+		change_to_left(var, ROTATE_SPEED);
 	if (mlx_is_key_down(var->mlx, MLX_KEY_RIGHT))
-		change_to_right(var, rot_speed);
+		change_to_right(var, ROTATE_SPEED);
 	mouse_move(var);
 }
 
