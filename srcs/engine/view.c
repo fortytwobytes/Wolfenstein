@@ -45,10 +45,11 @@ void	mouse_move(t_var *var)
 
 	half_screen = var->image->width / 2.0;
 	mlx_get_mouse_pos(var->mlx, &var->mouse.x, &var->mouse.y);
-	if (mlx_is_mouse_down(var->mlx, MLX_MOUSE_BUTTON_LEFT) == false)
-		return ;
+//	if (mlx_is_mouse_down(var->mlx, MLX_MOUSE_BUTTON_LEFT) == false)
+//		return ;
 	if (var->mouse.x < half_screen)
-		change_to_left(var, ROTATE_SPEED / 20);
+		change_to_left(var, ROTATE_SPEED);
 	else if (var->mouse.x > half_screen)
-		change_to_right(var, ROTATE_SPEED / 20);
+		change_to_right(var, ROTATE_SPEED);
+    mlx_set_mouse_pos(var->mlx, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 }

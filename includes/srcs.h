@@ -33,8 +33,8 @@
 # define WHITE 0xFFFFFFFFL
 
 // GAME
-# define MOVE_SPEED 2.0f
-# define ROTATE_SPEED 1.0f
+# define MOVE_SPEED 0.08f
+# define ROTATE_SPEED 0.04f
 # define DIRECTION_LEN 50
 
 // MISC

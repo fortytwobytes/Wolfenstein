@@ -21,6 +21,7 @@ void	init_window(t_var *var)
 	{
 		fatal(mlx_strerror(mlx_errno));
 	}
+    mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
 		WIN_HEIGHT);
 }
