@@ -1,0 +1,213 @@
+!XPM42
+64 64 147 2 c
+   #1E1C37FF
+.  #1F1C38FF
+X  #231D37FF
+o  #211E38FF
+O  #281F38FF
++  #24223BFF
+@  #2A253DFF
+#  #29283DFF
+$  #3F2236FF
+%  #3E2438FF
+&  #452337FF
+*  #452538FF
+=  #442A3BFF
+-  #492B3CFF
+;  #44303EFF
+:  #4B313FFF
+>  #2C2741FF
+,  #2D2941FF
+<  #332D43FF
+1  #2E3043FF
+2  #2C3F44FF
+3  #333145FF
+4  #383347FF
+5  #343F44FF
+6  #4D2F42FF
+7  #502F42FF
+8  #473240FF
+9  #4C3343FF
+0  #4E3845FF
+q  #4E3E49FF
+w  #513345FF
+e  #513847FF
+r  #543648FF
+t  #543A4CFF
+y  #2E4646FF
+u  #2E4847FF
+i  #334446FF
+p  #314748FF
+a  #3A464AFF
+s  #344949FF
+d  #3B4B4CFF
+f  #3C4F51FF
+g  #3E5152FF
+h  #594A4FFF
+j  #434D51FF
+k  #5C4F52FF
+l  #415254FF
+z  #5D5455FF
+x  #5D5857FF
+c  #605656FF
+v  #615857FF
+b  #615758FF
+n  #645C5AFF
+m  #67605EFF
+M  #5E5D65FF
+N  #665F60FF
+B  #666161FF
+V  #696362FF
+C  #65656AFF
+Z  #6B666AFF
+A  #676C6CFF
+S  #6B6A6EFF
+D  #706C6FFF
+F  #70706FFF
+G  #6E6D71FF
+H  #716E72FF
+J  #6E7173FF
+K  #6F7279FF
+L  #767676FF
+P  #787576FF
+I  #777678FF
+U  #787778FF
+Y  #777878FF
+T  #7B797BFF
+R  #7C7E81FF
+E  #857583FF
+W  #887786FF
+Q  #867986FF
+!  #887887FF
+~  #867B8AFF
+^  #8B7C8BFF
+/  #7D8284FF
+(  #8E848FFF
+)  #8D848EFF
+_  #8C818DFF
+`  #80898DFF
+'  #8F8490FF
+]  #8F8692FF
+[  #8E8391FF
+{  #8F8A96FF
+}  #918191FF
+|  #908590FF
+ . #908491FF
+.. #908591FF
+X. #918591FF
+o. #908691FF
+O. #918691FF
++. #918592FF
+@. #938493FF
+#. #928693FF
+$. #928694FF
+%. #938794FF
+&. #948795FF
+*. #938694FF
+=. #958896FF
+-. #968897FF
+;. #968997FF
+:. #968897FF
+>. #978998FF
+,. #968A99FF
+<. #978A99FF
+1. #978998FF
+2. #988A99FF
+3. #988A99FF
+4. #95909EFF
+5. #8793A0FF
+6. #869AA6FF
+7. #889AA7FF
+8. #8C9EA6FF
+9. #899AA7FF
+0. #8F9EA8FF
+q. #87A2ADFF
+w. #8EA3ACFF
+e. #8FA3ACFF
+r. #8EA4ADFF
+t. #8FA4AEFF
+y. #8CA4AEFF
+u. #90A0ABFF
+i. #91A2AEFF
+p. #8FA5B0FF
+a. #92A4B0FF
+s. #90A7B1FF
+d. #91A7B1FF
+f. #90A8B2FF
+g. #95A9B6FF
+h. #95AAB7FF
+j. #96ABB7FF
+k. #94A8B5FF
+l. #93AAB6FF
+z. #93ADB9FF
+x. #94AEBAFF
+c. #95B0BCFF
+v. #95B1BDFF
+b. #95B2BEFF
+n. #96B2BEFF
+m. #97B3BFFF
+M. #95B1BDFF
+>.>.>...L C   , L / m.j.>.>.>.>.>.>.>.>.>.>.>.>.>.=.U H @ @ L L m.m.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.T L , o S L j.m.4.>.>.>.>.>.
+......_ T G O < / ` r.0.' ........................_ T Y @ @ R / r.r.' ..............................T T < O K / 7.r.{ ..........
+L L L T >.W & t m.j.Y L L L L L L L L L L L L L L T =...- - z.m.T L L L L L L L L L L L L L L L L L ..=.r * 0.m./ L L L L L L L 
+L L L T ..E & t j.u.L L L L L L L L L L L L L L L U ' ^ - - a.j.L L L L L L L L L L L L L L L L L L _ ..r * 5.j.R L L L L L L L 
+L L L L L Z & r >...L L L L L L L L L L L L L L L L L L * - ..>.L L L L L L L L L L L L L L L L L L L L 9 * W =.T L L L L L L L 
+L L L L L Z = t >...L L L L L L L L L L L L L L L L L S = 8 ..>.L L L L L L L L L L L L L L L L L L L L 9 = ! >.T L L L L L L L 
+L L L L n z y l >...L L L L L L L L L L L L L L L L n x s s ..>.L L L L L L L L L L L L L L L L L L n n s s ~ >.T L L L L L L L 
+L L L L n z y l >...L L L L L L L L L L L L L L L L n x s s ..>.L L L L L L L L L L L L L L L L L L n n a i ~ >.T L L L L L L L 
+L L L L n z y l >...L L L L L L L L L L L L L L n n n x p s ..=.L L L L L L L L L L L L L L L L L L n n - * ! >.T L L L L L L L 
+L L L L n z i j >...L L L L L L L L L L L L L L m n n x i a ..=.L L L L L L L L L L L L L L L L L L n n 8 = ! >.T L L L L L L L 
+L L L L n z & r 2...L L L L L L L L L L L L n n L L n c * - ..>.L L L L L L L L L L L L L L L L L L n n s s ~ >.T L L L L L L L 
+L L L S z h * 9 .._ T T L L L L L L L L L L n n L F z k * = _ ..T T L L L L L L L L L L L L L L L L b z i y ! ..R T L L L L L L 
+n n n z * % . , L T >...L L n n n n n n n n n n n c * * o @ L U =.=.U L L L L L n n L L n n n n n n - * o o S L ..>.T L L L L L 
+z z z h * % . , G H ^ ! J S z z z z z z z z x x z z * % o @ Z S ^ ^ H D D S S S z z S S b z z z x x = * o o M S ! ^ H D S S S S 
+y 5 & $ . . o o . o * = y y . .     . @ y y y y * * o . o o o o * * * * * * o         O * * * * i y @ . o o     * * * * o o o o 
+g d 6 6 , , > , , < 6 9 f d @ @   o @ , g g f d 6 6 , > > > , , - - 6 6 6 6 @ @ . o @ @ 9 9 9 6 d f , > , , , , 6 6 - - @ o @ @ 
+m.j.2.2.2.2.2.2.2.2.2.2.>...L G   @ L T m.m.>.>.>.2.2.2.2.2.2.2.T T =.2.2.>.T T @ o L T j.m.>.2.>.>.2.2.2.2.2.2.2.2.T U <   C L 
+j.u.........................T H O , T / j.a.....................L L ........T T @ o Y R r.j.>.......................R T 3 o C L 
+Y Y Y Y L L L L L L L Y L T =.^ & 9 z.j.T Y Y L L L L L L L n n n n L L L U ..=.- * p.z.T Y L L L L Y Y L L L L L L ..=.t * Z L 
+L L L L L L L L L L L L L T ..^ & 9 z.a.Y L L L L L L L L L Z Z n n L L L L ....- * u.z.T L L L L L L L L L L L L L _ ..t * Z L 
+L L L L L L L L L L L L L L L H & 9 =...L L L L L L L L n n ....L L L L L L L L - * ..=.T L L L L L L L L L L L L L L U r * Z L 
+L L L L L L L L L L L L L L L S * 9 =...L L L L L L L L n Z ....L L L L L L L L = = ..=.T L L L L L L L L L L L L L L L 0 * Z L 
+L L L L L L L L L L L L L L n x y f ....L L L L L L n n ....L L L L L L L L n n s y ' >.T L L L L L L L L L L L L L m n d y A L 
+L L L L L L L L L L L L L L n x u g ....L L L L L L n N ....L L L L L L L L n n p i ' =.T L L L L L L L L L L L L L m n d y A L 
+L L L L L L L L L L L L L L n x y f ....L L L L L L L L L L L L L L L L L L n n * * } =.T L L L L L L L L L L L L L m n d y A L 
+L L L L L L L L L L L L L L n x y g ....L L L L L L L L L L L L L L L L L L n n = * ..=.T L L L L L L L L L L L L L m n d y A L 
+L L L L L L L L L L L L L L n x y g ....L L L L L L L L L L L L L L L L L L n n - * ..=.T L n n L L L L L L L L L L m n d y A L 
+T T L L L L L L L L L L L L c z y f ....T U L L L L L L L L L L L L L L L L n c * * ^ ..T T m n L L L L L L L L L L n c a y A L 
+=._ L L n m L L n n n n n c * * o , Y T ....L L L L L L n n n n n n n n n n - * o o L U ..=.T L n n n n n n n n n n : * @ o C L 
+..^ L S v n L S z z z x v z * * o @ L Y .._ L L L L L L n z z z v v v v n z = * o o S L _ ..Y L n n x x z z z z v v - * O o C L 
+- ; s i * * @ @ o o o @ * * o o o o @ @ = - * * = * @ @ o o o o * * * = i i o o o o @ @ = - i s i s @ o o o o o * * O o o   o @ 
+* = y i * % o o . o o o * * o o o o o o * * * * * * o o o o o o * * * * i y @ o o o o o * * i y y s @ o o o o o * * @ o o o o o 
+=.=.=.=...' L C   , L R z.j...=.....=.=.=.=.=.=.=...L G @ @ L L z.z.>...=.=.=.....=.=.=.=.=.=.=.=.=.T L , o Z L r.z.>...=.....=.
+=.=.=.=.=...L S O < Y / z.j.=.=.=.=.=.=.=.=.=.=.=...T L @ @ Y T z.z.>...=.=.=.=.=.=.=.=.=.=.=.=.=.=.T L , o S Y r.m.>.=.=.=.=.=.
+U U U U U T ..! & t z.p.T T U U U U U U U U U U U T ....- 6 j.z.T T Y Y U U U U U U U U U U U U U U ....r * 6.z./ Y U U U U U U 
+L L L L L T ..! & t z.a.L L L L L L L L L L L L L T ....- - j.z.Y L L L L L L L L L L L L L L L L L ....r * 7.m./ L L L L L L L 
+L L L L L L T D & r >.=.L L L L L L L L L L L L L L T L - - ..>.L L L L L L L L L L L L L L L L L L T T 9 * ~ >.T L L L L L L L 
+L L L L L L L S & r ....L L L L L L L L L L L L L L L H = - ..=.L L L L L L L L L L L L L L L L L L L L 9 * ! >.T L L L L L L L 
+L L L L L L n z * r ....L L L L L L L L L L L L L L n n i s ..=.L L L L L L L L L L L L L L L L L L m n - * ! >.T L L L L L L L 
+L L L L L L n z * r ....L L L L L L L L L L L L L L n x s s ..>.L L L L L L L L L L L L L L L L L L n n - * ! >.T L L L L L L L 
+L L L L L L n z p l =...L L L L L L L L L L L L L L n c = - ..>.L L L L L L L L L L L L L L L L L L N n s p ~ >.T L L L L L L L 
+L L L L L L n z y l =...L L L L L L L L L L L L L L n c = - ..>.L L L L L L L L L L L L L L L L L L n n s s ~ >.T L L L L L L L 
+L L L L L L n z y l =...L L L L L L L L L L L L L L n x i s ..>.L L L L L L L L L L L L L L L L L L N n s s ~ >.T L L L L L L L 
+L L L L L L n z y l =...L L L L L L L L L L L L L L n x s s ..=.L L L L L L L L L L L L L L L L L L n n s p ~ >.T L L L L L L L 
+L L L L L L n z = t ....L L L L L L L L L L L L L L n x p s ..>.L L L L L L L L L L L L L L L L L L n n : = ! >.T L Z n L L L L 
+L L L L L L n z * r ....U L L L L L L L L L L L L L n x p s ..=.U L L L L L L L L L L L L L L L L L n n - * E =.T U m n L L L L 
+n n n n n c - = o < T T ..' L L n n n n n n n n n n - = @ @ Y T ....U L L L L L m n n n n n n n n n 9 - @ o S T ' ..U L Z n n n 
+n n n n n z * * o , U T >.=.L L n n n n n n n n n c * * o @ L T =.>.T L L L L L n n n n n n n n n n - * o o S L ..2.T L m n n n 
+- - - - - = o o o o @ @ 6 6 @ @ @ @ @ @ s s s s - = o o o o @ @ f f - - - - @ @ @ @ @ @ p s s s = - o o o o @ @ a f 9 - - - @ @ 
+* * * * & %     o . . o * * . . o o . @ y y y y * * o .   . . o y y * * * * o . . o . . y y y y = & o .   . .   y y = * * * O   
+^ ^ ^ ^ ^ ! S H ~ ~ ~ ~ ^ ! S C   @ S J q.r._ _ ^ ^ ~ ~ ~ ~ ~ ~ _ _ ^ ^ ^ ^ G S @ o C G 6.r.' _ ^ ^ ~ ~ ~ ~ ~ ~ ^ _ ^ ^ ^ ^ ~ ~ 
+>.>.>.>.>...L T =.>.>.>.>...L G   # L T m.z.=.>.>.>.>.>.>.>.>.>.>.>.>.>.>.=.T L @ o H Y j.m.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.>.
+T T T T T U n Z T T T T T T ..^ $ 9 a.r./ R T T T T T T T T T T T T T T T T ....= * 0.a./ R T T T T T T T T T T T T T T T T T T 
+L L L L L L n m L L L L L T =.^ & 9 z.j.Y L L L L L L L L L L L L L L L L Y ..>.- * p.m.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L D m Z L L L L T L & r >.>.L L L L L L L L L L L L L L L L L L T T - * ' 4.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L L n m L L L L L D & r ....L L L L L L L L L L L L L L L L L L L L - * ..=.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L L L L L L L L n n i f ....L L L L L L L L L L L L L L L L L L m m i i ' =.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L L L L L L L L n x y f ....L L L L L L L L L L L L L L L L L L n n i y ' =.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L L L L L L L L n x y f ....L L L L L L L L L L L L L L L L L L n n s y ' =.T L L L L L L L L L L L L L L L L L L L 
+L L L L L L L L L L L L L L n x y g ....L L L L L L L L L L L L L L L L L L n n s i ' =.T L L L L L L L L L L L L L L L L L L L 
+L L L L m Z L L m m m m m n - = @ 1 T T .._ L L L L L L m Z L L m m m m m n 9 - @ @ L T _ ' T L L L L L Z m L L Z m m m m m m m 
+L L L L n m L L n n n n n z * * o @ L T =...L L L L L L n n L L n n n n n v - * o o L L ..=.T L L L L L n n L L n n n n n n n n 
+e q g g d d g j : 9 9 9 d a O o o o 3 4 t t e e g g l g d d g g : 9 9 9 d d @ O o o 3 3 t t j g l l g g d d g g d d 9 9 a d 3 # 
+* = y y y y y i * * * = y y   o o o o o * * * * u y y y y y y y * * * * i y @ o o o o o * * i y y y y y y y y y y y = * i y @ o 
