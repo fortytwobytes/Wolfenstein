@@ -41,17 +41,30 @@ t_vect_i	get_player_xy_position(char **realMap)
 	return ((t_vect_i){-1, -1});
 }
 
-// TODO: check the right location
-t_vect_f	get_first_player_direction(char direction)
+t_vect_f	get_first_player_direction(t_var *var, char direction)
 {
 	t_vect_f	dir;
 
     dir = (t_vect_f) {0.0, -1.0};
+	var->plane.x = -0.66;
+	var->plane.y = 0;
 	if (direction == 'N')
-		dir = (t_vect_f){-1.0, 0.0};
+    {
+        dir = (t_vect_f){-1.0, 0.0};
+		var->plane.x = 0;
+		var->plane.y = 0.66;
+    }
 	else if (direction == 'S')
+	{
 		dir = (t_vect_f){1.0, 0.0};
+		var->plane.x = 0;
+		var->plane.y = -0.66;
+	}
 	else if (direction == 'E')
+	{
 		dir = (t_vect_f){0.0, 1.0};
+		var->plane.x = 0.66;
+		var->plane.y = 0;
+	}
 	return (dir);
 }
