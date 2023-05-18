@@ -200,7 +200,7 @@ void						draw_floor_ceil(t_var *var);
 // helpers.fix_coor
 void						free_split(char **split);
 t_vect_i					get_player_xy_position(char **realMap);
-t_vect_f					get_first_player_direction(char direction);
+t_vect_f					get_first_player_direction(t_var *var, char direction);
 
 //later
 char						**get_minimap(char **realMap);

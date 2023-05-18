@@ -29,12 +29,8 @@ void	init(t_var *var)
 {
 	var->pos.x = get_player_xy_position(var->map.map).x;
 	var->pos.y = get_player_xy_position(var->map.map).y;
-	var->dir.x = get_first_player_direction(var->map.map[
-			(int)var->pos.x][(int)var->pos.y]).x;
-	var->dir.y = get_first_player_direction(var->map.map[
-			(int)var->pos.x][(int)var->pos.y]).y;
-	var->plane.x = 0;
-	var->plane.y = 0.66;
+	var->dir = get_first_player_direction(var, var->map.map[
+			(int)var->pos.x][(int)var->pos.y]);
 	var->c_time = 0;
 	var->old_time = 0;
 	var->map.map[(int)var->pos.x][(int)var->pos.y] = 'P';
