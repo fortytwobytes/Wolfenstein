@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/27 20:05:17 by onouakch          #+#    #+#             */
-/*   Updated: 2023/04/11 17:45:11 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:45:03 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	result = ft_truncate_left(reserve);
 	reserve = ft_truncate_right(&reserve);
-	// TODO: check memory leak
 	free(reserve);
 	return (result);
 }

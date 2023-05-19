@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:26 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/18 16:48:53 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:21:01 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	init_window(t_var *var)
 	{
 		fatal(mlx_strerror(mlx_errno));
 	}
-    mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
-			WIN_HEIGHT);
+		WIN_HEIGHT);
 }
 
 void	init(t_var *var)
@@ -35,8 +35,6 @@ void	init(t_var *var)
 	var->pos.y = get_player_xy_position(var->map.map).y;
 	var->dir = get_first_player_direction(var,
 			var->map.map[(int)var->pos.x][(int)var->pos.y]);
-	var->c_time = 0;
-	var->old_time = 0;
 	var->map.map[(int)var->pos.x][(int)var->pos.y] = 'P';
 	var->image = mlx_new_image(var->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx_image_to_window(var->mlx, var->image, 0, 0);

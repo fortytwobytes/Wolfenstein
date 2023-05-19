@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 01:36:13 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/17 22:31:53y relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:13:57 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	draw_hook(void *args)
 
 	var = args;
 	ft_memset(var->image->pixels, 0, var->image->width * var->image->height
-			* sizeof(uint32_t));
+		* sizeof(uint32_t));
 	x = -1;
 	while (++x < SCREEN_WIDTH)
 	{
@@ -51,7 +51,7 @@ void	draw_hook(void *args)
 		calculate_line_properties(&var->ray, var->texture.side);
 		set_texture_params(var);
 		fill_texture_buffer(var, x, var->ray.line.draw_start,
-				var->ray.line.draw_end);
+			var->ray.line.draw_end);
 	}
 	draw_3d_scene(var);
 	draw_mini_map(var, get_small_map(var));

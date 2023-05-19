@@ -1,15 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/18 20:26:28 by onouakch          #+#    #+#             */
+/*   Updated: 2023/05/18 20:33:01 by onouakch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/srcs.h"
 
 void	set_texture_params(t_var *var)
 {
-	double	wallX;
+	double	wall_x;
 
 	if (var->texture.side == 0)
-		wallX = var->pos.y + var->ray.perp_wall_dist * var->ray.ray_dir_y;
+		wall_x = var->pos.y + var->ray.perp_wall_dist * var->ray.ray_dir_y;
 	else
-		wallX = var->pos.x + var->ray.perp_wall_dist * var->ray.ray_dir_x;
-	wallX -= floor((wallX));
-	var->texture.tex_x = (int)(wallX * (double)(CUBE_SIZE));
+		wall_x = var->pos.x + var->ray.perp_wall_dist * var->ray.ray_dir_x;
+	wall_x -= floor((wall_x));
+	var->texture.tex_x = (int)(wall_x * (double)(CUBE_SIZE));
 	if (var->texture.side == 0 && var->ray.ray_dir_x > 0)
 		var->texture.tex_x = CUBE_SIZE - var->texture.tex_x - 1;
 	if (var->texture.side == 1 && var->ray.ray_dir_y < 0)
@@ -18,6 +30,7 @@ void	set_texture_params(t_var *var)
 	var->texture.pos = (var->ray.line.draw_start - SCREEN_HEIGHT / 2
 			+ var->ray.line.line_height / 2) * var->texture.step;
 }
+
 void	set_env(t_var *var)
 {
 	int	i;
@@ -38,6 +51,7 @@ void	set_env(t_var *var)
 			var->texture.buffer[j][i] = var->map.c_color;
 	}
 }
+
 void	draw_3d_scene(t_var *var)
 {
 	int	i;
@@ -51,21 +65,27 @@ void	draw_3d_scene(t_var *var)
 		while (++j < SCREEN_HEIGHT)
 			mlx_put_pixel(var->image, i, j, var->texture.buffer[j][i]);
 	}
-	for (int y = 0; y < SCREEN_HEIGHT; y++)
-		for (int x = 0; x < SCREEN_WIDTH; x++)
-			var->texture.buffer[y][x] = 0;
+	i = -1;
+	while (++i < SCREEN_HEIGHT)
+	{
+		j = -1;
+		while (++j < SCREEN_WIDTH)
+			var->texture.buffer[i][j] = 0;
+	}
 }
 
 void	fill_texture_buffer(t_var *var, int x, int drawStart, int drawEnd)
 {
-	int			texY;
+	int			tex_y;
+	int			y;
 	t_vect_i	cord;
 
-	for (int y = drawStart; y < drawEnd; y++)
+	y = drawStart - 1;
+	while (++y < drawEnd)
 	{
-		texY = (int)var->texture.pos & (CUBE_SIZE - 1);
+		tex_y = (int)var->texture.pos & (CUBE_SIZE - 1);
 		var->texture.pos += var->texture.step;
-		cord = (t_vect_i){var->texture.tex_x, texY};
+		cord = (t_vect_i){var->texture.tex_x, tex_y};
 		if (var->texture.side == 0 && var->ray.ray_dir_x > 0)
 			var->texture.buffer[y][x] = get_image_color(var->map.so_image,
 					cord);

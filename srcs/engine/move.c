@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:43:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/07 00:46:32 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/18 20:26:12 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	move_forward(t_var *var, double moveSpeed)
 				* moveSpeed)][(int)(var->pos.y)]))
 		var->pos.x += var->dir.x * moveSpeed;
 	if (can_move(var->map.map[(int)(var->pos.x)][(int)(var->pos.y + var->dir.y
-				* moveSpeed)]))
+		* moveSpeed)]))
 		var->pos.y += var->dir.y * moveSpeed;
 }
 
@@ -30,7 +30,7 @@ void	move_backward(t_var *var, double moveSpeed)
 				* moveSpeed)][(int)(var->pos.y)]))
 		var->pos.x -= var->dir.x * moveSpeed;
 	if (can_move(var->map.map[(int)(var->pos.x)][(int)(var->pos.y - var->dir.y
-				* moveSpeed)]))
+		* moveSpeed)]))
 		var->pos.y -= var->dir.y * moveSpeed;
 }
 
@@ -62,15 +62,13 @@ void	move_right(t_var *var, double moveSpeed)
 
 static bool	can_move(char block)
 {
+	int			i;
 	const char	*allowed_blocks;
 
 	allowed_blocks = "0NSWEP";
-	for (int i = 0; allowed_blocks[i]; i++)
-	{
+	i = -1;
+	while (allowed_blocks[++i])
 		if (block == allowed_blocks[i])
-		{
 			return (true);
-		}
-	}
 	return (false);
 }
