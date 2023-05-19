@@ -1,3 +1,0 @@
-/home/redone/Projects/cub3D/lib/MLX42/lib/MLX42/CMakeFiles/mlx42.dir
-/home/redone/Projects/cub3D/lib/MLX42/lib/MLX42/CMakeFiles/edit_cache.dir
-/home/redone/Projects/cub3D/lib/MLX42/lib/MLX42/CMakeFiles/rebuild_cache.dir
