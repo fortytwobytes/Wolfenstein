@@ -31,5 +31,5 @@ void	check_cube(t_var *data, char **miniMap, t_idxs idx, t_vect_i p)
 			MINI_CUB_SIZE, WHITE);
 	else if (miniMap[p.x][p.y] == 'P')
 		draw_circle(data->image, fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE),
-			PLAYER_SIZE, RED);
+			MINI_CUB_SIZE, RED);
 }

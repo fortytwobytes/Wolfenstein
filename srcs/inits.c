@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:26 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/18 20:35:39 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/19 14:21:01 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_window(t_var *var)
 	{
 		fatal(mlx_strerror(mlx_errno));
 	}
-    mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
 		WIN_HEIGHT);
 }

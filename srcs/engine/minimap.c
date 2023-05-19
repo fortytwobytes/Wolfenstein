@@ -69,15 +69,6 @@ void	draw_mini_map(t_var *data, char **miniMap)
 		while (miniMap[p.x][++p.y])
 		{
 			check_cube(data, miniMap, idx, p);
-			if (miniMap[p.x][p.y] == '1')
-				draw_square(data->image,
-							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, BLACK);
-			else if (miniMap[p.x][p.y] == '0')
-				draw_square(data->image,
-							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, WHITE);
-			else if (miniMap[p.x][p.y] == 'P')
-				draw_circle(data->image,
-							fix_coor(idx.i, idx.j, 10 * MINI_CUB_SIZE), MINI_CUB_SIZE, RED);
 			idx.j += MINI_CUB_SIZE;
 		}
 		idx.i += MINI_CUB_SIZE;
