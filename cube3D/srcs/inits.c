@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inits.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 00:51:26 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/19 14:21:01 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:24:00 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_window(t_var *var)
 	{
 		fatal(mlx_strerror(mlx_errno));
 	}
+	var->is_mouse_on = true;
 	mlx_set_cursor_mode(var->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_window_limit(var->mlx, WIN_WIDTH, WIN_HEIGHT, WIN_WIDTH,
 		WIN_HEIGHT);

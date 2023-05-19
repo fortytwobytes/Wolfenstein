@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_elements.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:33:19 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/08 01:06:08 by relkabou         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:21:08 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static bool	is_all_num(char **elements)
 	return (true);
 }
 
-static bool			check_commas(char *str)
+static bool	check_commas(char *str)
 {
 	int	i;
 	int	nbrof_commas;
@@ -91,7 +91,7 @@ static bool			check_commas(char *str)
 	while (str[++i])
 	{
 		if (str[i] == ',')
-			nbrof_commas ++;
+			nbrof_commas++;
 	}
 	return (nbrof_commas == 2);
 }

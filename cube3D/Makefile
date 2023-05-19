@@ -15,7 +15,7 @@ else
     LINKING =	$(MLX_LIB) -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 endif
 
-SRCS		=	main.c libc/fatal.c libc/ft_atoi.c libc/ft_calloc.c libc/ft_memcpy.c libc/ft_memset.c libc/ft_split.c libc/ft_strchr.c libc/ft_strcmp.c libc/ft_strdup.c libc/ft_strlen.c libc/ft_strrchr.c libc/ft_strtrim.c libc/ft_substr.c libc/get_next_line.c libc/split_utils.c srcs/inits.c srcs/parsing/parse_elements.c srcs/parsing/parse_map.c srcs/parsing/parse_utils.c srcs/parsing/parsing.c srcs/parsing/utils.c srcs/engine/hooks.c srcs/engine/minimap.c srcs/engine/minimap_utils.c srcs/engine/move.c srcs/engine/raycasting.c srcs/engine/textures.c srcs/engine/utils.c srcs/engine/view.c srcs/utils/drawing.c srcs/utils/helpers.c
+SRCS		=	main.c libc/fatal.c libc/ft_atoi.c libc/ft_calloc.c libc/ft_memcpy.c libc/ft_memset.c libc/ft_split.c libc/ft_strchr.c libc/ft_strcmp.c libc/ft_strdup.c libc/ft_strlen.c libc/ft_strrchr.c libc/ft_strtrim.c libc/ft_substr.c libc/get_next_line.c libc/split_utils.c srcs/inits.c srcs/parsing/parse_elements.c srcs/parsing/parse_map.c srcs/parsing/parse_utils.c srcs/parsing/parsing.c srcs/parsing/utils.c srcs/engine/hooks.c srcs/engine/minimap.c srcs/engine/minimap_utils.c srcs/engine/move.c srcs/engine/raycasting.c srcs/engine/textures.c srcs/engine/utils.c srcs/engine/view.c srcs/utils/drawing.c srcs/utils/helpers.c srcs/engine/mouse.c
 
 SRCS_DIRS   = $(dir $(SRCS))
 

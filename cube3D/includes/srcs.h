@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/18 20:36:59 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:30:54 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ struct						s_var
 	t_vect_f				plane;
 	t_vect_i				mouse;
 	t_ray					ray;
+	bool					is_mouse_on;
 };
 
 void						move_hook(void *param);
@@ -179,7 +180,7 @@ t_vect_f					get_first_player_direction(t_var *var,
 								char direction);
 char						**get_minimap(char **realMap);
 char						**get_small_map(t_var *var);
-void						end_game(t_var *var);
+void						end_game(void *param);
 void						mouse_move(t_var *var);
 void						init(t_var *var);
 void						resetting_ray(t_var *var, t_ray *ray, int xPixel);
@@ -196,6 +197,9 @@ void						fill_texture_buffer(t_var *var, int x,
 t_vect_i					fix_coor(int x, int y, int size);
 void						check_cube(t_var *data, char **miniMap, t_idxs idx,
 								t_vect_i p);
-int                         is_player(char p);
+int							is_player(char p);
+void						switch_mouse_mode(mlx_key_data_t keydata,
+								void *params);
+int							check(t_map *map, int l_index, int i);
 
 #endif // !SRCS_H

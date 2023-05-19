@@ -6,7 +6,7 @@
 /*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 20:39:36 by onouakch          #+#    #+#             */
-/*   Updated: 2023/05/18 20:34:23 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:31:22 by onouakch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,13 @@ u_int32_t	get_color(int *rgb)
 
 int	is_player(char p)
 {
-    int		i;
-    char *directions;
+	int		i;
+	char	*directions;
 
-    directions = "NWSE";
-    i = -1;
-
-    while (directions[++i])
-        if (directions[i] == p)
-            return (1);
-    return (0);
+	directions = "NWSE";
+	i = -1;
+	while (directions[++i])
+		if (directions[i] == p)
+			return (1);
+	return (0);
 }
