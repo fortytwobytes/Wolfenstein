@@ -13,6 +13,7 @@
 #include "../../includes/srcs.h"
 
 static u_int32_t	get_rgb(char *arg);
+static bool			check_commas(char *str);
 static bool			is_all_num(char **elements);
 
 void	fill_map_struct(t_var *var, char *element, char *arg)
@@ -36,16 +37,15 @@ void	fill_map_struct(t_var *var, char *element, char *arg)
 static u_int32_t	get_rgb(char *arg)
 {
 	int			i;
-	char		*rgb;
 	int			*rgb_arr;
 	char		**elements;
 	u_int32_t	color;
 
 	i = -1;
 	rgb_arr = ft_calloc(sizeof(int) * 3);
-	rgb = ft_strtrim(arg, "()");
-	elements = ft_split(rgb, ",");
-	if (ft_split_len(elements) != 3 || is_all_num(elements) == false)
+	elements = ft_split(arg, ",");
+	if (ft_split_len(elements) != 3 || is_all_num(elements) == false
+		|| check_commas(arg) == false)
 		fatal("invalid rgb");
 	while (elements[++i])
 	{
@@ -55,7 +55,6 @@ static u_int32_t	get_rgb(char *arg)
 		if (rgb_arr[i] > 255 || rgb_arr[i] < 0)
 			fatal("invalid rgb");
 	}
-	free(rgb);
 	color = get_color(rgb_arr);
 	ft_free_split(elements);
 	free(rgb_arr);
@@ -78,4 +77,21 @@ static bool	is_all_num(char **elements)
 		}
 	}
 	return (true);
+}
+
+static bool			check_commas(char *str)
+{
+	int	i;
+	int	nbrof_commas;
+
+	i = -1;
+	nbrof_commas = 0;
+	if (str == NULL)
+		return (false);
+	while (str[++i])
+	{
+		if (str[i] == ',')
+			nbrof_commas ++;
+	}
+	return (nbrof_commas == 2);
 }
