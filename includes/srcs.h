@@ -19,7 +19,6 @@
 
 // WINDOW
 # define CUBE_SIZE 64
-# define PLAYER_SIZE 8
 # define WIN_HEIGHT 512
 # define WIN_WIDTH 1024
 # define SCREEN_WIDTH 1024
@@ -81,7 +80,6 @@ struct						s_texture
 	uint32_t				**buffer;
 	double					pos;
 	int						tex_x;
-	int						tex_y;
 	int						side;
 	double					step;
 };
@@ -146,90 +144,50 @@ struct						s_var
 	t_vect_f				plane;
 	t_vect_i				mouse;
 	t_ray					ray;
-	double					c_time;
-	double					old_time;
 };
 
 void						move_hook(void *param);
 void						draw_hook(void *args);
-
-/************* parse_elements.fix_coor *****************/
 char						*readline_skipping_spaces(int fd);
 void						fill_map_struct(t_var *var, char *element,
 								char *arg);
-
-/************** parse_utils.fix_coor *******************/
 void						get_map_dimension(int fd, t_map *map);
 void						skip_till_first_map_line(int fd, t_map *map);
 mlx_image_t					*get_texture(t_var *var, char *path);
 u_int32_t					get_color(int *rgb);
-
-/************** parse_map.fix_coor *********************/
 int							ft_check_map(t_var *var);
-
-/************** parsing.fix_coor ***********************/
 void						parsing(t_var *var, const char *cubFilename);
-
-/* ***** inits.fix_coor ***** */
 void						init_window(t_var *var);
-void						init_images(t_var *var);
-
-// drawing.fix_coor
-void						draw_player(void *params);
-void						draw_map(void *params);
-
-// ---------- sys_calls.fix_coor ---------- //
-int							ft_open(const char *pathname);
-
-// ---------- srcs/engine/utils ---------- //
 void						draw_line(mlx_image_t *image, t_vect_i p1,
 								t_vect_i p2, uint32_t color);
-
-// ---------- srcs/engine/ ---------- //
 void						draw_mini_map(t_var *data, char **miniMap);
-// view.fix_coor
 void						change_to_left(t_var *var, double rotSpeed);
 void						change_to_right(t_var *var, double rotSpeed);
-// move.fix_coor
 void						move_forward(t_var *var, double moveSpeed);
 void						move_backward(t_var *var, double moveSpeed);
 void						move_left(t_var *var, double moveSpeed);
 void						move_right(t_var *var, double moveSpeed);
-
-// ---------- srcs/utils ---------- //
-// drawing.fix_coor
 void						draw_direction(void *args, char **minimap,
 								uint32_t color);
 void						draw_circle(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
 void						draw_square(mlx_image_t *image, t_vect_i p,
 								int size, uint32_t color);
-void						fill_texture_buffer(t_var *image, int x,
-								int drawStart, int drawEnd);
-void						draw_floor_ceil(t_var *var);
-// helpers.fix_coor
 void						free_split(char **split);
 t_vect_i					get_player_xy_position(char **realMap);
 t_vect_f					get_first_player_direction(t_var *var,
 								char direction);
-
-//later
 char						**get_minimap(char **realMap);
 char						**get_small_map(t_var *var);
 void						end_game(t_var *var);
-
 void						mouse_move(t_var *var);
-
 void						init(t_var *var);
-
-// casting.fix_coor
 void						resetting_ray(t_var *var, t_ray *ray, int xPixel);
 void						set_step_and_side_distances(t_var *var, t_ray *ray);
 void						cast_ray_till_wall(t_var *var, t_ray *ray,
 								int *side);
 void						calculate_line_properties(t_ray *ray, int side);
 uint32_t					get_image_color(mlx_image_t *image, t_vect_i p);
-
 void						set_texture_params(t_var *var);
 void						set_env(t_var *var);
 void						draw_3d_scene(t_var *var);

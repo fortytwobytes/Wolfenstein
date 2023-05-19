@@ -35,8 +35,6 @@ void	init(t_var *var)
 	var->pos.y = get_player_xy_position(var->map.map).y;
 	var->dir = get_first_player_direction(var,
 			var->map.map[(int)var->pos.x][(int)var->pos.y]);
-	var->c_time = 0;
-	var->old_time = 0;
 	var->map.map[(int)var->pos.x][(int)var->pos.y] = 'P';
 	var->image = mlx_new_image(var->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	mlx_image_to_window(var->mlx, var->image, 0, 0);
