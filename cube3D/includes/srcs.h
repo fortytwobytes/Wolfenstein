@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   srcs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: onouakch <onouakch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: relkabou <relkabou@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 17:52:56 by relkabou          #+#    #+#             */
-/*   Updated: 2023/05/19 17:30:54 by onouakch         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:30:21 by relkabou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,10 @@
 
 // WINDOW
 # define CUBE_SIZE 64
-# define WIN_HEIGHT 512
-# define WIN_WIDTH 1024
 # define SCREEN_WIDTH 1024
 # define SCREEN_HEIGHT 512
 
-# define MINI_CUB_SIZE 20
+# define MINI_CUB_SIZE 15
 
 // COLORS
 # define BLACK 0x000000FFL
