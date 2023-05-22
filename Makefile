@@ -46,6 +46,6 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(MLX_LIB)
+	$(RM) $(MLX_LIB) $(MLX42)/build
 
 re: fclean all
