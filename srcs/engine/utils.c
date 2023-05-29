@@ -32,10 +32,10 @@ void	draw_line(mlx_image_t *image, t_vect_i p0, t_vect_i p1, uint32_t color)
 {
 	int			err;
 	int			e2;
-	t_vect_i	s;
+	t_vect_i	increment_step;
 	t_vect_i	delta;
 
-	init_values(&s, p0, p1, &delta);
+	init_values(&increment_step, p0, p1, &delta);
 	err = delta.x + delta.y;
 	while (true)
 	{
@@ -46,12 +46,12 @@ void	draw_line(mlx_image_t *image, t_vect_i p0, t_vect_i p1, uint32_t color)
 		if (e2 >= delta.y)
 		{
 			err += delta.y;
-			p0.x += s.x;
+			p0.x += increment_step.x;
 		}
 		if (e2 <= delta.x)
 		{
 			err += delta.x;
-			p0.y += s.y;
+			p0.y += increment_step.y;
 		}
 	}
 }
@@ -62,9 +62,9 @@ static void	init_values(t_vect_i *inc, t_vect_i p0, t_vect_i p1,
 	delta->x = +abs(p1.x - p0.x);
 	delta->y = -abs(p1.y - p0.y);
 	inc->x = 1;
+	inc->y = 1;
 	if (p1.x < p0.x)
 		inc->x = -1;
-	inc->y = 1;
 	if (p1.y < p0.y)
 		inc->y = -1;
 }
