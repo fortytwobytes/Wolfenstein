@@ -41,14 +41,14 @@ void	set_env(t_var *var)
 	{
 		j = -1;
 		while (++j < SCREEN_HEIGHT && !var->texture.buffer[j][i])
-			var->texture.buffer[j][i] = var->map.f_color;
+			var->texture.buffer[j][i] = var->map.c_color;
 	}
 	i = -1;
 	while (++i < SCREEN_WIDTH)
 	{
 		j = SCREEN_HEIGHT;
 		while (--j >= 0 && !var->texture.buffer[j][i])
-			var->texture.buffer[j][i] = var->map.c_color;
+			var->texture.buffer[j][i] = var->map.f_color;
 	}
 }
 

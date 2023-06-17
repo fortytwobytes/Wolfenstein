@@ -3,8 +3,8 @@ SO ./assets/textures/eagle.png
 WE ./assets/textures/bluestone.png
 EA ./assets/textures/purplestone.png
 
-F 135,0,235
-C 48,46,42
+C 135,0,235
+F 48,46,42
 
 
         1111111111111111111111111
