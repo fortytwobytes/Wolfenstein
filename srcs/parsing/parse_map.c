@@ -37,12 +37,9 @@ int	ft_check_content(char *line, t_var *var, int y)
 	i = -1;
 	while (line[++i])
 	{
-		if (line[i] != '0' && line[i] != '1' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'E' && line[i] != 'W' && line[i] != ' '
-			&& line[i] != '\t')
+		if (ft_strchr("01NEWS \t", line[i]) == NULL)
 			return (free(line), -1);
-		else if (line[i] == 'N' || line[i] == 'S' || line[i] == 'E'
-			|| line[i] == 'W')
+		else if (ft_strchr("NEWS", line[i]))
 		{
 			if (var->player.first_view != '\0')
 				return (free(line), -1);
