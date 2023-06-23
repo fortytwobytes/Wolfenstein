@@ -1,6 +1,7 @@
 # Wolfenstein
 cub3D
 build/
+.cache/
 
 # python virtualenv
 venv/
