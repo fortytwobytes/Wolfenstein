@@ -36,6 +36,12 @@
 # define ROTATE_SPEED 0.04f
 # define DIRECTION_LEN 50
 
+// FOV
+// smoothest FOV around 60 degrees
+// eq: atan(FOV) * constant
+// constant = 2 * 180 / PI
+# define FOV 0.5773502691896258F
+
 // MISC
 # define SPACES " \t\n"
 # define NBROF_ELEMENTS 6

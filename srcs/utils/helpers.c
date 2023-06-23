@@ -45,26 +45,27 @@ t_vect_f	get_first_player_direction(t_var *var, char direction)
 {
 	t_vect_f	dir;
 
-	dir = (t_vect_f){0.0, -1.0};
-	var->plane.x = -0.66;
-	var->plane.y = 0;
+	dir = (t_vect_f) {0.0, 0.0};
+    var->plane = (t_vect_f) {0.0, 0.0};
 	if (direction == 'N')
 	{
-		dir = (t_vect_f){-1.0, 0.0};
-		var->plane.x = 0;
-		var->plane.y = 0.66;
-	}
-	else if (direction == 'S')
-	{
-		dir = (t_vect_f){1.0, 0.0};
-		var->plane.x = 0;
-		var->plane.y = -0.66;
+		var->plane.y = FOV;
+        dir.x = -1.0;
 	}
 	else if (direction == 'E')
 	{
-		dir = (t_vect_f){0.0, 1.0};
-		var->plane.x = 0.66;
-		var->plane.y = 0;
+		var->plane.x = FOV;
+        dir.y = 1.0;
 	}
+    else if (direction == 'W')
+    {
+        var->plane.x = -FOV;
+        dir.y = -1.0;
+    }
+    else if (direction == 'S')
+    {
+        var->plane.y = -FOV;
+        dir.x = 1.0;
+    }
 	return (dir);
 }
